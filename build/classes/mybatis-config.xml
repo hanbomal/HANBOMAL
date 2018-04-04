@@ -8,6 +8,7 @@
   <typeAlias type="model.CalendarVO" alias="Schedule"/>  
   <typeAlias type="model.RelationVO" alias="Relation"/>  
   <typeAlias type="model.MemberVO" alias="Member"/>  
+  <typeAlias type="model.GalleryVO" alias="Gallery"/>
   
    </typeAliases> 
    <!--  -->
@@ -28,5 +29,6 @@
    		<mapper resource="Relation.xml"/> 
    		 <mapper resource="Calendar.xml"/>  
    		 <mapper resource="Member.xml"/>  
+   		 <mapper resource="Gallery.xml"/>
    </mappers>
 </configuration>

@@ -154,7 +154,7 @@ font: inherit;
       </div>
       
 <!-- 전송창부분   -->    
-
+<form id="form" onsubmit="event.preventDefault();" enctype="multipart/form-data" method="post">
       <div class="w3-container w3-white " >
      
       <div class="w3-panel w3-round-large w3-border w3-padding " ><div class=""></div> 
@@ -171,7 +171,7 @@ font: inherit;
      <div class="w3-bar " style="margin-bottom: 7px; margin-left:10px; margin-right:20px;">
    
     <label for="ex_filename" class="w3-button w3-padding-small" id="addfilebtn"><i class="fa fa-file-image-o" style="font-size:24px;" ></i></label> 
-  <input type="file" id="ex_filename" class="upload-hidden"> 
+  <input type="file" id="ex_filename" name="uploadfile" class="upload-hidden"> 
 
 <label class="w3-button w3-padding-small"><i class="fa fa-file-text-o" style="font-size:24px"></i></label>
 <label class="w3-button w3-padding-small"><i class="fa fa-hashtag" style="font-size:24px"></i></label>&nbsp;&nbsp;
@@ -183,8 +183,12 @@ onkeyup="findText();">
 
  </div>
   </div>
-
+  <input type="hidden" name="name" value="<%=name%>">
+  <input type="hidden" name="studynum" value="<%=group%>">
+  
+  </form>
   </div>
+
   <!-- 전송창부분 끝 -->
 
 </body>
@@ -316,8 +320,45 @@ onkeyup="findText();">
         	 
          	}
         
-        
-     
+       if( document.getElementById('ex_filename').value!=""){
+	// ------------- 첨부파일 업로드 ------------
+      // 일반적인 데이터 세팅
+
+    /*   var formData = new FormData();
+
+      formData.append("uploadfile", file);                // file = <input type="file" ..... />
+     formData.append("name",${name}); */
+
+
+      // form에서 직접 매개변수 추출하는 방법
+      
+    	   var form = $('#form')[0];
+
+    	    var formData = new FormData(form);
+
+
+    	
+      // var formData = $("#form").serialize()
+
+
+      $.ajax({
+
+      url : "../chatcontroller/fileUpload",
+      enctype: 'multipart/form-data',
+      data : formData,
+      processData : false,
+      contentType: false,
+      dataType : "",      // JSON으로 결과값을 받을 경우 사용 
+      type : "post",
+      success : function(data) {
+
+      // upload 완료 후 처리코드 
+				alert('파일업로드성공');
+      }
+
+      });
+
+       }
          
 		  textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
 			  +"<li class='w3-large' style='border:none;' align='right'>"
@@ -355,8 +396,9 @@ function findText(){
 	//window.find(document.getElementById("searchText").value);
 	//document.getElementById("searchText").focus();
 	
+	var t1 = $("#searchText").val();
 	
-	$("div:contains(document.getElementById('searchText').value)").addClass("redColor");
+	//t1.addClass("redColor");
 	
 	
 	/*  var t1 = $("#searchText").val();
@@ -409,6 +451,14 @@ reader.readAsDataURL($(this)[0].files[0]);
 }
 
 });
+
+
+
+
+
+/*   ------------------------------------------- */
+ 
+
 
 
 </script>

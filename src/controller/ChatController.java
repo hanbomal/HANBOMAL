@@ -21,11 +21,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import dao.GalleryDAO;
 import model.Chatdata;
+import model.GalleryVO;
 
 @Controller
 @RequestMapping("/chatcontroller")
 public class ChatController {
+GalleryDAO gPro=GalleryDAO.getInstance();
 
 	@RequestMapping("/intro")
 	public String intro(HttpServletRequest req, HttpServletResponse res) throws Throwable {
@@ -126,9 +129,9 @@ public class ChatController {
 
 	}
 	
-	/*
+	
 	@RequestMapping("/fileUpload")
-	public String writeProUpload(MultipartHttpServletRequest request, BoardDataBean article, Model model)
+	public String writeProUpload(MultipartHttpServletRequest request, GalleryVO gallery, Model model)
 			throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
@@ -141,19 +144,24 @@ public class ChatController {
 			System.out.println(uploadPath);
 			FileCopyUtils.copy(multi.getInputStream(),
 					new FileOutputStream(uploadPath + "/" + multi.getOriginalFilename()));
-			article.setFilename(filename);
-			article.setFilesize((int) multi.getSize());
+			gallery.setFilename(filename);
+			gallery.setFilesize((int) multi.getSize());
 		} else {
-			article.setFilename("");
-			article.setFilesize(0);
+			gallery.setFilename("");
+			gallery.setFilesize(0);
 		}
-		article.setIp(request.getRemoteAddr());
-		System.out.println(article);
+		
+		//gallery.setStudynum(Integer.parseInt(request.getParameter("studynum"))); 나중에 수정
+		gallery.setStudynum(1);
+		
+		
+		System.out.println(gallery);
 
-		dbPro.insertArticle(article);
-		model.addAttribute("pageNum", pageNum);
+		gPro.addGallery(gallery);
+		
+		
 
-		return "redirect:list";
+		return "";
 	}
-	*/
+	
 }
