@@ -1,4 +1,5 @@
 /Calendar.xml
+/Gallery.xml
 /Member.xml
 /Relation.xml
 /Study.xml
@@ -7,4 +8,3 @@
 /dao/
 /model/
 /mybatis-config.xml
-/Gallery.xml

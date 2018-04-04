@@ -37,7 +37,22 @@
      <tr>
       <td>${group.joinDate }</td>
       <td>${group.studyName}</td>
-      <td>${group.status }</td>
+      <td width="30%">
+       <c:if test="${group.status==1}">
+      <form method="post" action="sendRedirect" >
+      	<input type="hidden" name="memberId" value="${group.memberId}">
+      	<input type="hidden" name="studyName" value="${group.studyName}">
+      	<input type="hidden" name="answer" value="yes">
+    	<input type="submit" value="수락" class="w3-button w3-black">
+      </form>
+      <form method="post" action="sendRedirect">
+      	<input type="hidden" name="memberId" value="${group.memberId}">
+      	<input type="hidden" name="studyName" value="${group.studyName}">
+      	<input type="hidden" name="answer" value="no">
+   	 	<input type="submit" value="거절" class="w3-button w3-red">
+      </form>
+      </c:if>
+  </td>
     </tr>
     </c:forEach>	
   	</c:if>

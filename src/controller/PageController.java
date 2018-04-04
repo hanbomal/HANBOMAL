@@ -24,9 +24,10 @@ import model.StudyVO;
 @RequestMapping("/page")
 public class PageController {
 	RelationDAO relationDB = RelationDAO.getInstance();
+	StudyDAO studyDB = StudyDAO.getInstance();
+	
 	// autoComplete Method
 	public void autoComplete(Model mv) throws Throwable {
-		StudyDAO studyDB = StudyDAO.getInstance();
 		// auto_complete
 		List<StudyVO> allList = studyDB.getAllStudy();
 		String nameList = "";
@@ -49,7 +50,6 @@ public class PageController {
 	@RequestMapping("/main")
 	public String main(Model mv, String studyName,HttpServletRequest req, String chk) throws Throwable {
 		autoComplete(mv);
-		StudyDAO studyDB = StudyDAO.getInstance();
 		if (studyName == null) {
 			studyName = "defaultName";
 		}
@@ -82,13 +82,12 @@ public class PageController {
 	@RequestMapping("/cancelJoin")
 	public String cancelJoin(HttpServletRequest req, HttpServletResponse res,
 			String studyName, String correctName, String chk) throws Throwable {
-		RelationDAO dbPro = RelationDAO.getInstance();
 		String delNum = req.getParameter("delNum");
 		if (delNum == null) {
 			delNum = "";
 		}
 		if (delNum.equals("1")) {
-			dbPro.cancelJoin(getSessionId(req), correctName);
+			relationDB.cancelJoin(getSessionId(req), correctName);
 			studyName = URLEncoder.encode(studyName, "UTF-8");
 			return "redirect:/page/main?studyName="+ studyName+"&chk="+chk ;
 		}
@@ -128,9 +127,8 @@ public class PageController {
 		study.setStudy_intro(study_intro);
 		study.setPeopleCount(1);
 		study.setLeader(getSessionId(req));
-		StudyDAO dbPro = StudyDAO.getInstance();
 		System.out.println(study);
-		dbPro.makingStudy(study);
+		studyDB.makingStudy(study);
 		return "redirect:/page/main";
 	}
 
@@ -154,17 +152,29 @@ public class PageController {
 		mv.addAttribute("reqList", reqList);
 		return "page/RequestPage";
 	}
-	
 	@RequestMapping("/ResponsePage")
 	public String ResponsePage(Model mv,HttpServletRequest req) throws Throwable {
 		autoComplete(mv);
-		RelationDAO relationDB = RelationDAO.getInstance();
+	
 		String memberid = getSessionId(req);
 		List<RelationVO> resList = relationDB.responseList(memberid);
 		mv.addAttribute("resList", resList);
 		return "page/ResponsePage";
 	}
-	
+	@RequestMapping("/sendRedirect")
+	public String sendRedirect(Model mv,HttpServletRequest req
+			,String memberId, String answer, String studyName) throws Throwable {
+		autoComplete(mv);
+		String leader = getSessionId(req);
+		if(answer.equals("yes")) {
+			relationDB.answerYes(memberId, leader,studyName);
+		}else if(answer.equals("no")) {
+			relationDB.answerNo(memberId, leader,studyName);
+		}
+		List<RelationVO> resList = relationDB.responseList(leader);
+		mv.addAttribute("resList", resList);
+		return "page/ResponsePage";
+	}
 	@RequestMapping("/study_album")
 	public String study_album(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 
