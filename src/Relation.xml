@@ -30,9 +30,17 @@
 		and studyName=#{studyName}
 	</update>
 	
-	<delete id="answerNo" parameterType="hashmap">
-		delete from studyrelation
-		where memberid=#{memberid}
-		and leader=#{leader} and  studyName=#{studyName}
-	</delete>
+	<update id="answerNo" parameterType="hashmap">
+		update studyrelation set status=0 
+		where memberid=#{memberid} and leader=#{leader}
+		and studyName=#{studyName}
+	</update>
+	
+	
+	<select id="rejectCount" resultType="int" parameterType="hashmap">
+	select nvl(count(*),0) from where where memberid=#{memberid} and leader=#{leader}
+		and studyName=#{studyName} and status=0
+	</select>
+	
+	
 </mapper>
