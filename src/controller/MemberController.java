@@ -88,5 +88,46 @@ public class MemberController {
 	      return null;
 	   }
 	
+	@RequestMapping("/member_update")	
+	   public String member_update(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		     
+		HttpSession session = req.getSession();
+		
+	 String memberid=session.getAttribute("memberid").toString();
+	 String passwd=session.getAttribute("passwd").toString(); //memberid¿Í passwd¸¦ °¡Á®¿È
+	
+		try {
+	
+		 MemberDAO dbPro=MemberDAO.getInstance();
+		MemberVO article=dbPro.getmember(memberid, passwd);
+		
+		
+	       req.setAttribute("article", article);
+		}catch(Exception e) {}
+		
+	      return "member/member_update";
+	   }
+	
+	@RequestMapping("/member_updatePro")	
+	   public String member_updatePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		     
+		HttpSession session = req.getSession();
+		
+	 String memberid=session.getAttribute("memberid").toString();
+	 String passwd=session.getAttribute("passwd").toString(); //memberid¿Í passwd¸¦ °¡Á®¿È
+	
+		try {
+	
+		 MemberDAO dbPro=MemberDAO.getInstance();
+		MemberVO article=dbPro.getmember(memberid, passwd);
+		
+		
+	       req.setAttribute("article", article);
+		}catch(Exception e) {}
+		
+	      return "member/member_updatePro";
+	   }
+
+	
 
 }

@@ -102,7 +102,7 @@ body, html {
 						<i class="fa fa-th"></i> ${sessionScope.memberid} 님
 					</button>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
-						<a href="updatePage" class="w3-bar-item w3-button">MY PAGE
+						<a href="../member/member_update" class="w3-bar-item w3-button">MY PAGE
 						</a> 
 						<a href="RequestPage" class="w3-bar-item w3-button">WAITING
 						</a>
