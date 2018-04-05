@@ -113,7 +113,7 @@ body, html {
 						<i class="fa fa-user"></i> ${sessionScope.memberid} 님
 					</button>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
-						<a href="updatePage" class="w3-bar-item w3-button">MY PAGE
+						<a href="member_update" class="w3-bar-item w3-button">MY PAGE
 						
 						</a> 
 						<a href="RequestPage" class="w3-bar-item w3-button">WAITING
@@ -132,16 +132,7 @@ body, html {
             
             
             
-            
-            
-            <!-- 
-            
-            
-            <a href="javascript:void(0)" class="w3-bar-item w3-button"
-               onclick="document.getElementById('iflogin').style.display='block'"><i
-               class="fa fa-user"></i>${sessionScope.memberid} 님</a>
-               </c:if>   	
-               -->
+            </c:if>
             
 					
 				<div class="w3-dropdown-hover">

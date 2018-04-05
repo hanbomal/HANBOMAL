@@ -136,6 +136,9 @@ font: inherit;
  width: 100% \9; 
  height: auto; }
 
+img {
+
+max-width: 300px;}
 
 
 </style>
@@ -149,7 +152,8 @@ font: inherit;
 
   <div class="w3-container "  style="margin:0; padding:0;">
  
-      <div class="w3-container w3-padding" style="height:500px; overflow:auto; background: inherit;" id="messageWindow">
+      <div class="w3-container w3-padding" style="height:500px; overflow-x:hidden; overflow-x:hidden;      
+      background: inherit;" id="messageWindow">
    
       </div>
       
@@ -190,8 +194,9 @@ font: inherit;
 <i class="fa fa-hashtag" style="font-size:24px"></i></label>&nbsp;&nbsp;
 
 <label><i class="fa fa-search w3-margin-left" style="font-size:20px"></i></label>&nbsp;
-<input type="text" class="w3-input  w3-hover-light-grey" style="display: inline-block; width: 140px; " id="searchText" placeholder="검색어 입력"
-onkeyup="findText();">
+<input type="text" class="w3-input  w3-hover-light-grey" 
+style="display: inline-block; width: 140px; " id="searchText" placeholder="검색어 입력"
+onchange="jaskoFind.x(this.value);">
 
 <span class="w3-right w3-margin-right w3-tag w3-white w3-border" >
 <font color="w3-grey" style="font-size:12px;" id="curCount"></font></span>
@@ -346,8 +351,7 @@ onkeyup="findText();">
 			
 			formData.append("content", inputMessage.value);
 			
-    	    // 코드로 동적으로 데이터 추가 가능.
-			// formData.append("userId", "testUser!");
+    	   
 
     	    $.ajax({
     	        type: "POST",
@@ -401,30 +405,49 @@ function checkKey(e){
 	document.onkeypress = checkKey;
 
 
-
+/* 
 function findText(){
-	//alert(document.getElementById("searchText").value);
-	
-	//window.find(document.getElementById("searchText").value);
-	//document.getElementById("searchText").focus();
-	
-	var t1 = $("#searchText").val();
-	
-	//t1.addClass("redColor");
-	
-	
-	/*  var t1 = $("#searchText").val();
+		 var t1 = $("#searchText").val();
 	  
-	 
-	       var t2 = $("#messageWindow").text();
+	 	
+	       var t2 = $("#messageWindow").html();
+	       var t2_copy = $("#messageWindow").html();
 	       
-	       t2.select();
+	       if(t1==""){
+	    	   var new_tex=$("#messageWindow").html();
+	    	   
+	       }else{
+	       
 	       var t3= new RegExp(t1,"gi"); 
-	       var new_tex = t2.replace(t3,"<span style='color:red;'>"+t1+"</span>");
-	       $("#messageWindow").html( new_tex ); */
+	       var new_tex = t2.replace(t3,t1.addClass('redColor')};
+	       
+	       $("#messageWindow").html( new_tex ); 
 	  
+	      
+	    
 	
-}
+} */
+
+
+
+jaskoFind={x:function(z) 
+		   { 
+		      var r,i,s=document.body.createTextRange(); 
+	
+		      if(z!=""){ 
+		         var r=document.body.createTextRange(); 
+		         r.execCommand('BackColor','','white'); 
+		         for(var i=0;r.findText(z);i++) 
+		         { 
+		            r.execCommand('BackColor','','yellow'); 
+		            r.collapse(false) 
+		         }; 
+		      } 
+		   } 
+		}; 
+
+
+
 
 //preview image 
 

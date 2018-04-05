@@ -158,8 +158,7 @@ GalleryDAO gPro=GalleryDAO.getInstance();
 		//나중에수정할부분들
 		
 		gallery.setTitle(gallery.getName()+"님이 올린 사진");
-		
-		
+	
 		System.out.println(gallery);
 		
 		gPro.addGallery(gallery);
