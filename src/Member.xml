@@ -18,4 +18,9 @@
    </insert>	
 	-->
 
+<select id="getMember" parameterType="hashmap" resultType="member">
+      select * from member WHERE id = #{id} and passwd = #{passwd}
+   </select>	
+	
+
 </mapper>

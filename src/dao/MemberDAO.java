@@ -190,38 +190,21 @@ public class MemberDAO extends MybatisConnector {
 		
 		
 		
-		public MemberVO getmember(String id, String passwd) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			 MemberVO member = null;
-			String sql = "";
-			try {
-				conn = getConnection();
-				sql="select * from member where id = ? and passwd = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				pstmt.setString(2, passwd);
-				rs=pstmt.executeQuery();
-				
-				member = new MemberVO();
-				if(rs.next()) {
-					member.setNum(rs.getInt("num"));
-					member.setMemberid(rs.getString("memberid"));
-					member.setPasswd(rs.getString("passwd"));
-					member.setNickname(rs.getString("nickname"));
-					member.setJoindate(rs.getTimestamp("joindate"));
-					member.setLastdate(rs.getTimestamp("lastdate"));
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				close(conn, rs, pstmt);
-			}
-		
-			return member;
+		public MemberVO getmember(String memberid, String passwd) {
 			
-		}
+			 sqlSession= sqlSession();
+		      Map map = new HashMap();
+		      map.put("id", id);
+		      map.put("passwd", passwd);
+		      
+		    MemberVO member = sqlSession.selectOne(namespace+".getMember", map);
+		      
+		      sqlSession.commit();
+		      sqlSession.close();
+		      
+		      return member;
+
+		} //as member update
 		
 		
 
