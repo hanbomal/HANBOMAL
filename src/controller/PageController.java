@@ -144,14 +144,14 @@ public class PageController {
 		return "page/study_board";
 	}
 	@RequestMapping("/RequestPage")
-	public String RequestPage(Model mv,HttpServletRequest req) throws Throwable {
+	public String RequestPage(Model mv,HttpServletRequest req, String leader, String studyName) throws Throwable {
 		autoComplete(mv);
-		
 		String memberid = getSessionId(req);
 		List<RelationVO> reqList = relationDB.requestList(memberid);
 		mv.addAttribute("reqList", reqList);
 		return "page/RequestPage";
 	}
+	
 	@RequestMapping("/ResponsePage")
 	public String ResponsePage(Model mv,HttpServletRequest req) throws Throwable {
 		autoComplete(mv);

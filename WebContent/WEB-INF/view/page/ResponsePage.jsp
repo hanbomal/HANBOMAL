@@ -24,6 +24,7 @@
     <tr>
       <th>Date</th>
       <th>Group Name</th>
+      <th>ID</th>
       <th>Status</th>
     </tr>
   	<c:if test="${resList.size()==0}">
@@ -37,6 +38,7 @@
      <tr>
       <td>${group.joinDate }</td>
       <td>${group.studyName}</td>
+      <td>${group.memberId}</td>
       <td width="30%">
        <c:if test="${group.status==1}">
       <form method="post" action="sendRedirect" >
