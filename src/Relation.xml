@@ -37,10 +37,4 @@
 	</update>
 	
 	
-	<select id="rejectCount" resultType="int" parameterType="hashmap">
-	select nvl(count(*),0) from where where memberid=#{memberid} and leader=#{leader}
-		and studyName=#{studyName} and status=0
-	</select>
-	
-	
 </mapper>
