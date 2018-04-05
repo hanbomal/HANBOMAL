@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -130,11 +131,15 @@ GalleryDAO gPro=GalleryDAO.getInstance();
 	}
 	
 	
-	@RequestMapping("/fileUpload")
-	public String writeProUpload(MultipartHttpServletRequest request, GalleryVO gallery, Model model)
+	@RequestMapping(
+		      value = "/fileUpload"
+		      , method= RequestMethod.POST
+		      , consumes ={"multipart/form-data"}
+		)
+	public String fileUpload(MultipartHttpServletRequest request,GalleryVO gallery,String studynum, 
+			String name ,Model model)
 			throws Exception {
 		ModelAndView mv = new ModelAndView();
-		
 		
 		MultipartFile multi = request.getFile("uploadfile");
 		String filename = multi.getOriginalFilename();
@@ -150,13 +155,13 @@ GalleryDAO gPro=GalleryDAO.getInstance();
 			gallery.setFilename("");
 			gallery.setFilesize(0);
 		}
+		//나중에수정할부분들
 		
-		//gallery.setStudynum(Integer.parseInt(request.getParameter("studynum"))); 나중에 수정
-		gallery.setStudynum(1);
+		gallery.setTitle(gallery.getName()+"님이 올린 사진");
 		
 		
 		System.out.println(gallery);
-
+		
 		gPro.addGallery(gallery);
 		
 		
