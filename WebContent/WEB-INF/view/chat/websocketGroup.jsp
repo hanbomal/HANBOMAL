@@ -60,7 +60,7 @@ function sendEvent(){
 function resetFile(){
 	 document.getElementById('upload-nameBox').style.display='none';
 	 document.getElementById('upload-display').style.display='none';
-	 document.getElementById('ex_filename').value="";
+	 document.getElementById('fileUpload').value="";
 }
 
 </script>
@@ -155,30 +155,46 @@ font: inherit;
       
 <!-- 전송창부분   -->    
 <form id="form" onsubmit="event.preventDefault();" enctype="multipart/form-data" method="post">
+
       <div class="w3-container w3-white " >
      
-      <div class="w3-panel w3-round-large w3-border w3-padding " ><div class=""></div> 
-   <div id="upload-nameBox" style="display: none;"><span  class="w3-tag w3-white " style="font-size:12px;"> 
- <input class="upload-name " id="upload-name" disabled="disabled"><button class="w3-button w3-padding-small " onclick="resetFile();">&times;</button></span></div>
+      <div class="w3-panel w3-round-large w3-border w3-padding " >
+   <div id="upload-nameBox" style="display: none;">
+   <span  class="w3-tag w3-white " style="font-size:12px;"> 
+ <input class="upload-name " id="upload-name" disabled="disabled">
+ <button class="w3-button w3-padding-small " onclick="resetFile();">&times;</button>
+ </span>
+ </div>
+ 
   <table style="width: 100%;"><tr><td style="width: 90%;">
   
   <textarea  id="inputMessage" class="w3-input" wrap=hard  style="border:0; display: inline-block; " 
   onkeydown="checkKey(event.keyCode);" ></textarea></td><td>
-  	<button class="w3-button  w3-teal" type="submit" onclick="send()">전송</button></td>
+  	<button class="w3-button  w3-teal" type="submit" onclick="send()">전송</button>
+  	
+  	</td>
   </table>
+  
    </div> <div class="filebox bs3-primary preview-image">
     
      <div class="w3-bar " style="margin-bottom: 7px; margin-left:10px; margin-right:20px;">
    
-    <label for="ex_filename" class="w3-button w3-padding-small" id="addfilebtn"><i class="fa fa-file-image-o" style="font-size:24px;" ></i></label> 
-  <input type="file" id="ex_filename" name="uploadfile" class="upload-hidden"> 
+    <label for="fileUpload" class="w3-button w3-padding-small" id="addfilebtn">
+    <i class="fa fa-file-image-o" style="font-size:24px;" ></i></label> 
+  <input type="file" id="fileUpload" name="uploadfile" class="upload-hidden"> 
 
-<label class="w3-button w3-padding-small"><i class="fa fa-file-text-o" style="font-size:24px"></i></label>
-<label class="w3-button w3-padding-small"><i class="fa fa-hashtag" style="font-size:24px"></i></label>&nbsp;&nbsp;
+<label class="w3-button w3-padding-small">
+<i class="fa fa-file-text-o" style="font-size:24px"></i></label>
+
+<label class="w3-button w3-padding-small">
+<i class="fa fa-hashtag" style="font-size:24px"></i></label>&nbsp;&nbsp;
+
 <label><i class="fa fa-search w3-margin-left" style="font-size:20px"></i></label>&nbsp;
 <input type="text" class="w3-input  w3-hover-light-grey" style="display: inline-block; width: 140px; " id="searchText" placeholder="검색어 입력"
 onkeyup="findText();">
-<span class="w3-right w3-margin-right w3-tag w3-white w3-border" ><font color="w3-grey" style="font-size:12px;" id="curCount"></font></span>
+
+<span class="w3-right w3-margin-right w3-tag w3-white w3-border" >
+<font color="w3-grey" style="font-size:12px;" id="curCount"></font></span>
 </div>
 
  </div>
@@ -209,7 +225,7 @@ onkeyup="findText();">
   
         var textarea = document.getElementById("messageWindow");
         var webSocket = new WebSocket(
-    'ws://211.238.142.35:8080<%=request.getContextPath()%>/webGroup?name='
+    'ws://211.238.142.34:8080<%=request.getContextPath()%>/webGroup?name='
     		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
         var inputMessage = document.getElementById('inputMessage');
     
@@ -320,44 +336,40 @@ onkeyup="findText();">
         	 
          	}
         
-       if( document.getElementById('ex_filename').value!=""){
-	// ------------- 첨부파일 업로드 ------------
-      // 일반적인 데이터 세팅
-
-    /*   var formData = new FormData();
-
-      formData.append("uploadfile", file);                // file = <input type="file" ..... />
-     formData.append("name",${name}); */
-
-
-      // form에서 직접 매개변수 추출하는 방법
-      
+       if( document.getElementById('fileUpload').value!=""){
+    	   
     	   var form = $('#form')[0];
-
     	    var formData = new FormData(form);
+    	    
+    	   
+			var filename=document.getElementById('upload-name').value;
+			
+			formData.append("content", inputMessage.value);
+			
+    	    // 코드로 동적으로 데이터 추가 가능.
+			// formData.append("userId", "testUser!");
 
-
+    	    $.ajax({
+    	        type: "POST",
+    	        enctype: 'multipart/form-data',
+    	        url: "../chatcontroller/fileUpload",
+    	        data: formData,
+    	        processData: false,
+    	        contentType: false,
+    	        cache: false,
+    	        timeout: 600000,
+    	        success: function (data) {
+    	            console.log("SUCCESS : ", data);
+    	        },
+    	        error: function (e) {
+    	            console.log("ERROR : ", e);
+    	        }
+    	    });
     	
-      // var formData = $("#form").serialize()
-
-
-      $.ajax({
-
-      url : "../chatcontroller/fileUpload",
-      enctype: 'multipart/form-data',
-      data : formData,
-      processData : false,
-      contentType: false,
-      dataType : "",      // JSON으로 결과값을 받을 경우 사용 
-      type : "post",
-      success : function(data) {
-
-      // upload 완료 후 처리코드 
-				alert('파일업로드성공');
-      }
-
-      });
-
+    	    
+    	    inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+filename+"><br>"+inputMessage.value;
+    	    resetFile();
+    	    inputMessage.focus();
        }
          
 		  textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
@@ -365,7 +377,7 @@ onkeyup="findText();">
 		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
 		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
 		          +"<span class='w3-medium'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table>";
-          
+       
         
 		 textarea.scrollTop=textarea.scrollHeight;
         
