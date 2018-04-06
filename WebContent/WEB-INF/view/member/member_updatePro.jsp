@@ -12,9 +12,9 @@
 	
 	<script type="text/javascript">
 		alert("수정 완료");
-		location.href="/member_update";
+		<meta http-equiv="Refresh" 
+			content="0;url=../index}" >
 	</script>
-	<meta http-equiv="Refresh" content="0;url=member_update?id=${id}&passwd=${passwd}&pageNum=${pageNum}">
 	
 	</c:if>
 	

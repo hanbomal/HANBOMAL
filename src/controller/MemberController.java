@@ -83,51 +83,86 @@ public class MemberController {
 		      
 	       HttpSession  session = req.getSession();
 	      
-	       session.invalidate(); // ¸ðµç¼¼¼ÇÁ¤º¸ »èÁ¦
-	       res.sendRedirect(req.getContextPath() + "/page/main"); // ¸ÞÀÎÈ­¸éÀ¸·Î ´Ù½Ã µ¹¾Æ°£´Ù.
+	       session.invalidate(); // ï¿½ï¿½ç¼¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	       res.sendRedirect(req.getContextPath() + "/page/main"); // ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½.
 	      return null;
 	   }
 	
-	@RequestMapping("/member_update")	
+	@RequestMapping("/member_update")	 //form 
 	   public String member_update(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		     
 		HttpSession session = req.getSession();
 		
 	 String memberid=session.getAttribute("memberid").toString();
-	 String passwd=session.getAttribute("passwd").toString(); //memberid¿Í passwd¸¦ °¡Á®¿È
+	 String passwd=session.getAttribute("passwd").toString(); //memberidï¿½ï¿½ passwdï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 		try {
 	
 		 MemberDAO dbPro=MemberDAO.getInstance();
-		MemberVO article=dbPro.getmember(memberid, passwd);
+		MemberVO article=dbPro.getMember(memberid);
 		
+		req.setAttribute("article", article);
 		
-	       req.setAttribute("article", article);
+		 
+		
+	       //req.setAttribute("article", article);
 		}catch(Exception e) {}
 		
 	      return "member/member_update";
 	   }
 	
-	@RequestMapping("/member_updatePro")	
+	/*@RequestMapping("/member_updatePro")	
 	   public String member_updatePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		     
+		
+	
+	String memberid=req.getParameter("memberid");
+	
+	MemberVO article=new MemberVO();
+	
+	article.setNum(Integer.parseInt(req.getParameter("num")));
+
+	//unique constant is num and memberid.........
+	//it's time for update from view
+	
+	MemberDAO dbPro=MemberDAO.getInstance();
+	
+	try {
+		article.setNickname(req.getParameter("nickname"));
+		article.setPasswd(req.getParameter("passwd"));
+		article.setListid(req.getParameter("listid"));
+		
+		
+		int chk=dbPro.
+		
+		req.setAttribute("chk", chk);
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+	
+	return "member/member_updatePro";
+
+}*/
+	
+	@RequestMapping("/member_delete")	 //form 
+	   public String member_delete(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+	
 		HttpSession session = req.getSession();
 		
-	 String memberid=session.getAttribute("memberid").toString();
-	 String passwd=session.getAttribute("passwd").toString(); //memberid¿Í passwd¸¦ °¡Á®¿È
-	
-		try {
-	
-		 MemberDAO dbPro=MemberDAO.getInstance();
-		MemberVO article=dbPro.getmember(memberid, passwd);
+		 int num = Integer.parseInt(req.getParameter("num"));
+		 String memberid=session.getAttribute("memberid").toString();
+		
+		 
+		 req.setAttribute("num", num);
 		
 		
-	       req.setAttribute("article", article);
-		}catch(Exception e) {}
-		
-	      return "member/member_updatePro";
-	   }
-
+		return "member/member_delete";
+}
 	
-
+	@RequestMapping("/member_deletePro")	 //form 
+	   public String member_deletePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+	
+		
+		return "member/member_deletePro";
+}
 }
