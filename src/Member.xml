@@ -19,8 +19,21 @@
 	-->
 
 <select id="getMember" parameterType="hashmap" resultType="member">
-      select * from member WHERE id = #{id} and passwd = #{passwd}
+      select * from member WHERE memberid = #{memberid} 
    </select>	
+   
+ <select id="updateMember" parameterType="member">
+      update member set passwd=#{passwd},
+		nickname=#{nickname},=#{nickname} where memberid=#{memberid} and passwd =#{passwd}
+   </select>  
+   
+   
+  <update id="deleteMember" parameterType="map">
+      delete from board where memberid=#{memberid} 
+				 and passwd =#{passwd}
+	
+  
+  </update>
 	
 
 </mapper>

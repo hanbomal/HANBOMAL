@@ -17,6 +17,9 @@
    <bean class="controller.MemberController" />
    <bean class="controller.ChatController" />
    <bean class="controller.CalendarController" />
+   <bean class="controller.BoardController" />
+   <bean class="controller.GalleryController" />
+   
    
    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name="prefix" value="/WEB-INF/view/" />

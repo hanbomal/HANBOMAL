@@ -152,8 +152,7 @@ max-width: 300px;}
 
   <div class="w3-container "  style="margin:0; padding:0;">
  
-      <div class="w3-container w3-padding" style="height:500px; overflow-x:hidden; overflow-x:hidden;      
-      background: inherit;" id="messageWindow">
+      <div class="w3-container w3-padding" style="height:500px;    overflow-x: hidden;  overflow-y: auto; background: inherit;" id="messageWindow">
    
       </div>
       
@@ -196,7 +195,7 @@ max-width: 300px;}
 <label><i class="fa fa-search w3-margin-left" style="font-size:20px"></i></label>&nbsp;
 <input type="text" class="w3-input  w3-hover-light-grey" 
 style="display: inline-block; width: 140px; " id="searchText" placeholder="검색어 입력"
-onchange="jaskoFind.x(this.value);">
+onchange="javascript:TextFind.display();">
 
 <span class="w3-right w3-margin-right w3-tag w3-white w3-border" >
 <font color="w3-grey" style="font-size:12px;" id="curCount"></font></span>
@@ -404,48 +403,8 @@ function checkKey(e){
 
 	document.onkeypress = checkKey;
 
-
-/* 
-function findText(){
-		 var t1 = $("#searchText").val();
-	  
-	 	
-	       var t2 = $("#messageWindow").html();
-	       var t2_copy = $("#messageWindow").html();
-	       
-	       if(t1==""){
-	    	   var new_tex=$("#messageWindow").html();
-	    	   
-	       }else{
-	       
-	       var t3= new RegExp(t1,"gi"); 
-	       var new_tex = t2.replace(t3,t1.addClass('redColor')};
-	       
-	       $("#messageWindow").html( new_tex ); 
-	  
-	      
-	    
 	
-} */
-
-
-
-jaskoFind={x:function(z) 
-		   { 
-		      var r,i,s=document.body.createTextRange(); 
 	
-		      if(z!=""){ 
-		         var r=document.body.createTextRange(); 
-		         r.execCommand('BackColor','','white'); 
-		         for(var i=0;r.findText(z);i++) 
-		         { 
-		            r.execCommand('BackColor','','yellow'); 
-		            r.collapse(false) 
-		         }; 
-		      } 
-		   } 
-		}; 
-
 
 
 

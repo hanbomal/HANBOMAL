@@ -156,109 +156,45 @@ public class MemberDAO extends MybatisConnector {
 			
 		}
 		public MemberVO getMember(String memberid) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			MemberVO member = null;
-			String sql = "";
-			try {
-				conn = getConnection();
-				sql="select * from member where memberid = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, memberid);
-				rs=pstmt.executeQuery();
-				
-				member = new MemberVO();
-				if(rs.next()) {
-					member.setMemberid(rs.getString("memberid"));
-					member.setNickname(rs.getString("nickname"));
-					member.setPasswd(rs.getString("passwd"));
-					member.setLastdate(rs.getTimestamp("lastdate"));
-					member.setJoindate(rs.getTimestamp("joindate"));
-					
-					
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				close(conn, rs, pstmt);
-			}
 		
-			return member;
+			sqlSession= sqlSession();
+			Map map = new HashMap();
+			
+			map.put("memberid", memberid);
+			
+			
+			MemberVO member=sqlSession.selectOne(namespace+ ".getMember" ,map);
+			
+			sqlSession.commit();
+			sqlSession.close();
+			
+			return member;  //when  you need update or want to see your info
+			//you can see your info
 			
 		}
 		
-		
-		
-		public MemberVO getmember(String memberid, String passwd) {
+		public int deleteMember(String memberid,String passwd) {
 			
-			 sqlSession= sqlSession();
-		      Map map = new HashMap();
-		      map.put("id", id);
-		      map.put("passwd", passwd);
-		      
-		    MemberVO member = sqlSession.selectOne(namespace+".getMember", map);
-		      
-		      sqlSession.commit();
-		      sqlSession.close();
-		      
-		      return member;
-
-		} //as member update
-		
-		
-
-		
-		
-	    
-	    public int deleteMember (String memberid, String passwd) throws Exception {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = "delete from member where memberid=? and passwd=?";
-			int x = -1;
-			try { 
-				conn = getConnection();
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, memberid);
-				pstmt.setString(2, passwd);
-				x=pstmt.executeUpdate();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				close(conn, rs, pstmt);
-			}
-			return x;
-		}
-	    
-	    public int updateMember (MemberVO member) {
-			String sql ="";
-			Connection conn = getConnection();
-			PreparedStatement pstmt = null;
-			int chk= 0; 
+			sqlSession= sqlSession();
+			Map map = new HashMap();
 			
-			try {
-				conn = getConnection();
-				sql = "update member set memberid=?, nickname=?, passwd=? where num=?";
-				pstmt = conn.prepareStatement(sql);
+			map.put("passwd", passwd);
+			map.put("memberid", memberid);
+			int chk = sqlSession.update(namespace+".deleteMember", map);
+			sqlSession.commit();
+			sqlSession.close();
 			
-				pstmt.setString(1, member.getMemberid());
-				pstmt.setString(2, member.getNickname());
-				pstmt.setString(3, member.getPasswd());
-				pstmt.setInt(4, member.getNum());
-				
-				
-				chk = pstmt.executeUpdate(); 
-				
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				close(conn, null, pstmt);
-			}
 			return chk;
 			
 		}
+		
+		
+		
+		
+		
+		
+		
+	
 	    
 		 
 		public int login(String memberid, String password) {

@@ -162,7 +162,6 @@ GalleryDAO gPro=GalleryDAO.getInstance();
 		System.out.println(gallery);
 		
 		gPro.addGallery(gallery);
-		
 
 		return "";
 	}
