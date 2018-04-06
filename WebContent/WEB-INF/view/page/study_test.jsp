@@ -6,6 +6,7 @@
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(document).ready(function(){    $('#content').load('<%=request.getContextPath()%>/calcontroller/test');
+document.getElementById('contentTitle').innerHTML='달력';
 $('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro'); });
 
  $( function() {
@@ -45,7 +46,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 <div class="w3-third w3-container w3-margin-bottom"  id="draggable" >
    
       <div class="w3-container w3-white">
-      <h6 style="display: inline-block;">실시간 토론</h6> 
+      <h6 style="display: inline-block; cursor: move;">실시간 토론</h6> 
       <span class=" w3-tag w3-white w3-middle w3-margin-top" style="float: right; "><font style="font-color:grey; font-size:12px;" id="curMember" ></font></span>
       </div>
      <div class="w3-card-4">
@@ -59,21 +60,37 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 
 
   <div class="w3-twothird w3-container resizable1" id="draggable2" >
-  <div class="w3-container w3-white">
+  <div class="w3-container w3-white"><h6  style="display: inline-block; cursor: move;" id="contentTitle"></h6>
+  <button class="w3-button w3-right "
+  onclick="$('#content').load('<%=request.getContextPath()%>/page/study_gallery');document.getElementById('contentTitle').innerHTML='사진첩'">사진첩</button>
+  
+      <div class="w3-dropdown-hover w3-right"> 
+    <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/page/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;">
+      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/page/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판1</a>
+      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/page/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판2</a>
+      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/page/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판3</a>
+    </div>
+  </div>
+  <button class="w3-button w3-right " onclick="$('#content').load('<%=request.getContextPath()%>/calcontroller/test');document.getElementById('contentTitle').innerHTML='달력'">달력</button>
       
-       <h6>달력</h6>
       </div>
     <div class="w3-card-4" >
       
       <!-- 내용 div -->
-      <div class="w3-container" id="content" style=" background: rgba(241, 241, 241, 1); ">
+      <div  id="content" style="height:100%; background: rgba(241, 241, 241, 0.75);" >
 
       </div>
       
       <!-- 내용끝 -->
       
-      <div class="w3-container w3-light-grey ">
-      <span class="w3-right w3-margin-right"><p>스터디 관리</p></span><span class="w3-right w3-margin-right"><p>스터디 정보</p></span> 
+      <div class="w3-container w3-padding w3-light-grey ">
+      <span class="w3-right w3-margin-right">
+      <button class="w3-button" 
+      onclick="$('#content').load('<%=request.getContextPath()%>/page/study_admin');document.getElementById('contentTitle').innerHTML='스터디 관리'">스터디 관리</button></span>
+      
+      <span class="w3-right w3-margin-right">
+      <button class="w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/page/study_info');document.getElementById('contentTitle').innerHTML='스터디 정보'">스터디 정보</button></span> 
       
       </div>
     </div>

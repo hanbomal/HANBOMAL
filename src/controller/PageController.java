@@ -141,7 +141,7 @@ public class PageController {
 	@RequestMapping("/study_board")
 	public String study_board(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 
-		return "page/study_board";
+		return "board/study_board";
 	}
 	@RequestMapping("/RequestPage")
 	public String RequestPage(Model mv,HttpServletRequest req, String leader, String studyName) throws Throwable {
@@ -192,5 +192,26 @@ public class PageController {
 
 		return "page/study_test";
 	}
+	
+	@RequestMapping("/study_info")
+	public String study_info(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+
+		return "study/study_info";
+	}
+	
+	@RequestMapping("/study_admin")
+	public String study_admin(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+
+		return "study/study_admin";
+	}
+	
+	@RequestMapping("/study_gallery")
+	public String study_gallery(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+
+		return "gallery/study_gallery";
+	}
+	
+
+	
 
 }

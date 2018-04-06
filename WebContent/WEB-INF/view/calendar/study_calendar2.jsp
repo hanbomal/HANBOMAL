@@ -141,12 +141,12 @@ jQuery(document).ready(function(){
 
 </script>
 
-<body class="w3-padding ui-widget-content">
+<body class="w3-padding ui-widget-content" >
 
-
+<div style="width: 100%; background: rgba(241, 241, 241, 1); ">
 <!-- 달력 출력 모달 -->
-    <div class="w3-container  " id="calendar" style="height:600px;"></div>
-    
+    <div class="w3-container  w3-padding w3-padding-right w3-padding-left" id="calendar" style="height:600px; width:95%; "></div>
+    </div>
      <!-- 메시지 모달 -->
        <div id="message" class="w3-modal" >
 <div id="messageContent" class="w3-center  w3-container w3-padding">
