@@ -163,7 +163,7 @@ GalleryDAO gPro=GalleryDAO.getInstance();
 		
 		gPro.addGallery(gallery);
 
-		return "";
+		return "chat/uploadComp";
 	}
 	
 }

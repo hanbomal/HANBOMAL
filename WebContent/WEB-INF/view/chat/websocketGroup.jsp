@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 	     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%	String name = "aaa";
+
+    <%
+    String name=request.getParameter("name");
+    if(name==null) name="무명";
+    
+    String group=request.getParameter("group");
+    if(group==null) group="우리끼리";
+    %>
 	
-	String group = "1";
-	
-		%>
+		
 <!DOCTYPE html>
 <!--  -->
 <html>
@@ -25,6 +30,8 @@ $( function() {
     });
   } );
   
+  
+var fileCheck=document.getElementById('fileUpload');
 $(document).ready(function(){
 	  var fileTarget = $('.filebox .upload-hidden');
 
@@ -65,6 +72,8 @@ function resetFile(){
 
 </script>
 <style type="text/css">
+
+
 
 .filebox input[type="file"] {
     position: absolute;
@@ -138,7 +147,10 @@ font: inherit;
 
 img {
 
-max-width: 300px;}
+max-height: 300px;
+width:auto;
+max-width: 100%;
+height:auto;}
 
 
 </style>
@@ -157,7 +169,7 @@ max-width: 300px;}
       </div>
       
 <!-- 전송창부분   -->    
-<form id="form" onsubmit="event.preventDefault();" enctype="multipart/form-data" method="post">
+<form id="form" onsubmit="event.preventDefault();" enctype="multipart/form-data" method="post" >
 
       <div class="w3-container w3-white " >
      
@@ -172,8 +184,8 @@ max-width: 300px;}
   <table style="width: 100%;"><tr><td style="width: 90%;">
   
   <textarea  id="inputMessage" class="w3-input" wrap=hard  style="border:0; display: inline-block; " 
-  onkeydown="checkKey(event.keyCode);" ></textarea></td><td>
-  	<button class="w3-button  w3-teal" type="submit" onclick="send()">전송</button>
+  onkeydown="checkKey(event.keyCode);"></textarea></td><td>
+  	<button class="w3-button  w3-teal" type="submit" onclick="if((inputMessage.value!='')||(fileCheck.value!='')){send();}" id="submitBtn" >전송</button>
   	
   	</td>
   </table>
@@ -214,6 +226,8 @@ onchange="javascript:TextFind.display();">
 </body>
 <script type="text/javascript">
 
+
+  
   
   var chatdata = [
 	    <c:forEach var="list" items="${chatdata}" varStatus="status">
@@ -228,9 +242,13 @@ onchange="javascript:TextFind.display();">
   
   
         var textarea = document.getElementById("messageWindow");
-        var webSocket = new WebSocket(
+      <%--   var webSocket = new WebSocket(
     'ws://211.238.142.34:8080<%=request.getContextPath()%>/webGroup?name='
-    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
+    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>')); --%>
+    		
+    		 var webSocket = new WebSocket(
+    				    'ws://localhost:8080<%=request.getContextPath()%>/webGroup?name='
+    				    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
         var inputMessage = document.getElementById('inputMessage');
     
     webSocket.onerror = function(event) {     onError(event)   };
@@ -269,13 +287,16 @@ onchange="javascript:TextFind.display();">
 
      var texts=testProcess(event.data);
 
-    textarea.innerHTML +="<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'>"+texts[0]
-    +"<span class='w3-small'>&nbsp;"+texts[1]+"</span>"
-    +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; max-width:80%;background: rgba(0, 150, 136, 0.75);'>"
-    +" <span class='w3-medium'><font color='white'>"+texts[2]+"</font></span>"
-  +" </div></li></ul>";
 
+  textarea.innerHTML +="<table align='left' style='width:100%;'><tr><td><ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
+      +texts[0]+
+      "<span class='w3-small'>&nbsp;"+texts[1]+"</span><br>"
+      +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
+      +" <span class='w3-medium'><font color='white'>"+texts[2]+"</font></span>"
+    +" </div></li></ul></td></tr></table>"; 
     
+  
+  
     
          textarea.scrollTop=textarea.scrollHeight;
          
@@ -293,20 +314,27 @@ onchange="javascript:TextFind.display();">
 		/*   var l2=chatdata[i].content.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&quot;/g, "\"");  */
 		  
 		  if(l0=='<%=name%>'){
+			
+		          
 			  textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
-			  +"<li class='w3-large' style='border:none;' align='right'>"
-		          +"<span class='w3-small'>"+l1+"</span>&nbsp;"
-		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
-		          +"<span class='w3-medium'>"+l2+"</span></span></li></ul></td></tr></table>";
+				  +"<li class='w3-large' style='border:none;' align='right'>"
+			          +"<span class='w3-small'>"+l1+"</span>&nbsp;"
+			         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
+			          +"<span class='w3-medium'>"+l2+"</span></span></li></ul></td></tr></table>";
+		          
 			  
 		  }else{
 
-	        textarea.innerHTML +="<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
-	        +l0+
-	        "<span class='w3-small'>&nbsp;"+l1+"</span>"
-	        +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; max-width:80%;background: rgba(0, 150, 136, 0.75);'>"
+		 textarea.innerHTML +="<table align='left' style='width:100%;'><tr><td>"
+		 +"<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
+	        +l0+"<br>"
+	        +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
 	        +" <span class='w3-medium'><font color='white'>"+l2+"</font></span>"
-	      +" </div></li></ul>";}
+	      +" </div><br><span class='w3-small'>"+l1+"</span></li></ul></td></tr></table>"; 
+	      
+		  
+		  
+		  }
 		
 	}
       
@@ -339,7 +367,7 @@ onchange="javascript:TextFind.display();">
         	 nowText='오후 ' + nowHour + ':' + nowMt;
         	 
          	}
-        
+        	
        if( document.getElementById('fileUpload').value!=""){
     	   
     	   var form = $('#form')[0];
@@ -362,7 +390,7 @@ onchange="javascript:TextFind.display();">
     	        cache: false,
     	        timeout: 600000,
     	        success: function (data) {
-    	            console.log("SUCCESS : ", data);
+    	        	
     	        },
     	        error: function (e) {
     	            console.log("ERROR : ", e);
@@ -375,7 +403,7 @@ onchange="javascript:TextFind.display();">
     	    inputMessage.focus();
        }
          
-		  textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+       textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
 			  +"<li class='w3-large' style='border:none;' align='right'>"
 		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
 		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
@@ -397,7 +425,17 @@ function checkKey(e){
     var code = e.keyCode ? e.keyCode : e.charCode;
     var shift = e.shiftKey;
   
-    if(!shift&&(code==13)){ event.preventDefault(); send(); }
+    if(!shift&&(code==13)){ 
+    	
+    	event.preventDefault(); 
+    	
+    	if((inputMessage.value!='')||(fileCheck.value!='')){
+    		send(); }
+    	}
+	
+	
+	
+	
 	}
 
 
