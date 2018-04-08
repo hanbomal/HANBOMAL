@@ -1,5 +1,7 @@
 package controller;
 
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -50,6 +52,8 @@ public class MemberController {
 		member.setMemberid(request.getParameter("memberid"));
 		member.setNickname(request.getParameter("nickname"));
 		member.setPasswd(request.getParameter("passwd"));
+		member.setPasswdq(request.getParameter("passwdq"));
+		member.setPasswdkey(request.getParameter("passwdkey"));
 		dbpro.insertMember(member);
 
 		response.sendRedirect(request.getContextPath() + "/page/main");
@@ -68,7 +72,7 @@ public class MemberController {
 			HttpSession session = req.getSession();
 			session.setAttribute("memberid", memberid);
 			// session.setAttribute("nickname",mVO.getNickname());
-			session.setAttribute("passwd", passwd);
+			//session.setAttribute("passwd", passwd);
 			res.sendRedirect(req.getContextPath() + "/page/main");
 		
 		} else {
@@ -83,77 +87,67 @@ public class MemberController {
 		      
 	       HttpSession  session = req.getSession();
 	      
-	       session.invalidate(); // ��缼������ ����
+	       session.invalidate(); //
 	       res.sendRedirect(req.getContextPath() + "/page/main"); // ����ȭ������ �ٽ� ���ư���.
 	      return null;
 	   }
 	
+	
+	
 	@RequestMapping("/member_update")	 //form 
 	   public String member_update(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		     
 		HttpSession session = req.getSession();
 		
-	 String memberid=session.getAttribute("memberid").toString();
-	 String passwd=session.getAttribute("passwd").toString(); //memberid�� passwd�� ������
-	
+		String listid=req.getParameter("listid");
+		
+
 		try {
 	
 		 MemberDAO dbPro=MemberDAO.getInstance();
-		MemberVO article=dbPro.getMember(memberid);
+		MemberVO member=dbPro.getMember((String)session.getAttribute("memberid"));
 		
-		req.setAttribute("article", article);
+		req.setAttribute("member", member);
 		
-		 
-		
-	       //req.setAttribute("article", article);
 		}catch(Exception e) {}
 		
 	      return "member/member_update";
 	   }
 	
-	/*@RequestMapping("/member_updatePro")	
+	@RequestMapping("/member_updatePro")	
 	   public String member_updatePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		     
-		
+		MemberVO member=new MemberVO();
+		MemberDAO dbpro=MemberDAO.getInstance();
 	
 	String memberid=req.getParameter("memberid");
 	
-	MemberVO article=new MemberVO();
-	
-	article.setNum(Integer.parseInt(req.getParameter("num")));
-
-	//unique constant is num and memberid.........
-	//it's time for update from view
-	
-	MemberDAO dbPro=MemberDAO.getInstance();
+	String num= req.getParameter("num");
 	
 	try {
-		article.setNickname(req.getParameter("nickname"));
-		article.setPasswd(req.getParameter("passwd"));
-		article.setListid(req.getParameter("listid"));
+		member.setNickname(req.getParameter("nickname"));
+		member.setPasswd(req.getParameter("passwd"));
+		member.setListid(req.getParameter("listid"));
+		member.setNum(Integer.parseInt(req.getParameter("num")));
 		
-		
-		int chk=dbPro.
+		int chk=dbpro.updateMember(member);
 		
 		req.setAttribute("chk", chk);
+		
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
 	
 	return "member/member_updatePro";
 
-}*/
+}
 	
 	@RequestMapping("/member_delete")	 //form 
 	   public String member_delete(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-	
 		HttpSession session = req.getSession();
 		
-		 int num = Integer.parseInt(req.getParameter("num"));
-		 String memberid=session.getAttribute("memberid").toString();
+		String memberid=((String)session.getAttribute("memberid"));
 		
-		 
-		 req.setAttribute("num", num);
+		   req.setAttribute("memberid", memberid); //
 		
 		
 		return "member/member_delete";
@@ -162,7 +156,48 @@ public class MemberController {
 	@RequestMapping("/member_deletePro")	 //form 
 	   public String member_deletePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 	
+		String listid=req.getParameter("listid");
+		
+		String memberid=req.getParameter("memberid");
+		String passwd = req.getParameter("passwd");
+		
+		MemberDAO dbPro=MemberDAO.getInstance();
+		int chk=dbPro.deleteMember(memberid, passwd);
+		
+		req.setAttribute("chk", chk);
 		
 		return "member/member_deletePro";
 }
+	
+	
+	@RequestMapping("/before_check")	 //form 
+	   public String before_check(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		
+         HttpSession session = req.getSession();
+		
+		String memberid=((String)session.getAttribute("memberid"));
+		
+		   req.setAttribute("memberid", memberid); //
+		
+		return "member/before_check";
+}
+	
+	@RequestMapping("/before_checkPro")	 //form 
+	   public String before_checkPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		
+       String listid=req.getParameter("listid");
+		
+		String memberid=req.getParameter("memberid");
+		String passwd = req.getParameter("passwd");
+		
+		MemberDAO dbPro=MemberDAO.getInstance();
+		
+		int chk=dbPro.beforeCheck(memberid, passwd);
+		req.setAttribute("chk",chk);
+		
+		return "member/before_checkPro";
+}
+		
+	
+
 }

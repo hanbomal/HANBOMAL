@@ -1,4 +1,3 @@
-<%@page import="dao.MemberDAO %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,16 +5,17 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
-</head><body>
+</head>
 
+
+<body>
 	<c:if test="${chk==1}">
 	
 	<script type="text/javascript">
-		alert("수정 완료");
-		<meta http-equiv="Refresh" 
-			content="0;url=../index}" >
+		alert("수정 되었습니다.");
+		location.href="..page/main";
 	</script>
-	
+
 	</c:if>
 	
 	<c:if test="${chk!=1}">
@@ -24,9 +24,10 @@
 		history.go(-1);
 	</script>
 	</c:if>
+	
+	
 </body>
 </html>
-
 
 
 

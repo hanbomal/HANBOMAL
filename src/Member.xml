@@ -23,17 +23,24 @@
    </select>	
    
  <select id="updateMember" parameterType="member">
-      update member set passwd=#{passwd},
-		nickname=#{nickname},=#{nickname} where memberid=#{memberid} and passwd =#{passwd}
+      update member set 
+		nickname=#{nickname},=#{nickname} where memberid=#{memberid} and passwd=#{passwd}
    </select>  
    
    
   <update id="deleteMember" parameterType="map">
-      delete from board where memberid=#{memberid} 
+      delete from member where memberid=#{memberid} 
 				 and passwd =#{passwd}
 	
   
   </update>
+  
+ 
+  <select id="checkMember" resultType="String" parameterType="hashmap">
+		select passwd from member where memberid=#{memberid}
+	</select>
 	
+	
+	 
 
 </mapper>

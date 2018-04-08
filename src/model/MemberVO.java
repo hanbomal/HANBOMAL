@@ -11,7 +11,21 @@ public class MemberVO {
 	private Date joindate;
 	private Date  lastdate;
 	private String listid;
+	private String passwdq;
+	private String passwdkey;
 	
+	public String getPasswdq() {
+		return passwdq;
+	}
+	public void setPasswdq(String passwdq) {
+		this.passwdq = passwdq;
+	}
+	public String getPasswdkey() {
+		return passwdkey;
+	}
+	public void setPasswdkey(String passwdkey) {
+		this.passwdkey = passwdkey;
+	}
 	public String getListid() {
 		return listid;
 	}
@@ -55,10 +69,12 @@ public class MemberVO {
 		this.lastdate = lastdate;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return "MemberVO [num=" + num + ", listid=" + listid + ",  memberid=" + memberid + ", passwd=" + passwd + ", nickname=" + nickname
-				+ ", joindate=" + joindate + ", lastdate=" + lastdate + "]";
+		return "MemberVO [num=" + num + ", memberid=" + memberid + ", passwd=" + passwd + ", nickname=" + nickname
+				+ ", joindate=" + joindate + ", lastdate=" + lastdate + ", listid=" + listid + ", passwdq=" + passwdq
+				+ ", passwdkey=" + passwdkey + "]";
 	}
 	
 }

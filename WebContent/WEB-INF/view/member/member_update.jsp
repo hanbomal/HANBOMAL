@@ -3,18 +3,44 @@
 <%@page import="dao.MemberDAO"%>
 <%@page import="model.MemberVO"%>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<script>
+  function checkValue()
+    {
+      
+        if(!document.memberInfo.nickname.value){
+            alert("닉네임을 입력하세요.");
+            return false;
+        }
+        
+      
+        if(!document.memberInfo.passwd.value){
+            alert("비밀번호를 입력하세요.");
+            return false;
+        }
+        
+        if(document.memberInfo.passwd.value != document.memberInfo.passchk.value){
+        	alert("비밀번호 확인란에 비밀번호를 동일하게 입력하세요.");
+            return false;
+        } 
+        else {
+        	alert("회원정보가 수정되었습니다.");
+        }
+
+    }
+  </script>
+  
 <html>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- content -->
-<div class="w3-container bgimg-1" style="padding:64px 16px; " id="about">
+<div class="w3-container bgimg-1" style="padding:64px 16px;">
   
   
-<div class="w3-section w3-row-padding ">
-   <div class="w3-quarter">&nbsp;</div>
+<div class="w3-section w3-row-padding">
+	<div class="w3-third">&nbsp;</div>
 
   <div class="w3-third w3-container ">
-  <div class="w3-container w3-white">
+  <div class="w3-container w3-light-gray">
       
        <h6>MY PAGE</h6>
       </div>
@@ -24,12 +50,12 @@
 <div class="w3-container">
   <table class="w3-table  ">
     <form method="post" name="memberInfo" class="w3-container w3-card-4 w3-white w3-text-black w3-margin w3-animate-bottom w3-round" 
-action="member_updatePro" >
-<input type="hidden" name="listid" value="${article.listid }">
-<input type="hidden" name="num" value="${article.num }">
-<input type="hidden" name="memberid" value="${sessionScope.id}">
-<input type="hidden" name="passwd" value="${sessionScope.passwd}">
-<h5 class="w3-center">MY INFO UPDATE</h5>
+ action="member_updatePro" onsubmit="return checkValue()" >
+<input type="hidden" name="listid" value="${member.listid }">
+<input type="hidden" name="num" value="${member.num }">
+
+<input type="hidden" name="num" value="${member.lastdate }">
+
 <%----<h6 class="w3-right">*는 필수 입력입니다.</h6> --%>
 
 
@@ -38,7 +64,8 @@ action="member_updatePro" >
 <div class="w3-row w3-section">
  
     <div class="w3-rest">
-     ID <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="memberid" type="text" readonly="readonly" value="${sessionScope.memberid}" style="margin-left: 2%;">
+    ID
+   <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="memberid" type="text" readonly="readonly" value="${member.memberid}" style="margin-left: 2%;">
     </div>
 </div>
 
@@ -47,7 +74,7 @@ action="member_updatePro" >
 <div class="w3-row w3-section ">
 
     <div class="w3-rest">
-NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="nickname" type="text"  value="${article.nickname}">
+NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="nickname" type="text"  value="${member.nickname}">
     </div>
 </div>
 
@@ -55,7 +82,7 @@ NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px
 <div class="w3-row w3-section">
   
     <div class="w3-rest">
-  PASSWORD    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwd" type="password"  value="${passwd}">
+  PASSWORD    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwd" type="password" value="${member.passwd}" >
     </div>
 </div>
 
@@ -69,27 +96,44 @@ NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px
     </div>
 </div>
 
-<%---- 
+<!-- 가입일-->
+<div class="w3-row w3-section">
+ 
+    <div class="w3-rest">
+     JOIN DATE <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="memberid" type="text" readonly="readonly" value="${member.joindate}" style="margin-left: 2%;">
+    </div>
+</div>
+
+ 
 QUESITION 
 <!-- 비밀번호찾기 문항   -->
 <div class="w3-row w3-section">
-  <div class="w3-col" style="width:50px"></div>
+ 
     <div class="w3-rest">
-      <input class="w3-input w3-border w3-light-grey"  name="findpasswd" type="checkbox" placeholder="Password Check*">
+    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwdq" type="text"  value="${member.passwdq}" style="margin-left: 2%;">
+    </div>
+</div>
+<div class="w3-row w3-section">
+ 
+    <div class="w3-rest">
+    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwdkey" type="text"  value="${member.passwdkey}" style="margin-left: 2%;">
     </div>
 </div>
 
 
---%>
 
 <p class="w3-center">
 
-<input type="reset" value="RETRY" class="w3-button w3-grey" >  
+<input type="reset" value="RETRY" class="w3-button w3-gray" >  
 <input type="submit" value="SEND" class="w3-button w3-black" >
 
-<input type="button" value="Back" class="w3-button w3-grey" OnClick="window.location='../page/main'">  
+<input type="button" value="Back" class="w3-button w3-gray" OnClick="window.location='../page/main'">  
+</p>
+<p class="w3-right">
+<input type="button" value="LEAVE" class="w3-button w3-dark-gray" OnClick="window.location='../member/member_delete'">  
 </p>
 </form>
+
   </table>
 </div>
 

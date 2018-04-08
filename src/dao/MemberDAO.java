@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+
 import model.MemberVO;
 import dao.MybatisConnector;;
 
@@ -67,10 +68,10 @@ public class MemberDAO extends MybatisConnector {
 				rs = pstmt.executeQuery();
 				if (rs.next())
 					number = rs.getInt(1);
-				else number = 1;
+				else number = 1; 
 				
-				sql = "insert into member(num,listid, memberid, passwd, nickname, joindate, lastdate)";
-				sql += "values(?,?,?,?,?, sysdate, sysdate)";
+				sql = "insert into member(num,listid, memberid, passwd, nickname, passwdq, passwdkey, joindate, lastdate)";
+				sql += "values(?,?,?,?,?,?,?, sysdate, sysdate)";
 				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, number);
@@ -78,8 +79,8 @@ public class MemberDAO extends MybatisConnector {
 				pstmt.setString(3, member.getMemberid());
 				pstmt.setString(4, member.getPasswd());
 				pstmt.setString(5, member.getNickname());
-				
-				
+				pstmt.setString(6, member.getPasswdq());
+				pstmt.setString(7, member.getPasswdkey());
 				
 				pstmt.executeUpdate();
 				
@@ -92,72 +93,10 @@ public class MemberDAO extends MybatisConnector {
 		}
 		
 
-		public int getMemberCount(String listid) throws SQLException {
-			int x = 0;
-			String sql = "SELECT nvl(count(*),0) FROM member WHERE listid = ?";
-			Connection conn = getConnection();
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			int number = 0;
-			
-			try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, listid);
-			
-			rs = pstmt.executeQuery();
-			if (rs.next()) { x = rs.getInt(1); }
-			} catch(Exception e) {
-				e.printStackTrace();
-			} finally {
-				close(conn, rs, pstmt);
-			}
-			
-			return x;
-		}
-		
-		
-		public List getMembers(int startRow, int endRow, String listid) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			List memberList = null;
-			String sql = "";
-			try {
-				conn = getConnection();
-				sql = "select * from (select rownum rnum, a.* from (select num, memberid, passwd, nickname, joindate, lastdate from member where listid = ?)"
-						+ " a) where rnum between ? and ? order by joindate desc";
-				
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, listid);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
-				rs = pstmt.executeQuery();
-				
-				if (rs.next()) {
-					memberList = new ArrayList();
-				
-					do { 
-						MemberVO member = new MemberVO();
-						member.setNum(rs.getInt("num"));
-						member.setMemberid(rs.getString("memberid"));
-						member.setPasswd(rs.getString("passwd"));
-						member.setNickname(rs.getString("nickname"));
-						member.setJoindate(rs.getTimestamp("joindate"));
-						member.setLastdate(rs.getTimestamp("lastdate"));
-						memberList.add(member);
-					} while (rs.next()); 
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				close(conn, rs, pstmt);
-			}
-			return memberList;
-			
-		}
 		public MemberVO getMember(String memberid) {
 		
 			sqlSession= sqlSession();
+			
 			Map map = new HashMap();
 			
 			map.put("memberid", memberid);
@@ -173,6 +112,20 @@ public class MemberDAO extends MybatisConnector {
 			
 		}
 		
+		public int updateMember (MemberVO member) {
+			
+			sqlSession= sqlSession();
+			int chk = sqlSession.update(namespace+".updateMember", member);
+			sqlSession.commit();
+			sqlSession.close();
+			
+			return chk;
+		
+			
+			
+		}
+		
+		
 		public int deleteMember(String memberid,String passwd) {
 			
 			sqlSession= sqlSession();
@@ -180,7 +133,7 @@ public class MemberDAO extends MybatisConnector {
 			
 			map.put("passwd", passwd);
 			map.put("memberid", memberid);
-			int chk = sqlSession.update(namespace+".deleteMember", map);
+			int chk = sqlSession.delete(namespace+".deleteMember", map);
 			sqlSession.commit();
 			sqlSession.close();
 			
@@ -188,14 +141,29 @@ public class MemberDAO extends MybatisConnector {
 			
 		}
 		
-		
-		
-		
-		
-		
-		
-	
-	    
+public int beforeCheck(String memberid,String passwd) {
+			
+			sqlSession= sqlSession();
+			Map<String, String> map = new HashMap<>();
+			
+			
+			map.put("passwd", passwd);
+			map.put("memberid", memberid);
+			
+			String chk = sqlSession.selectOne(namespace+".checkMember", map);
+			
+			if(chk!=null) {
+				if(chk.equals(passwd)) {return 1;}
+				
+			}else
+			
+			sqlSession.commit();
+			sqlSession.close();
+			
+			return -1;
+			
+		}
+		 
 		 
 		public int login(String memberid, String password) {
 			sqlSession=sqlSession();
@@ -209,6 +177,8 @@ public class MemberDAO extends MybatisConnector {
 			sqlSession.close();
 			return -1; 
 		}
+		
+//for find passwd //1.input id -->get passwdq --->if passwdkey ok -->go to passwd board
 	   
 	}
 
