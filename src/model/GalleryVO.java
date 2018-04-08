@@ -12,8 +12,17 @@ public class GalleryVO {
 	private String content;
 	private String filename;
 	private int filesize;
+	private String formatDate;
 	
 	
+	
+	
+	public String getFormatDate() {
+		return formatDate;
+	}
+	public void setFormatDate(String formatDate) {
+		this.formatDate = formatDate;
+	}
 	public Date getRegdate() {
 		return regdate;
 	}
