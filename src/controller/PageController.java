@@ -2,6 +2,7 @@ package controller;
 
 import java.io.FileOutputStream;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,12 +12,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import dao.BoardDAO;
 import dao.RelationDAO;
 import dao.StudyDAO;
+import model.BoardVO;
 import model.RelationVO;
 import model.StudyVO;
 
@@ -25,7 +29,6 @@ import model.StudyVO;
 public class PageController {
 	RelationDAO relationDB = RelationDAO.getInstance();
 	StudyDAO studyDB = StudyDAO.getInstance();
-	
 	// autoComplete Method
 	public void autoComplete(Model mv) throws Throwable {
 		// auto_complete
@@ -137,12 +140,7 @@ public class PageController {
 
 		return "page/about";
 	}
-
-	@RequestMapping("/study_board")
-	public String study_board(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
-		return "board/study_board";
-	}
+	
 	@RequestMapping("/RequestPage")
 	public String RequestPage(Model mv,HttpServletRequest req, String leader, String studyName) throws Throwable {
 		autoComplete(mv);
@@ -210,8 +208,6 @@ public class PageController {
 
 		return "gallery/study_gallery";
 	}
-	
-
 	
 
 }

@@ -339,7 +339,7 @@ onchange="javascript:TextFind.display();">
         	 nowText='¿ÀÈÄ ' + nowHour + ':' + nowMt;
         	 
          	}
-        
+        	
        if( document.getElementById('fileUpload').value!=""){
     	   
     	   var form = $('#form')[0];

@@ -65,11 +65,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   onclick="$('#content').load('<%=request.getContextPath()%>/page/study_gallery');document.getElementById('contentTitle').innerHTML='사진첩'">사진첩</button>
   
       <div class="w3-dropdown-hover w3-right"> 
-    <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/page/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
+    <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
     <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;">
-      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/page/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판1</a>
-      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/page/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판2</a>
-      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/page/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판3</a>
+      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판1</a>
+      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판2</a>
+      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판3</a>
     </div>
   </div>
   <button class="w3-button w3-right " onclick="$('#content').load('<%=request.getContextPath()%>/calcontroller/test');document.getElementById('contentTitle').innerHTML='달력'">달력</button>

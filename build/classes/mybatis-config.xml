@@ -9,7 +9,7 @@
   <typeAlias type="model.RelationVO" alias="Relation"/>  
   <typeAlias type="model.MemberVO" alias="Member"/>  
   <typeAlias type="model.GalleryVO" alias="Gallery"/>
-  
+  <typeAlias type="model.BoardVO" alias="Board"/>
    </typeAliases> 
    <!--  -->
    <environments default="development">
@@ -30,5 +30,6 @@
    		 <mapper resource="Calendar.xml"/>  
    		 <mapper resource="Member.xml"/>  
    		 <mapper resource="Gallery.xml"/>
+   		  <mapper resource="Board.xml"/>
    </mappers>
 </configuration>
