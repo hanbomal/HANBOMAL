@@ -1,5 +1,10 @@
 package dao;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 
 import model.GalleryVO;
@@ -29,6 +34,80 @@ public class GalleryDAO extends MybatisConnector {
 		
 	}
 	
+	public List galleryList(String studynum) {
+		sqlSession=sqlSession();
+		List li=null;
+		
+		Map map=new HashMap();
+		map.put("studynum", studynum);
+		li=sqlSession.selectList(namespace+".galleryList", map);
+		
+		sqlSession.close();
+		
+		return li;
+		
+	}
+	
+	public int getGalleryCount(String studynum) {
+		sqlSession=sqlSession();
+		int count=0;
+		
+		Map map=new HashMap();
+		map.put("studynum", studynum);
+		
+		count=sqlSession.selectOne(namespace+".getGalleryCount", map);
+		
+		sqlSession.close();
+		
+		return count;
+		
+	}
+	
+	public List getImages(int startRow, int endRow, String studynum) {
+		
+		sqlSession=sqlSession();
+		
+		Map map=new HashMap<>();
+		map.put("studynum", studynum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		
+		List li=null;
+		
+		li=sqlSession.selectList(namespace+".getImages", map);
+		
+		sqlSession.close();
+		
+		
+		
+		return li;
+		
+	}
+	
+	
+	public GalleryVO getImage(String num) {
+		sqlSession=sqlSession();
+		
+		Map map=new HashMap<>();
+		map.put("num", num);
+		
+		GalleryVO gallery=sqlSession.selectOne(namespace+".getImage",map);
+		
+		sqlSession.close();
+		
+		return gallery;
+		
+	}
+	
+	public void updateGallery(GalleryVO gallery) {
+		sqlSession=sqlSession();
+
+		int chk=0;
+		chk=sqlSession.update(namespace+".updateGallery", gallery);
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
 	
 
 }
