@@ -6,11 +6,11 @@
  
  <c:if test="${chk==1}">
       <script language="JavaScript"> 
- 
+  
  </script>
+       <meta http-equiv="Refresh" 
+    	  content="0;url=member_update" >
  
-  <meta http-equiv="Refresh" 
-content="0;url=member_update" >
 </c:if>
 <c:if test="${chk!=1}">
        <script language="JavaScript">      

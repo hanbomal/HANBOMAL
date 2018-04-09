@@ -18,11 +18,19 @@ create table member(
 
 
 
+drop sequence memberSer
 
   CREATE SEQUENCE memberSer
   START WITH 1
   INCREMENT BY 1
   NOMAXVALUE ;
+  
+  create sequence memberSer
+  start with 1
+  increment by 1
+  NOMAXVALUE
+  NOCYCLE ;
+  
 
 COMMIT;
 

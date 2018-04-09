@@ -13,7 +13,7 @@
 	
 	<script type="text/javascript">
 		alert("수정 되었습니다.");
-		location.href="..page/main";
+		location.href="../page/main";
 	</script>
 
 	</c:if>
