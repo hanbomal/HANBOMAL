@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -111,13 +112,13 @@ public class BoardController {
 		+encodeURIComponent(document.writeform.content.value)+"&passwd="
 		+encodeURIComponent(document.writeform.passwd.value); */
 	
-	@RequestMapping("/writePro")
-	public String writePro(MultipartHttpServletRequest request, String bordid, String num, 
-			Model model, String writer, String subject, String content,String passwd
-			)
-			throws Exception {
-		BoardVO article = new BoardVO();
-		System.out.println("11111111111111");
+	
+	@RequestMapping(
+		      value = "/writePro"
+		      , method= RequestMethod.POST
+		      , consumes ={"multipart/form-data"}
+		)
+	public String writePro(MultipartHttpServletRequest request,BoardVO article, Model mv)throws Exception {
 		MultipartFile multi = request.getFile("uploadfile");
 		String filename = multi.getOriginalFilename();
 		System.out.println("filename:[" + filename + "]");
@@ -132,18 +133,9 @@ public class BoardController {
 			article.setFilename("");
 			article.setFilesize(0);
 		}
-		article.setBoardid(bordid);
-		article.setContent(content);
-		article.setNum(Integer.parseInt(num));
-		article.setWriter(writer);
-		article.setPasswd(passwd);
-		article.setSubject(subject);
 		System.out.println(article);
-		
 		boardDB.insertArticle(article);
-		model.addAttribute("pageNum", pageNum);
-		
-		return "redirect:study_board";
+		mv.addAttribute("pageNum", pageNum);
+		return "board/study_board";
 	}
-
 }

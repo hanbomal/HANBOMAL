@@ -1,7 +1,7 @@
 DROP table studyboard PURGE ;
 CREATE table studyboard (
-  num INT,
-  boardid VARCHAR2(100) PRIMARY KEY ,
+  num int primary key,
+  boardid VARCHAR2(100) not null ,
   writer VARCHAR2(100) not null,
   subject VARCHAR2(100) not null,
   passwd VARCHAR2(100) not null,
@@ -13,3 +13,10 @@ CREATE table studyboard (
 );
 SELECT *
 FROM studyboard;
+
+create sequence studyboardser
+  start with 1
+  increment by 1
+  NOMAXVALUE
+  NOCYCLE ;
+
