@@ -188,6 +188,18 @@ public class PageController {
 	@RequestMapping("/test")
 	public String test(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 
+		HttpSession session = req.getSession();
+			
+		String memberid=((String)session.getAttribute("memberid"));
+			
+		
+		if(memberid==null) {
+			memberid="aaa";
+		}
+		
+		System.out.println(memberid);
+		req.setAttribute("memberid", memberid); 
+		
 		return "page/study_test";
 	}
 	

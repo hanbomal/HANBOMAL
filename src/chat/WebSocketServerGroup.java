@@ -21,19 +21,18 @@ public class WebSocketServerGroup {
 	private static Set<Session> clients = Collections
 			.synchronizedSet(new HashSet<Session>());
 
+    Date date=new Date();
+    SimpleDateFormat sdf=new SimpleDateFormat("a h:mm");
+    SimpleDateFormat sdf2=new SimpleDateFormat("yyyyMMdd");
+    String datetext=sdf.format(date);
+    String forSaveText=sdf2.format(date);
+    
 	@OnMessage
 	public void onMessage(String message, Session session) throws IOException {
 		System.out.println(message);
 		synchronized (clients) {
-			/*팀별 채팅을 위한 소스
-			 * group명:이름:
-			 * */
-			
-			
-			String id = null;
-		    Date date=new Date();
-		    SimpleDateFormat sdf=new SimpleDateFormat("a h:mm");
-		    String datetext=sdf.format(date);
+		
+		
 			String name=session.getRequestParameterMap().get("name").toString();
 			
 			String movemessage 
@@ -44,8 +43,9 @@ public class WebSocketServerGroup {
 			String cid = (String)	session.getRequestParameterMap().get("group").get(0);
 
 		
-			String logPath = "C:\\save\\"+cid+".txt"; 
-			  
+			//String logPath = "C:\\save\\"+cid+"_"+forSaveText+".txt"; 
+			String logPath = "C:\\save\\"+cid+".txt";
+			
 			  File file = new File(logPath);
 			   
 			  try {

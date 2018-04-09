@@ -114,7 +114,7 @@ body, html {
 					</button>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 						<a href="member_update" class="w3-bar-item w3-button">MY PAGE
-						
+						 
 						</a> 
 						<a href="RequestPage" class="w3-bar-item w3-button">WAITING
 						

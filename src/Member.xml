@@ -8,32 +8,51 @@
 		select passwd from member where memberid=#{memberid}
 	</select>
 	
-<select id="getNextNumber" parameterType="int">
-	
-	select memberser.nextval from dual
-	</select>	
-<!--  	
-<insert id="insertMember" parameterType="member">
-      insert into member(memberid, passwd, nickname, joindate, lastdate) values(#{memberid},#{passwd},#{nickname}, sysdate, sysdate )
-   </insert>	
-	-->
 
 <select id="getMember" parameterType="hashmap" resultType="member">
       select * from member WHERE memberid = #{memberid} 
    </select>	
    
- <select id="updateMember" parameterType="member">
-      update member set passwd=#{passwd},
-		nickname=#{nickname},=#{nickname} where memberid=#{memberid} and passwd =#{passwd}
-   </select>  
+ <update id="updateMember" parameterType="member">
+      update member set 
+		nickname=#{nickname},passwd=#{passwd},passwdq=#{passwdq},passwdkey=#{passwdkey} where memberid=#{memberid}
+   </update>  
    
    
   <update id="deleteMember" parameterType="map">
-      delete from board where memberid=#{memberid} 
+      delete from member where memberid=#{memberid} 
 				 and passwd =#{passwd}
 	
   
   </update>
+  
+  <select id="findPasswd" parameterType="hashmap" resultType="String">
+  
+  select passwdkey from member where memberid=#{memberid}
+  
+  </select>
+  
+   
+  <select id="bfindPasswd" parameterType="hashmap" resultType="String">
+  
+  select memberid from member where memberid=#{memberid}
+  
+  </select>
+  
+  
+ 
+  <select id="checkMember" resultType="String" parameterType="hashmap">
+		select passwd from member where memberid=#{memberid}
+	</select>
 	
+	<insert id="insertMember" parameterType="member">
+      insert into member(num, memberid, nickname, passwd, passwdq, passwdkey, joindate, lastdate) values(#{num},#{memberid},#{nickname},#{passwd},#{passwdq},#{passwdkey}, sysdate, sysdate )
+   </insert>
+
+<select id="getNextNumber" resultType="int"  parameterType="hashmap">
+	
+	select memberser.nextval from dual
+	
+	</select>
 
 </mapper>

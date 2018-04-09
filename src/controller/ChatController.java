@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
+
+import com.oreilly.servlet.multipart.FileRenamePolicy;
 
 import dao.GalleryDAO;
 import model.Chatdata;
@@ -139,19 +140,26 @@ GalleryDAO gPro=GalleryDAO.getInstance();
 	public String fileUpload(MultipartHttpServletRequest request,GalleryVO gallery,String studynum, 
 			String name ,Model model)
 			throws Exception {
-		ModelAndView mv = new ModelAndView();
 		
 		MultipartFile multi = request.getFile("uploadfile");
+		
 		String filename = multi.getOriginalFilename();
 		System.out.println("filename:[" + filename + "]");
 		if (filename != null && !filename.equals("")) {
 			String uploadPath = request.getRealPath("/") + "fileSave";
 			System.out.println(uploadPath);
+			
+			
+			String fileType=filename.substring(filename.lastIndexOf('.'),filename.length());
+			String rename=gallery.getName()+"_"+System.currentTimeMillis()+fileType;
 			FileCopyUtils.copy(multi.getInputStream(),
-					new FileOutputStream(uploadPath + "/" + multi.getOriginalFilename()));
-			gallery.setFilename(filename);
+					new FileOutputStream(uploadPath + "/" + rename ));
+			
+			gallery.setFilename(rename);
 			gallery.setFilesize((int) multi.getSize());
+			model.addAttribute("filename",rename);
 		} else {
+			
 			gallery.setFilename("");
 			gallery.setFilesize(0);
 		}
@@ -163,6 +171,8 @@ GalleryDAO gPro=GalleryDAO.getInstance();
 		
 		gPro.addGallery(gallery);
 
+		
+		
 		return "chat/uploadComp";
 	}
 	

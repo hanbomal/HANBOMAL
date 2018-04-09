@@ -16,8 +16,8 @@ import model.CalendarVO;
 @RequestMapping("/calcontroller")
 public class CalendarController {
 
-	@RequestMapping("/listview")
-	public String listview(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+	@RequestMapping("/test")
+	public String test(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 
 		CalendarDAO cpro = CalendarDAO.getInstance();
 
@@ -30,8 +30,8 @@ public class CalendarController {
 		return "calendar/study_calendar";
 	}
 
-	@RequestMapping("/test")
-	public String test(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+	@RequestMapping("/listview")
+	public String listview(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 
 		CalendarDAO cpro = CalendarDAO.getInstance();
 
@@ -39,7 +39,7 @@ public class CalendarController {
 
 		li = cpro.getCalendarList(1); // 임의로 1로 해놓음
 
-		System.out.println(li);
+		//System.out.println(li);
 
 		req.setAttribute("list", li);
 
