@@ -51,7 +51,7 @@
 	<div class="w3-third">&nbsp;</div>
 
   <div class="w3-third w3-container ">
-  <div class="w3-container w3-light-gray">
+  <div class="w3-container w3-dark-gray">
       
        <h6>JOIN</h6>
       </div>
@@ -62,11 +62,11 @@
   <table class="w3-table  ">
     <form method="post" name="memberInfo" class="w3-container w3-card-4 w3-white w3-text-black w3-margin w3-animate-bottom w3-round" 
  action="joinPro" onsubmit="return checkValue()" >
-<input type="hidden" name="listid" value="${listid }">
+
 <input type="hidden" name="num" value="${num }">
 
 
-<h5 class="w3-center">회원가입</h5>
+<h4 class="w3-center">회원가입</h4>
 
 
 
@@ -112,27 +112,34 @@ NICKNAME      <input class="w3-input w3-border w3-light-grey" style="width:300px
  
 PASSWORD QUESITION 
 <!-- 비밀번호찾기 문항   -->
-<div class="w3-row w3-section">
- 
-    <div class="w3-rest">
-    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwdq" type="text"  style="margin-left: 2%;">
-    </div>
-</div>
-<div class="w3-row w3-section">
- 
-    <div class="w3-rest">
-    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwdkey" type="text" placeholder="ANSWER "  style="margin-left: 2%;">
-    </div>
-</div>
 
+<div class="w3-row w3-section">
+ 
+    <div class="w3-rest">
+   <select class="w3-select w3-border  w3-light-grey" name="passwdq" style="width:300px; display: inline-block,center;">
+    <option value="" disabled selected>비밀번호 힌트를 선택하세요.</option>
+    <option value="1">당신이 졸업한 초등학교는?</option>
+    <option value="2">당신의 반려동물의 이름은?</option>
+    <option value="3">당신이 태어난 고향은?</option>
+     <option value="4">당신의 어머니의 성함은?</option>
+      <option value="5">당신의 아버지의 성함은?</option>
+  </select>
+</div>
+<div class="w3-row w3-section">
+ 
+    <div class="w3-rest">
+    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwdkey" type="text"  style="margin-left: 2%;">
+    </div>
+</div>
 
 
 <p class="w3-center">
-
+<input type="button" value="BACK" class="w3-button w3-gray" OnClick="window.location='../page/main'">
+<input type="submit" value="SEND" class="w3-button w3-black" OnClick="view/index.jsp" > 
 <input type="reset" value="RETRY" class="w3-button w3-gray" >  
-<input type="submit" value="SEND" class="w3-button w3-black" OnClick="view/index.jsp" >
 
-<input type="button" value="Back" class="w3-button w3-gray" OnClick="window.location='../page/main'">  
+
+ 
 </p>
 
 </form>

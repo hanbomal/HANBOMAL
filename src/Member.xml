@@ -28,16 +28,12 @@
   
   <select id="findPasswd" parameterType="hashmap" resultType="String">
   
-  select passwdkey from member where memberid=#{memberid}
+  select passwdkey from member where memberid=#{memberid} and passwdq=#{passwdq}
   
   </select>
   
    
-  <select id="bfindPasswd" parameterType="hashmap" resultType="String">
-  
-  select memberid from member where memberid=#{memberid}
-  
-  </select>
+
   
   
  

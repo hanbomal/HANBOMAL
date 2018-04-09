@@ -20,16 +20,13 @@ public class MemberController {
 	public String join(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 
 		int num = 0;
-		String listid = request.getParameter("listid");
-
-		if (listid == null)
-			listid = "1";
+		
 
 		if (request.getParameter("num") != null) {
 			num = Integer.parseInt(request.getParameter("num"));
 		}
 		request.setAttribute("num", num);
-		request.setAttribute("listid", listid);
+		
 
 		return "member/join2";
 	}
@@ -38,14 +35,12 @@ public class MemberController {
 	public String joinPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 
 		
-		String listid = request.getParameter("listid");
-		if (listid == null)
-			listid = "1";
+		
 
 		MemberVO member = new MemberVO();
 		MemberDAO dbpro = MemberDAO.getInstance();
 
-		member.setListid(listid);
+		
 		member.setNum(Integer.parseInt(request.getParameter("num")));
 		member.setMemberid(request.getParameter("memberid"));
 		member.setNickname(request.getParameter("nickname"));
@@ -66,11 +61,10 @@ public class MemberController {
 		MemberDAO dbPro = MemberDAO.getInstance();
 		int pwcheck = dbPro.login(memberid, passwd);
 		if (pwcheck == 1) {
-			// MemberVO mVO= dbPro.getMember(memberid);
+		
 			HttpSession session = req.getSession();
 			session.setAttribute("memberid", memberid);
-			// session.setAttribute("nickname",mVO.getNickname());
-			//session.setAttribute("passwd", passwd);
+		
 			res.sendRedirect(req.getContextPath() + "/page/main");
 		
 		} else {
@@ -96,7 +90,7 @@ public class MemberController {
 	   public String member_update(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession();
 		
-		String listid=req.getParameter("listid");
+		
 		
 
 		try {
@@ -118,14 +112,14 @@ public class MemberController {
 		MemberDAO dbpro=MemberDAO.getInstance();
 	
 	String memberid=req.getParameter("memberid");
-	String listid=req.getParameter("listid");
+	
 	String num= req.getParameter("num");
 	
 	try {
 		member.setMemberid(memberid);
 		member.setNickname(req.getParameter("nickname"));
 		member.setPasswd(req.getParameter("passwd"));
-		member.setListid(req.getParameter("listid"));
+		
 		member.setNum(Integer.parseInt(req.getParameter("num")));
 		member.setPasswdq(req.getParameter("passwdq"));
 		member.setPasswdkey(req.getParameter("passwdkey"));
@@ -159,7 +153,7 @@ public class MemberController {
 	@RequestMapping("/member_deletePro")	 //form 
 	   public String member_deletePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 	
-		String listid=req.getParameter("listid");
+		
 		
 		String memberid=req.getParameter("memberid");
 		String passwd = req.getParameter("passwd");
@@ -189,7 +183,7 @@ public class MemberController {
  @RequestMapping("/before_checkPro")    //form 
     public String before_checkPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
     
-     String listid=req.getParameter("listid");
+    
     
     String memberid=req.getParameter("memberid");
     String passwd = req.getParameter("passwd");
@@ -205,44 +199,35 @@ public class MemberController {
  @RequestMapping("/bfindPasswdPro")    //form 
  public String bfindPasswdPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 	
-	 String listid=req.getParameter("listid");
+	
 	 
 	 String memberid=req.getParameter("memberid");
-	
+	 String passwdq=req.getParameter("passwdq");
+	 String passwdkey=req.getParameter("passwdkey");
 	
 	 MemberVO member=new MemberVO();
 	 MemberDAO dbPro=MemberDAO.getInstance();
 	 
-	 int chk=dbPro.bfindPasswd(memberid);
+	 int chk=dbPro.findPasswd(memberid, passwdq, passwdkey);
     req.setAttribute("chk", chk);
  
  return "member/bfindPasswdPro";
 }
  
- @RequestMapping("/bfindPasswd")    //form 
+
+
+@RequestMapping("/bfindPasswd")    //form 
  public String bfindPasswd(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-	
-	//아무것도 없어도 돌아감.
  
- return "member/bfindPasswd";
-}
+ 
  
 
-@RequestMapping("/findPasswd")    //form 
- public String findPasswd(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
- 
-  String listid=req.getParameter("listid");
- 
- String memberid=req.getParameter("memberid");
- String passwdq = req.getParameter("passwdq");
- String passwdkey=req.getParameter("passwdkey");
  
  MemberDAO dbPro=MemberDAO.getInstance();
  
- int chk=dbPro.findPasswd(memberid, passwdq, passwdkey);
- req.setAttribute("chk",chk);
  
- return "member/findPasswd";
+ return "member/bfindPasswd";
+ 
 }
  
     

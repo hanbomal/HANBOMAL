@@ -10,6 +10,9 @@
 
 
 <script>
+
+
+
   function checkValue()
     {
       
@@ -55,7 +58,7 @@
   <table class="w3-table  ">
     <form method="post" name="memberInfo" class="w3-container w3-card-4 w3-white w3-text-black w3-margin w3-animate-bottom w3-round" 
  action="member_updatePro" onsubmit="return checkValue()" >
-<input type="hidden" name="listid" value="${member.listid }">
+
 <input type="hidden" name="num" value="${member.num }">
 
 <input type="hidden" name="lastdate" value="${member.lastdate }">
@@ -113,8 +116,15 @@ QUESITION
 <!-- 비밀번호찾기 문항   -->
 <div class="w3-row w3-section">
  
-    <div class="w3-rest">
-    <input class="w3-input w3-border w3-light-grey" style="width:300px; display: inline-block,center;" name="passwdq" type="text"  value="${member.passwdq}" style="margin-left: 2%;">
+     <div class="w3-rest">
+   <select class="w3-select w3-border  w3-light-grey" name="passwdq" style="width:300px; display: inline-block,center;" value="${member.passwdq}">
+    <option value="" disabled selected>비밀번호 힌트를 선택하세요.</option>
+    <option value="1">당신이 졸업한 초등학교는?</option>
+    <option value="2">당신의 반려동물의 이름은?</option>
+    <option value="3">당신이 태어난 고향은?</option>
+     <option value="4">당신의 어머니의 성함은?</option>
+      <option value="5">당신의 아버지의 성함은?</option>
+  </select>
     </div>
 </div>
 <div class="w3-row w3-section">

@@ -7,7 +7,7 @@
         
       <c:if test="${chk==1}">
       <script language="JavaScript"> 
- alert("아이디가 존재합니다 힌트로 이동합니다");
+ alert("정답입니다.");
  </script>
 
   <meta http-equiv="Refresh" 
@@ -15,7 +15,7 @@ content="0;url=../page/main" >
 </c:if>
 <c:if test="${chk!=1}">
        <script language="JavaScript">      
-         alert("아이디가없습니다.");
+         alert("아이디가 없거나 틀렸습니다.");
          history.go(-1);
        </script>
 </c:if>

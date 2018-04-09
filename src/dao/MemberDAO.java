@@ -186,29 +186,7 @@ public int findPasswd(String memberid,String passwdq,String passwdkey) {
 		}
 
 
-public int bfindPasswd(String memberid) {
-		
-		sqlSession= sqlSession();
-		Map<String, String> map = new HashMap<>();
-		
-		
-		
-		map.put("memberid", memberid);
-		
-		
-		String chk = sqlSession.selectOne(namespace+".bfindPasswd", map);
-		
-		if(chk!=null) {
-			if(chk.equals(memberid)) {return 1;}
-			
-		}else
-		
-		sqlSession.commit();
-		sqlSession.close();
-		
-		return -1;
-		
-	}
+
 		 
 		
 	}
