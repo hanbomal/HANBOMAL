@@ -119,8 +119,7 @@ body, html {
 						<a href="study_making" class="w3-bar-item w3-button">개설하기</a> 
 						
 						<a href="test" class="w3-bar-item w3-button">TEST</a>
-							<a
-							href="test2" class="w3-bar-item w3-button">TEST2</a>
+							
 					</div>
 				</div>
 		

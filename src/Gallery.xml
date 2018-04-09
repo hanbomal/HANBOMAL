@@ -6,7 +6,7 @@
 <mapper namespace="gall.mybatis">
 
 	<select id="galleryList" resultType="Gallery" parameterType="hashmap">
-		select * from gallery where studynum=#{studynum} and filename not like 'deletedImage.png'
+		select * from gallery where studynum=#{studynum} and filesize!=0
 	</select>
 	
 	 <update id="updateGallery" parameterType="Gallery">	
@@ -34,13 +34,13 @@
 
 
 <select id="getGalleryCount" resultType="int" parameterType="hashmap">
-		select nvl(count(*),0) from (select * from gallery where studynum=#{studynum}) where filename not like 'deletedImage.png'
+		select nvl(count(*),0) from (select * from gallery where studynum=#{studynum}) where filesize!=0
 		
 	</select>
 	
 	<select id="getImages" resultType="Gallery" parameterType="hashmap">
 		select * from (select rownum rnum ,a.* from (select regdate,num,name,title,content,filename
-		 from gallery where studynum=#{studynum} and filename not like 'deletedImage.png' order by regdate desc ) 
+		 from gallery where studynum=#{studynum} and filesize!=0 order by regdate desc ) 
 					a ) where rnum  between #{startRow} and #{endRow}
 	</select>
 	

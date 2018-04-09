@@ -145,7 +145,7 @@ font: inherit;
  width: 100% \9; 
  height: auto; }
 
-img {
+#messageWindow img {
 
 max-height: 300px;
 width:auto;
@@ -220,7 +220,7 @@ onchange="javascript:TextFind.display();">
   
   </form>
   </div>
-
+<input id="forFilename" type="hidden"></div>
   <!-- 전송창부분 끝 -->
 
 </body>
@@ -345,7 +345,7 @@ onchange="javascript:TextFind.display();">
     function onError(event) {     alert(event.data);   }
   
     function send() {
-    	
+    	var rename="";
     	 var now = new Date();
     	 var nowText="";
          var nowHour = now.getHours();
@@ -379,7 +379,7 @@ onchange="javascript:TextFind.display();">
 			formData.append("content", inputMessage.value);
 			
     	   
-
+		
     	    $.ajax({
     	        type: "POST",
     	        enctype: 'multipart/form-data',
@@ -390,24 +390,43 @@ onchange="javascript:TextFind.display();">
     	        cache: false,
     	        timeout: 600000,
     	        success: function (data) {
-    	        	
-    	        },
-    	        error: function (e) {
-    	            console.log("ERROR : ", e);
-    	        }
-    	    });
-    	
-    	    
-    	    inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+filename+"><br>"+inputMessage.value;
-    	    resetFile();
-    	    inputMessage.focus();
-       }
-         
-       textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+    	       rename=data;
+    	       
+       	    inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+rename+"><br>"+inputMessage.value;
+       	 textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
 			  +"<li class='w3-large' style='border:none;' align='right'>"
 		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
 		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
 		          +"<span class='w3-medium'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table>";
+       	resetFile();
+	    inputMessage.focus();
+	   
+        
+        webSocket.send(inputMessage.value.trim());
+ 			  
+       inputMessage.value = "";
+       textarea.scrollTop=textarea.scrollHeight;
+    	        
+    	        },
+    	        error: function (e) {
+    	            console.log("ERROR : ", e);
+    	        }
+    	      
+    	    });
+    	 
+    	   
+    	    
+       }else{
+    	   
+    	   textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+ 			  +"<li class='w3-large' style='border:none;' align='right'>"
+ 		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
+ 		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
+ 		          +"<span class='w3-medium'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table>";
+       
+       
+         
+      
        
         
 		 textarea.scrollTop=textarea.scrollHeight;
@@ -415,8 +434,8 @@ onchange="javascript:TextFind.display();">
          webSocket.send(inputMessage.value.trim());
   			  
         inputMessage.value = "";
-     
-		
+       }
+       textarea.scrollTop=textarea.scrollHeight;
 			
 	}
 
