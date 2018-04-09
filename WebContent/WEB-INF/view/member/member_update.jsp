@@ -2,7 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@page import="dao.MemberDAO"%>
 <%@page import="model.MemberVO"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+ 
+
+
 <script>
   function checkValue()
     {
@@ -22,9 +28,7 @@
         	alert("비밀번호 확인란에 비밀번호를 동일하게 입력하세요.");
             return false;
         } 
-        else {
-        	alert("회원정보가 수정되었습니다.");
-        }
+       
 
     }
   </script>
@@ -54,7 +58,7 @@
 <input type="hidden" name="listid" value="${member.listid }">
 <input type="hidden" name="num" value="${member.num }">
 
-<input type="hidden" name="num" value="${member.lastdate }">
+<input type="hidden" name="lastdate" value="${member.lastdate }">
 
 <%----<h6 class="w3-right">*는 필수 입력입니다.</h6> --%>
 

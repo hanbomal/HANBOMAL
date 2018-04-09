@@ -57,38 +57,18 @@ public class MemberDAO extends MybatisConnector {
 		
 		
 		public void insertMember(MemberVO member) {
-			String sql="";
-			Connection conn = getConnection();
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
+			sqlSession= sqlSession();
 			
-			int number=0;
-			try {
-				pstmt = conn.prepareStatement("select memberSer.nextval from dual");
-				rs = pstmt.executeQuery();
-				if (rs.next())
-					number = rs.getInt(1);
-				else number = 1; 
-				
-				sql = "insert into member(num,listid, memberid, passwd, nickname, passwdq, passwdkey, joindate, lastdate)";
-				sql += "values(?,?,?,?,?,?,?, sysdate, sysdate)";
-				
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, number);
-				pstmt.setString(2, member.getListid());
-				pstmt.setString(3, member.getMemberid());
-				pstmt.setString(4, member.getPasswd());
-				pstmt.setString(5, member.getNickname());
-				pstmt.setString(6, member.getPasswdq());
-				pstmt.setString(7, member.getPasswdkey());
-				
-				pstmt.executeUpdate();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(conn, rs, pstmt);
-			}
+			int number = sqlSession.selectOne(namespace + ".getNextNumber" ,member);
+			number=number+1;
+			
+			member.setNum(number);
+			
+			 
+			      sqlSession.insert(namespace + ".insertMember" ,member);
+			      sqlSession.commit();
+			      sqlSession.close();
+
 			
 		}
 		
@@ -112,7 +92,7 @@ public class MemberDAO extends MybatisConnector {
 			
 		}
 		
-		public int updateMember (MemberVO member) {
+		public int updateMember(MemberVO member) {
 			
 			sqlSession= sqlSession();
 			int chk = sqlSession.update(namespace+".updateMember", member);
@@ -180,5 +160,56 @@ public int beforeCheck(String memberid,String passwd) {
 		
 //for find passwd //1.input id -->get passwdq --->if passwdkey ok -->go to passwd board
 	   
+public int findPasswd(String memberid,String passwdq,String passwdkey) {
+			
+			sqlSession= sqlSession();
+			Map<String, String> map = new HashMap<>();
+			
+			
+			map.put("passwdq",passwdq );
+			map.put("passwdkey", passwdkey);
+			map.put("memberid", memberid);
+			
+			
+			String chk = sqlSession.selectOne(namespace+".findPasswd", map);
+			
+			if(chk!=null) {
+				if(chk.equals(passwdkey)) {return 1;}
+				
+			}else
+			
+			sqlSession.commit();
+			sqlSession.close();
+			
+			return -1;
+			
+		}
+
+
+public int bfindPasswd(String memberid) {
+		
+		sqlSession= sqlSession();
+		Map<String, String> map = new HashMap<>();
+		
+		
+		
+		map.put("memberid", memberid);
+		
+		
+		String chk = sqlSession.selectOne(namespace+".bfindPasswd", map);
+		
+		if(chk!=null) {
+			if(chk.equals(memberid)) {return 1;}
+			
+		}else
+		
+		sqlSession.commit();
+		sqlSession.close();
+		
+		return -1;
+		
+	}
+		 
+		
 	}
 
