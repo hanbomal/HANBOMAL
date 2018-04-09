@@ -45,11 +45,10 @@ public class BoardController {
 		if (pageNum != null && pageNum != "")
 			this.pageNum = pageNum;
 	}
-	
 	@RequestMapping("/study_board")
 	public String study_board(Model mv) throws Throwable {
 		int pageSize = 5;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize + 1;
 		int endRow = currentPage * pageSize;
@@ -76,15 +75,11 @@ public class BoardController {
 		mv.addAttribute("bottomLine",bottomLine);
 		mv.addAttribute("startPage",startPage);
 		mv.addAttribute("currentPage",currentPage);
-		mv.addAttribute("sdf",sdf);
 		mv.addAttribute("articleList",articleList);
 		mv.addAttribute("number",number);
 		mv.addAttribute("count",count);
-			
-		
 		return "board/study_board";
 	}
-	
 	
 	@RequestMapping("/content")
 	public String content(Model mv, int num) throws Throwable {
@@ -106,13 +101,6 @@ public class BoardController {
 		return mv;
 	}
 
-	
-	/*boardid=${boardid}&num=${num}&writer=${memberid}&"
-		+"subject="+encodeURIComponent(document.writeform.subject.value)+"&content="
-		+encodeURIComponent(document.writeform.content.value)+"&passwd="
-		+encodeURIComponent(document.writeform.passwd.value); */
-	
-	
 	@RequestMapping(
 		      value = "/writePro"
 		      , method= RequestMethod.POST
@@ -136,6 +124,6 @@ public class BoardController {
 		System.out.println(article);
 		boardDB.insertArticle(article);
 		mv.addAttribute("pageNum", pageNum);
-		return "board/study_board";
+		return "redirect:/board/study_board";
 	}
 }

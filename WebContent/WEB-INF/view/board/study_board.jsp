@@ -51,8 +51,7 @@
       <th>조 회</th>
     </tr>
 
-			 <!-- 
-			 	var params ="num="+num+"&pageNum=${currentPage}" -->
+		
     <c:forEach var="article" items="${articleList}">
 			<tr class="w3-hover-white" onclick="$('#content').load('../board/content?num=${article.num}&pageNum=${currentPage }')">
 			<td>${number}</td>
