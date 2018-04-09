@@ -67,7 +67,7 @@ list-style: none;}
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- content -->
-
+<input type="hidden" value="${memberid }" id="chkMem">
 <div class="w3-container " id="gallery" style="height:600px; overflow:auto; ">
  <div class="w3-container"><div class="w3-bar w3-padding ">
  <!-- <button class="w3-button w3-padding-small w3-left w3-light-grey">목록보기</button> -->
@@ -197,8 +197,11 @@ list-style: none;}
 
 
 <script>
+
 function imageToChat(){
 	var imgSrc=document.getElementById("img01").src;
+	var chkMem=document.getElementById("chkMem").value;
+
 	 var now = new Date();
 	 var nowText="";
      var nowHour = now.getHours();
@@ -226,13 +229,13 @@ function imageToChat(){
 		  +"<li class='w3-large' style='border:none;' align='right'>"
 	          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
 	         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
-	          +"<span class='w3-medium'>aaa님이 사진 다시 보내기를 하셨습니다.<p/><img src='"+imgSrc+"'></span></span></li></ul></td></tr></table>";
+	          +"<span class='w3-medium'>"+chkMem+"님이 사진 다시 보내기를 하셨습니다.<p/><img src='"+imgSrc+"'></span></span></li></ul></td></tr></table>";
    
     
 	 textarea.scrollTop=textarea.scrollHeight;
     
 	 
-	 galleryMessage="aaa님이 사진 다시 보내기를 하셨습니다.<p/><img src="+imgSrc+">";
+	 galleryMessage=chkMem+"님이 사진 다시 보내기를 하셨습니다.<p/><img src="+imgSrc+">";
 	 
      webSocket.send(galleryMessage.trim());
      
