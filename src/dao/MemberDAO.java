@@ -185,6 +185,35 @@ public int findPasswd(String memberid,String passwdq,String passwdkey) {
 			
 		}
 
+public int confirmId(String memberid) {
+	Connection conn = null;
+    PreparedStatement pstmt = null;
+	ResultSet rs= null;
+	int x=-1;
+    
+	try {
+        conn = getConnection();
+        
+        pstmt = conn.prepareStatement(
+        	"select memberid from member where memberid = ?");
+        pstmt.setString(1, memberid);
+        rs= pstmt.executeQuery();
+
+		if(rs.next())//아이디 존재
+			x= 1; //같은 아이디 있음
+		else
+			x= -1;//같은 아이디 없음
+    } catch(Exception ex) {
+        ex.printStackTrace();
+    } finally {
+		if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+        if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+        if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+    }
+	return x;
+}
+
+
 
 
 		 
