@@ -47,7 +47,7 @@ public class ChatController {
 		File rootDir = null;
 		List<String> files = new ArrayList<String>();
 		Charset cs = StandardCharsets.UTF_8;
-
+	
 		List<Chatdata> chatd = new ArrayList<>();
 		String lastday="";
 		
@@ -55,6 +55,12 @@ public class ChatController {
 			
 			
 			rootDir = new File(rootDirPath);
+			
+
+			   if(!rootDir.exists())
+				   rootDir.mkdirs();
+			
+			
 			File[] rootDirs = rootDir.listFiles();
 
 		// 3일치 파일 가져오기
