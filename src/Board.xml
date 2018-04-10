@@ -15,7 +15,7 @@
 	</select>
 	
 	<select id="getArticles" resultType="Board" parameterType="hashmap">
-		select * from (select rownum rnum ,a.* from (select num,writer,subject,passwd,
+		select * from (select rownum rnum ,a.* from (select num,writer,subject,
 					reg_date,readcount,content
 					 from studyboard where boardid = #{boardid} order by reg_date desc) 
 					a ) where rnum  between #{startRow} and #{endRow}
@@ -26,15 +26,14 @@
 	</select>
 	
 	<insert id="insertBoard" parameterType="Board">
-      insert into studyboard(num, writer, subject, passwd, reg_date, 
-      content,  boardid, filename, filesize)
-      values(#{num},#{writer},#{subject},#{passwd}, sysdate, 
-      #{content},#{boardid},#{filename},#{filesize})
+      insert into studyboard(num, writer, subject, reg_date, 
+      content,readcount,  boardid, filename, filesize)
+      values(#{num},#{writer},#{subject}, sysdate, 
+      #{content},0,#{boardid},#{filename},#{filesize})
    </insert>
 	
 	<update id="addReadCount" parameterType="hashmap">
-		update studyboard set readcount = readcount +1 
-		where num=#{num} and boardid =#{boardid}
+		update studyboard set readcount = readcount +1 where num=#{num} and boardid =#{boardid}
 	</update>
    
 	<select id="getArticle" resultType="Board" parameterType="hashmap">
@@ -43,7 +42,7 @@
 					
 	<update id="updateArticle" parameterType="Board">
 		update studyboard set writer=#{writer}, email=#{email},subject=#{subject},
-		content=#{content} where num=#{num} and passwd=#{passwd}
+		content=#{content} where num=#{num} 
 	</update>
    
    <delete id="deleteArticle" parameterType="hashmap" >

@@ -191,7 +191,7 @@ body, html {
 					type="button" class="w3-button w3-black">취소</button>
 					
 				<span class="w3-right w3-padding w3-hide-small"><a
-					href="../member/join2">회원가입</a>&nbsp;&nbsp;&nbsp; <a href="../member/bfindPasswd">비밀번호</a>를
+					href="../member/join2">회원가입</a>&nbsp;&nbsp;&nbsp; <a href="../member/findPasswd">비밀번호</a>를
 					잊으셨나요?</span>
 					
 			</div>

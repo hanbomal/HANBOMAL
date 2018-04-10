@@ -36,7 +36,7 @@
   <div class="w3-card-4" >
  <div  id="content" style="height:100%; background: rgba(241, 241, 241, 0.75);" >
   
-  <h2>Striped Bordered Table</h2>
+  <h2>boarid에 해당한 게시판 이름(현재 ID:${boardid })</h2>
 <div class="w3-container"><div class="w3-bar ">
   	<span >전체 글 : ${count }</span>
   <button class="w3-button w3-padding-small w3-right w3-black w3-margin-bottom" 
@@ -58,7 +58,7 @@
 			<c:set var="number" value="${number-1}"/>
 				<td>${article.subject }
 			<c:if test="${article.readcount>=20 }">
-					<img src="../images/hot.gif" border="0" height="16"> 
+					<img src="../imgs/hot.gif" border="0" height="16"> 
 			</c:if>	
 				</td>
 				<td>${article.writer}</td>
