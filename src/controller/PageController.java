@@ -100,7 +100,8 @@ public class PageController {
 	
 	@RequestMapping("/makingPro")
 	public String makingPro(MultipartHttpServletRequest req,  
-			String studyName, String study_intro) throws Throwable {
+			String studyName, String study_intro, Model mv) throws Throwable {
+		autoComplete(mv);
 		StudyVO  study = new StudyVO();
 		MultipartFile multi1 = req.getFile("study_pro");
 		MultipartFile multi2 = req.getFile("study_back");
@@ -136,8 +137,8 @@ public class PageController {
 	}
 
 	@RequestMapping("/about")
-	public String about(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
+	public String about(HttpServletRequest req, HttpServletResponse res, Model mv) throws Throwable {
+		autoComplete(mv);
 		return "page/about";
 	}
 	
@@ -186,8 +187,8 @@ public class PageController {
 	}
 	
 	@RequestMapping("/test")
-	public String test(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
+	public String test(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		autoComplete(mv);
 		HttpSession session = req.getSession();
 			
 		String memberid=((String)session.getAttribute("memberid"));
@@ -204,26 +205,26 @@ public class PageController {
 	}
 	
 	@RequestMapping("/test2")
-	public String test2(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
+	public String test2(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		autoComplete(mv);
 		return "page/study_test2";
 	}
 	
 	@RequestMapping("/study_info")
-	public String study_info(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
+	public String study_info(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		autoComplete(mv);
 		return "study/study_info";
 	}
 	
 	@RequestMapping("/study_admin")
-	public String study_admin(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
+	public String study_admin(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		autoComplete(mv);
 		return "study/study_admin";
 	}
 	
 	@RequestMapping("/study_gallery")
-	public String study_gallery(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
+	public String study_gallery(HttpServletRequest req, HttpServletResponse res, Model mv) throws Throwable {
+		autoComplete(mv);
 		return "gallery/study_gallery";
 	}
 	
