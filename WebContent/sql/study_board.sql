@@ -4,7 +4,6 @@ CREATE table studyboard (
   boardid VARCHAR2(100) not null ,
   writer VARCHAR2(100) not null,
   subject VARCHAR2(100) not null,
-  passwd VARCHAR2(100) not null,
   reg_date DATE,
   readcount INT,
   content VARCHAR2(100) not null,
