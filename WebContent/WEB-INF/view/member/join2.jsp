@@ -6,6 +6,11 @@
 <script>
   function checkValue()
     {
+	  
+	  if(!document.memberInfo.memberid.value){
+          alert("ID를 입력하세요.");
+          return false;
+      }
       
       
 	  if(!document.memberInfo.nickname.value){
@@ -51,7 +56,7 @@
 	<div class="w3-third">&nbsp;</div>
 
   <div class="w3-third w3-container ">
-  <div class="w3-container w3-dark-gray">
+  <div class="w3-container w3-black">
       
        <h6>JOIN</h6>
       </div>

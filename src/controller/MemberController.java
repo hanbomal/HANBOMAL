@@ -196,40 +196,80 @@ public class MemberController {
     return "member/before_checkPro";
 }
  
- @RequestMapping("/bfindPasswdPro")    //form 
- public String bfindPasswdPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+ @RequestMapping("/findpasswdPro")    //form 
+ public String findPasswdPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 	
-	
+ MemberDAO dbPro=MemberDAO.getInstance();
+	 
+
 	 
 	 String memberid=req.getParameter("memberid");
 	 String passwdq=req.getParameter("passwdq");
 	 String passwdkey=req.getParameter("passwdkey");
-	
-	 MemberVO member=new MemberVO();
-	 MemberDAO dbPro=MemberDAO.getInstance();
+//이건됨...
 	 
 	 int chk=dbPro.findPasswd(memberid, passwdq, passwdkey);
-    req.setAttribute("chk", chk);
- 
- return "member/bfindPasswdPro";
+	 req.setAttribute("chk", chk);
+	
+	 
+	 System.out.println(memberid);
+	 System.out.println(passwdq);
+	 System.out.println(passwdkey);  //여기까지 받은게  결국 검증된 값으로 출력...
+	 
+	 MemberVO member=dbPro.getMember(memberid);
+	  req.setAttribute("memberid", memberid);
+	    req.setAttribute("member", member);
+	    
+	    
+	    
+		 System.out.println(memberid);
+		 System.out.println(passwdq);
+		 System.out.println(passwdkey);  //검증된걸로 잘 받음..
+	 
+   //it is right by...
+  
+ return "/go_passwd";//"member/go_passwd";//"member/go_passwd";
 }
  
 
+@RequestMapping("/go_passwd")    //form 
+public String go_passwd(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+	 
+	String memberid=req.getParameter("memberid");
+	System.out.println(memberid +"이부분 239번째줄 사용자가입력한 검증된 멤버아이디 ");//memberid==null ..
+	 String passwdq=req.getParameter("passwdq");
+	 String passwdkey=req.getParameter("passwdkey");
+	
+	 req.setAttribute("memberid", memberid);
+	 req.setAttribute("passwdq", passwdq);
+	 req.setAttribute("passwdkey", passwdkey);
+		
+	System.out.println(memberid +"이부분 245번째줄 사용자가입력한 검증된 멤버아이디 ");//memberid==null ..
+	
+	MemberDAO dbPro=MemberDAO.getInstance();
+	MemberVO member=dbPro.getMember(memberid);
+	
+	int chk=dbPro.findPasswd(memberid, passwdq, passwdkey);
+	 req.setAttribute("chk", chk);
+	
+	//여기서 chk를 받아야한다.
+	//String passwdq=req.getParameter("passwdq");
+	//String passwdkey=req.getParameter("passwdkey");
+	
+	req.setAttribute("member", member);
+	
 
-@RequestMapping("/bfindPasswd")    //form 
- public String bfindPasswd(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
- 
- 
- 
+return "/member/go_passwd";
 
- 
- MemberDAO dbPro=MemberDAO.getInstance();
- 
- 
- return "member/bfindPasswd";
- 
+
 }
- 
+
+@RequestMapping("/findPasswd")    //form 
+public String bfindPasswd(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+
+return "member/findPasswd";
+
+}
     
 		
 	

@@ -118,12 +118,33 @@ QUESITION
  
      <div class="w3-rest">
    <select class="w3-select w3-border  w3-light-grey" name="passwdq" style="width:300px; display: inline-block,center;" value="${member.passwdq}">
-    <option value="" disabled selected>비밀번호 힌트를 선택하세요.</option>
-    <option value="1">당신이 졸업한 초등학교는?</option>
-    <option value="2">당신의 반려동물의 이름은?</option>
-    <option value="3">당신이 태어난 고향은?</option>
-     <option value="4">당신의 어머니의 성함은?</option>
+   
+
+    <option value="" >비밀번호 힌트를 선택하세요.</option>
+      <c:if test="${member.passwdq==1}">
+    <option value="1" selected>당신이 졸업한 초등학교는?</option>
+    </c:if><c:if test="${member.passwdq!=1}">
+      <option value="1">당신이 졸업한 초등학교는?</option>
+    </c:if>
+      <c:if test="${member.passwdq==2}">
+    <option value="2" selected>당신의 반려동물의 이름은?</option>
+    </c:if><c:if test="${member.passwdq!=2}">
+      <option value="2">당신의 반려동물의 이름은?</option>
+    </c:if>  <c:if test="${member.passwdq==3}">
+    <option value="3" selected>당신이 태어난 고향은?</option>
+    </c:if><c:if test="${member.passwdq!=3}">
+      <option value="3">당신이 태어난 고향은?</option>
+    </c:if>  <c:if test="${member.passwdq==4}">
+    <option value="4" selected>당신의 어머니의 성함은?</option>
+    </c:if><c:if test="${member.passwdq!=4}">
+      <option value="4">당신의 어머니의 성함은?</option>
+    </c:if>  <c:if test="${member.passwdq==5}">
+    <option value="5" selected>당신의 아버지의 성함은?</option>
+    </c:if><c:if test="${member.passwdq!=5}">
       <option value="5">당신의 아버지의 성함은?</option>
+    </c:if>
+    
+  
   </select>
     </div>
 </div>
