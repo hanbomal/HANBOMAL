@@ -42,7 +42,7 @@ public class WebSocketServerGroup {
 			+ "] [" +datetext+"] ["+ message+"]";
 			
 			System.out.println(movemessage);
-			String cid = (String)	session.getRequestParameterMap().get("group").get(0);
+			String cid = (String)session.getRequestParameterMap().get("group").get(0);
 
 		
 			String logPath = "C:\\save\\"+cid; 
