@@ -257,7 +257,7 @@ if(isEmpty=='false'){
     		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>')); --%>
     		
     		 var webSocket = new WebSocket(
-    				    'ws://localhost:8080<%=request.getContextPath()%>/webGroup?name='
+    				    'ws://211.238.142.34:8080<%=request.getContextPath()%>/webGroup?name='
     				    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
         var inputMessage = document.getElementById('inputMessage');
     
