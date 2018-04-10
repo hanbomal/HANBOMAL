@@ -18,9 +18,8 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<script type="text/javascript" src="../api/date.js"></script>
 <meta charset="UTF-8">
-<title>websockets</title>
 
 <script>
 $( function() {
@@ -226,9 +225,20 @@ onchange="javascript:TextFind.display();">
 </body>
 <script type="text/javascript">
 
+var lastday=${lastday};
+var today =new Date().toString('yyyyMMdd');
 
-  
-  
+/* var isEmpty=${isEmpty};
+alert(isEmpty);
+
+if(isEmpty=='true'){
+	alert('true');
+}
+if(isEmpty=='false'){
+	alert('false');
+} */
+
+
   var chatdata = [
 	    <c:forEach var="list" items="${chatdata}" varStatus="status">
 	            {"name":'<c:out value="${list.name}" />'
@@ -284,7 +294,10 @@ onchange="javascript:TextFind.display();">
       		 textarea.scrollTop=textarea.scrollHeight;
       		return;
       	}
-
+    	 
+    	 
+    	
+    	 
      var texts=testProcess(event.data);
 
 
@@ -303,7 +316,10 @@ onchange="javascript:TextFind.display();">
         
          }
     function onOpen(event) {
-      /*  textarea.innerHTML += "연결 성공<br>"; */
+    	
+    	
+    	
+       /* textarea.innerHTML += "연결 성공<br>";  */
      
          
 	for(var i=0;i<chatdata.length;i++){
@@ -313,7 +329,13 @@ onchange="javascript:TextFind.display();">
 		  var l2=chatdata[i].content.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&"); 
 		/*   var l2=chatdata[i].content.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&quot;/g, "\"");  */
 		  
-		  if(l0=='<%=name%>'){
+		
+		if(l0=='server'){
+			textarea.innerHTML +="<div class='w3-margin-top' style='width:100%;' align='center'>"
+			+"<span class='w3-tag w3-white w3-border w3-margin-top'>"+l2+"</span></div><br>";
+			
+		}	
+		else if(l0=='<%=name%>'){
 			
 		          
 			  textarea.innerHTML +="<table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
@@ -339,12 +361,18 @@ onchange="javascript:TextFind.display();">
 	}
       
         
+    
+    
              textarea.scrollTop=textarea.scrollHeight;
        
     }
+    
+    
     function onError(event) {     alert(event.data);   }
   
     function send() {
+    	today=new Date().toString('yyyyMMdd');
+    	
     	var rename="";
     	 var now = new Date();
     	 var nowText="";
@@ -367,6 +395,23 @@ onchange="javascript:TextFind.display();">
         	 nowText='오후 ' + nowHour + ':' + nowMt;
         	 
          	}
+         
+         if(lastday!=today){
+        	
+        	 var todaytext=new Date().toString('yyyy년 MM월 dd일');
+       
+
+        	 
+        	 textarea.innerHTML +="<div class='w3-margin-top' style='width:100%;' align='center'>"
+     			+"<span class='w3-tag w3-white w3-border w3-margin-top'>"+todaytext+"</span></div><br>";
+        	 
+         	lastday=today;
+         	
+         }
+        
+         
+        
+         
         	
        if( document.getElementById('fileUpload').value!=""){
     	   

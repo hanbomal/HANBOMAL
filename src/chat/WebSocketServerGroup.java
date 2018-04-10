@@ -24,8 +24,10 @@ public class WebSocketServerGroup {
     Date date=new Date();
     SimpleDateFormat sdf=new SimpleDateFormat("a h:mm");
     SimpleDateFormat sdf2=new SimpleDateFormat("yyyyMMdd");
+    SimpleDateFormat sdf3=new SimpleDateFormat("yyyy년 MM월 dd일");
     String datetext=sdf.format(date);
-    String forSaveText=sdf2.format(date);
+    String forDateTitle=sdf2.format(date);
+    String checkDate=sdf3.format(date);
     
 	@OnMessage
 	public void onMessage(String message, Session session) throws IOException {
@@ -43,15 +45,31 @@ public class WebSocketServerGroup {
 			String cid = (String)	session.getRequestParameterMap().get("group").get(0);
 
 		
-			//String logPath = "C:\\save\\"+cid+"_"+forSaveText+".txt"; 
-			String logPath = "C:\\save\\"+cid+".txt";
+			String logPath = "C:\\save\\"+cid; 
+		
 			
 			  File file = new File(logPath);
+			  
 			   
 			  try {
 			   
 			   if(!file.exists())
+				  file.mkdirs();
+			   
+			   logPath = "C:\\save\\"+cid+"\\"+cid+"_"+forDateTitle+".txt";
+			   file = new File(logPath);
+			   
+			   if(!file.exists()) {
+			   
 				   file.createNewFile();
+				   BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file,true));   
+				   if(file.isFile() && file.canWrite()){
+
+		                bufferedWriter.write("=========["+checkDate+"]=========");
+		                bufferedWriter.newLine();
+		                bufferedWriter.close();}
+			  
+			   }
 			  
 			   BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file,true));
 	            
