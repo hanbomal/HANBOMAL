@@ -78,10 +78,12 @@ list-style: none;}
  
  
  		<c:if test="${count==0 }">
-			<table class="w3-table table-bordered" width="100%">
-			<tr class="w3-grey">
-			<td align="center">업로드된 사진이 없습니다.</td>
+			<div class="w3-card-4 w3-center w3-padding-top">
+			<table class="w3-table table-bordered w3-center" width="100%">
+			<tr class="w3-light-grey">
+			<td class="w3-center w3-padding"><br>업로드된 사진이 없습니다.<br><br></td>
 			</table>
+			</div>
 		</c:if>
 		
 		<c:if test="${count!=0 }">	

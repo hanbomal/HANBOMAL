@@ -44,26 +44,25 @@
 </div>
   <table class="w3-table  w3-centered" style="width: 100%; border:black;">
     <tr class="w3-black">
-      <th>번 호</th>
-      <th>제 목</th>
-      <th>작성자</th>
-      <th>작성일</th>
-      <th>조 회</th>
+      <th class="w3-center" width="50">번 호</th>
+      <th class="w3-center" width="250">제 목</th>
+      <th class="w3-center" width="100">작성자</th>
+      <th class="w3-center" width="150">작성일</th>
+      <th class="w3-center" width="50">조 회</th>
     </tr>
-
 		
     <c:forEach var="article" items="${articleList}">
 			<tr class="w3-hover-white" onclick="$('#content').load('../board/content?num=${article.num}&pageNum=${currentPage }')">
-			<td>${number}</td>
+			<td class="w3-center" width="50">${number}</td>
 			<c:set var="number" value="${number-1}"/>
-				<td>${article.subject }
+				<td width="250">${article.subject }
 			<c:if test="${article.readcount>=20 }">
 					<img src="../imgs/hot.gif" border="0" height="16"> 
 			</c:if>	
 				</td>
-				<td>${article.writer}</td>
-				<td>${article.reg_date}</td>
-				<td>${article.readcount}</td>
+				<td class="w3-center" width="100">${article.writer}</td>
+				<td class="w3-center" width="150">${article.reg_date}</td>
+				<td class="w3-center" width="50">${article.readcount}</td>
 			</tr>
 	</c:forEach>
 
@@ -82,6 +81,33 @@
       <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
     </div>
   </div>
+  
+  <!-- 
+    	<div class="w3-center w3-section w3-small">
+    	<c:if test="${startPage>bottomLine}">
+    		 <a href="list?pageNum=${startPage-bottomLine}" class="w3-bar-item w3-button w3-hover-black">«</a>
+    		</c:if>
+    		<c:forEach var="i" begin="${startPage }" end="${endPage }">
+    		<c:if test="${i!=currentPage}">
+    		  <a href="list?pageNum=${i}"
+    		 class="w3-bar-item w3-button w3-hover-black">${i}</a> 
+    		 	</c:if>
+    		<c:if test="${i==currentPage}">
+    		  <a href="list?pageNum=${i}" 
+    		  class="w3-bar-item w3-black w3-button">${i}</a> 
+    		</c:if>
+    		</c:forEach>
+    	<c:if test="${endPage<pageCount}">
+    		 <a href="list?pageNum=${ startPage+bottomLine}" class="w3-bar-item w3-button w3-hover-black">»</a>
+    			</c:if>
+    		 
+    	</div>
+  
+   -->
+  
+  
+  
+  
   </div>
 </div>
 

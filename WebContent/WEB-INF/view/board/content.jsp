@@ -13,38 +13,41 @@
 
 <div class="w3-container " style="height:600px; overflow:auto; ">
 	<div class="w3-container " style="width: 100%;">
-  		<div class="w3-card-4" >
+  		<div class="w3-card-2" style="margin-top:10px" >
   		 	 <div  id="content" style="height:100%; background: rgba(241, 241, 241, 0.75);" >
-  		 	   <font size=6>${article.subject}</font>|..게시판(해당 boardid)<br>
-  		 	   <b>&nbsp;&nbsp;글내용 보기</b>
+  		 	   <font size=6>...게시판</font>|비공개 게시판<br>
+  		 	   <br>
+  		 	   
 	<div class="w3-container">
-		<table class="w3-table w3-card" style="width: 100%;">
-			<tr height="30">
-				<td class="w3-black w3-center" width="100">작성자</td>
-				<td style="border:1px black solid;">${article.writer}</td>
-				<td class="w3-black w3-center" width="100">조회수</td>
-				<td  style="border:1px black solid;">${article.readcount}</td>
+		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 100%;">
+			<tr>
+				<th class="w3-black w3-center" colspan="4" >제목: [${article.subject}]</th>
 			</tr>
 			<tr height="30">
-				<td class="w3-black w3-center" width="100">글제목</td>
-				<td  style="border:1px black solid;" >${article.subject}</td>
-				<td class="w3-black w3-center" width="100">작성일</td>
-				<td  style="border:1px black solid;">${article.reg_date}</td>
+				<th width="25%" align="center">글번호</th>
+				<td width="25%" align="center">${article.num}</td>
+				<th width="25%" align="center">조회수</th>
+				<td width="25%" align="center">${article.readcount}</td>
 			</tr>
 			<tr height="30">
-				
-				<td style="border:1px black solid;" colspan=4 >${article.content}</td>
+				<th width="25%" align="center">작성자</th>
+				<td width="25%" align="center">${article.writer}</td>
+				<th width="25%" align="center">작성일</th>
+				<td width="25%" align="center">${article.reg_date}</td>
+			</tr>
+			<tr height="30">
+				<td width="100%" align="left" colspan="4" style="padding: 50px;"><pre>${article.content}</pre></td>
 			</tr>
 			
 		</table> 
 		<div class="w3-center w3-padding-16">
-		<input class="w3-button w3-teal" type="button" value="글수정" 
+		<input class="w3-button w3-black" type="button" value="글수정" 
 		onclick="document.location.href='updateForm?num=${article.num}&pageNum=${pageNum}'">
-		&nbsp;&nbsp;
-		<input class="w3-button w3-teal" type="button" value="글삭제"
+	
+		<input class="w3-button w3-black" type="button" value="글삭제"
 		onclick="document.location.href='deleteForm?num=${article.num}&pageNum=${article.num}'">
-		&nbsp;&nbsp; 
-		<input class="w3-button w3-teal" type="button" value="글목록"
+		
+		<input class="w3-button w3-black" type="button" value="글목록"
 		onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board')">
 		<!-- 글목록 넘어갈때 pagenum 보내줘야함 -->
 		</div>

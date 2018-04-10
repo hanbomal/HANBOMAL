@@ -69,7 +69,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       <div class="w3-dropdown-hover w3-right"> 
     <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
     <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;">
-      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판1</a>
+      <a href="#" class="w3-bar-item w3-button" onclick="document.getElementById('makeBoard').style.display='block'">게시판추가</a>
       <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판2</a>
       <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판3</a>
     </div>
@@ -102,4 +102,28 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 </div>
 
 </div>
+
+
+
+  <div id="makeBoard" class="w3-modal "  >
+    <div class="w3-modal-content w3-card-4" style="width:40%">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('makeBoard').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h6><i class="fa fa-plus"></i> 게시판 만들기</h6>
+      </header>
+      <div class="w3-container">
+      <div style="margin-top:10px">
+      <font size=3>⦁ 게시판 이름</font>
+      <font size=2>[비공개 여부</font>
+       <input type="checkbox" name="chk" value="1">]
+      </div>
+        <input class="w3-input" type="text" name="boardname">
+      </div>
+      <div class="w3-container">
+       	<input type="submit" 
+        class="w3-input w3-teal w3-center w3-section" value="만들기">
+        </div>
+    </div>
+  </div>
 </html>
