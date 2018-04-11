@@ -25,6 +25,17 @@
 		select studyboardser.nextval from dual
 	</select>
 	
+	
+	<select id="boardidser" resultType="string">
+		select boardidser.nextval from dual
+	</select>
+	
+	<insert id="addBoard" parameterType="Type">
+      insert into boardtype(studynum, boardid, boardname, chkprivate)
+      values(#{studynum},#{boardid},#{boardname},#{chkprivate})
+   </insert>
+	
+	
 	<insert id="insertBoard" parameterType="Board">
       insert into studyboard(num, writer, subject, reg_date, 
       content,readcount,  boardid, filename, filesize)

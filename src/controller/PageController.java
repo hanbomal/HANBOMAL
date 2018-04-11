@@ -48,14 +48,6 @@ public class PageController {
 		return memberid;
 	}
 
-	// 		<c:forEach items="${groupList}" var="groupList">
-	// get groupList Method
-	/*public List<RelationVO> getGroupList() {
-		List<RelationVO> groupList=null;
-		groupList=relationDB.getGroupList(memberid);
-		return groupList;
-	}*/
-	
 	@RequestMapping("/main")
 	public String main(Model mv, String studyName,HttpServletRequest req, String chk) throws Throwable {
 		autoComplete(mv);
@@ -210,7 +202,7 @@ public class PageController {
 		mv.addAttribute("groupList",groupList);
 		System.out.println(memberid);
 		mv.addAttribute("memberid",memberid);
-		mv.addAttribute("num",group);
+		req.setAttribute("group", group);
 		return "page/study_test";
 	}
 	

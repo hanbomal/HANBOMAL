@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.BoardDAO;
+import model.BoardTypeVO;
 import model.BoardVO;
 
 @Controller
@@ -32,7 +33,6 @@ public class BoardController {
 		}
 		return memberid;
 	}
-	
 	BoardDAO boardDB = BoardDAO.getInstance();
 	
 	String boardid = "1";
@@ -45,6 +45,19 @@ public class BoardController {
 		if (pageNum != null && pageNum != "")
 			this.pageNum = pageNum;
 	}
+	
+	@RequestMapping("/addBoardType")
+	public String addBoardType(BoardTypeVO board) throws Throwable {
+		String chkprivate = board.getChkprivate();
+		if(chkprivate==null) {
+			board.setChkprivate("0"); // public board
+		}
+		boardDB.addBoard(board);
+		return "redirect:/board/study_board";
+	}
+	
+	
+	
 	@RequestMapping("/study_board")
 	public String study_board(Model mv) throws Throwable {
 		int pageSize = 5;
@@ -126,4 +139,7 @@ public class BoardController {
 		mv.addAttribute("pageNum", pageNum);
 		return "redirect:/board/study_board";
 	}
+	
+	
+	
 }

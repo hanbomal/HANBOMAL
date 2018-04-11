@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import model.BoardTypeVO;
 import model.BoardVO;
 import dao.MybatisConnector;
 
@@ -19,6 +20,15 @@ public class BoardDAO extends MybatisConnector {
 
 	SqlSession sqlSession;
 
+	public void addBoard(BoardTypeVO board) {
+		sqlSession = sqlSession();
+		String boardid = sqlSession.selectOne(namespace + ".boardidser");
+		board.setBoardid(boardid);
+		sqlSession.insert(namespace + ".addBoard", board);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
 	public int getArticleCount(String boardid) {
 		int x = 0;
 		sqlSession = sqlSession();

@@ -114,18 +114,67 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
         class="w3-button w3-display-topright">&times;</span>
         <h6><i class="fa fa-plus"></i> 게시판 만들기</h6>
       </header>
+      <form id="addboardForm" method="post">
+      <input type="hidden" name="studynum" value="<%=request.getParameter("group") %>" >
       <div class="w3-container">
       <div style="margin-top:10px">
       <font size=3>⦁ 게시판 이름</font>
       <font size=2>[비공개 여부</font>
-       <input type="checkbox" name="chk" value="1">]
+       <input type="checkbox" name="chkprivate" value="1">]
+       <!-- null or 1(private)  -->
       </div>
         <input class="w3-input" type="text" name="boardname">
       </div>
       <div class="w3-container">
-       	<input type="submit" 
+       	<input type="submit" onclick="addboard()" 
         class="w3-input w3-teal w3-center w3-section" value="만들기">
         </div>
+        </form>
     </div>
   </div>
+<!--   
+ <script type="text/javascript" src="../api/httpRequest.js"></script> 
+ <script type="text/javascript">
+	function contentToServer(num){
+		var params ="num="+num+"&pageNum=${currentPage}"
+		sendRequest("../board/content",params,responseFromServer,"POST");
+	}
+	function writeFormToServer(){
+		var params ="boardid=${boardid}"
+		sendRequest("../board/writeForm",params,responseFromServer,"POST");
+	}
+	function responseFromServer(){
+		if(httpRequest.readyState==4){
+			if(httpRequest.status==200){
+				document.getElementById("content").innerHTML=httpRequest.responseText
+			}
+		}
+	}
+</script>  -->
+
+	<script type="text/javascript">
+		function addboard(){
+			event.preventDefault();
+			
+			var form=$('#addboardForm')[0];
+			var formData= new FormData(form);
+			 $.ajax({
+                         type: 'POST',
+              			 url: '../board/addBoardType',
+              		     	data: formData,
+              		      processData: false,
+                          contentType: false,
+                         success: function(data){
+                            $('#content').html(data);
+                         }
+                 });
+			 document.getElementById('makeBoard').style.display='none'; 
+		}
+	
+	</script>
+	
+
+
+  
+	
 </html>
