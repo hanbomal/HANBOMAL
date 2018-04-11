@@ -6,12 +6,16 @@
 <script>
   function checkValue()
     {
-	  
+
 	  if(!document.memberInfo.memberid.value){
+		  
+		  
+		
           alert("ID를 입력하세요.");
+          
           return false;
       }
-      
+
       
 	  if(!document.memberInfo.nickname.value){
           alert("닉네임을 입력하세요.");
