@@ -7,7 +7,7 @@
 <script>
 $(document).ready(function(){    $('#content').load('<%=request.getContextPath()%>/calcontroller/listview');
 document.getElementById('contentTitle').innerHTML='달력';
-$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=1&name=${memberid}'); });
+$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${num}&name=${memberid}'); });
 
  $( function() {
     $( "#draggable" ).draggable({ handle: "#handle" });

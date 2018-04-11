@@ -19,7 +19,7 @@
   		 	   <br>
   		 	   
 	<div class="w3-container">
-		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 100%;">
+		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 90%;margin-left:5%">
 			<tr>
 				<th class="w3-black w3-center" colspan="4" >제목: [${article.subject}]</th>
 			</tr>

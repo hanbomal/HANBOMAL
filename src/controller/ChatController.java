@@ -38,8 +38,10 @@ public class ChatController {
 	String datetext = sdf.format(date);
 
 	@RequestMapping("/intro")
-	public String intro(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
+	public String intro(HttpServletRequest req, HttpServletResponse res,String num, String memberid ) throws Throwable {
+		req.setAttribute("num", num);
+		req.setAttribute("memberid", memberid);
+		
 		String cid = "1"; // 임의로 지정. 수정해야 함
 
 		String rootDirPath = "C:\\save\\" + cid;

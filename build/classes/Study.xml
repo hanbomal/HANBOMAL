@@ -12,6 +12,14 @@
 		values(#{num},#{studyName},#{peopleCount},#{leader},sysdate,#{study_pro},#{study_back},
 		#{study_intro},#{proSize},#{backSize})
 	</insert>
+	
+	<!--두번째 리더가 닉네임에 해당, 나중에 변경  -->
+	<insert id="addRelation" parameterType="hashmap">
+		insert into studyrelation
+		values(#{leader},
+		#{studyName},0,#{leader},sysdate,sysdate,
+		'방장',#{leader},2)
+	</insert>
 
 	<select id="resultList" resultType="Room" parameterType="hashmap">
 		select * from studygroup where studyName like '%'||#{studyName}||'%'
@@ -20,8 +28,11 @@
 		select * from studygroup where studyName like '%'||#{studyName}||'%' ORDER BY openDate DESC
 	</select>
 	
+	<select id="getGroupList" resultType="Room" parameterType="hashmap">
+	select * from studygroup where leader=#{memberid}
+or studyname in (select studyName from studyrelation where (memberid=#{memberid} and status=2))
+	</select>
 	
-
  <select id="getRelation" parameterType="hashmap" resultType="Relation">
 		select memberId,r.studyName, joinPoint, r.nickName,
 		joinDate, lastDate, position, r.leader, status
@@ -33,4 +44,6 @@
 	<select id="getAllStudy" resultType="Room">
 		select * from studygroup
 	</select>
+	
+	
 </mapper>

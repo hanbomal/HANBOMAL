@@ -2,7 +2,6 @@ package controller;
 
 import java.io.FileOutputStream;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,15 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import dao.BoardDAO;
 import dao.RelationDAO;
 import dao.StudyDAO;
-import model.BoardVO;
 import model.RelationVO;
 import model.StudyVO;
 
@@ -29,6 +25,8 @@ import model.StudyVO;
 public class PageController {
 	RelationDAO relationDB = RelationDAO.getInstance();
 	StudyDAO studyDB = StudyDAO.getInstance();
+	
+	
 	// autoComplete Method
 	public void autoComplete(Model mv) throws Throwable {
 		// auto_complete
@@ -45,14 +43,23 @@ public class PageController {
 		HttpSession session = req.getSession();
 		String memberid = (String) session.getAttribute("memberid");
 		if (memberid == null) {
-			memberid = "";
+			memberid = "defaultID";
 		}
 		return memberid;
 	}
 
+	// 		<c:forEach items="${groupList}" var="groupList">
+	// get groupList Method
+	/*public List<RelationVO> getGroupList() {
+		List<RelationVO> groupList=null;
+		groupList=relationDB.getGroupList(memberid);
+		return groupList;
+	}*/
+	
 	@RequestMapping("/main")
 	public String main(Model mv, String studyName,HttpServletRequest req, String chk) throws Throwable {
 		autoComplete(mv);
+		
 		if (studyName == null) {
 			studyName = "defaultName";
 		}
@@ -64,6 +71,8 @@ public class PageController {
 		mv.addAttribute("group", group);
 		mv.addAttribute("studyName", studyName);
 		mv.addAttribute("chk",chk);
+		List<StudyVO> groupList=studyDB.getGroupList(memberid);
+		mv.addAttribute("groupList",groupList);
 		return "page/main";
 	}
 
@@ -131,7 +140,6 @@ public class PageController {
 		study.setStudy_intro(study_intro);
 		study.setPeopleCount(1);
 		study.setLeader(getSessionId(req));
-		System.out.println(study);
 		studyDB.makingStudy(study);
 		return "redirect:/page/main";
 	}
@@ -139,6 +147,9 @@ public class PageController {
 	@RequestMapping("/about")
 	public String about(HttpServletRequest req, HttpServletResponse res, Model mv) throws Throwable {
 		autoComplete(mv);
+		String memberid = getSessionId(req);
+		List<StudyVO> groupList=studyDB.getGroupList(memberid);
+		mv.addAttribute("groupList",groupList);
 		return "page/about";
 	}
 	
@@ -154,8 +165,9 @@ public class PageController {
 	@RequestMapping("/ResponsePage")
 	public String ResponsePage(Model mv,HttpServletRequest req) throws Throwable {
 		autoComplete(mv);
-	
 		String memberid = getSessionId(req);
+		List<StudyVO> groupList=studyDB.getGroupList(memberid);
+		mv.addAttribute("groupList",groupList);
 		List<RelationVO> resList = relationDB.responseList(memberid);
 		mv.addAttribute("resList", resList);
 		return "page/ResponsePage";
@@ -175,44 +187,48 @@ public class PageController {
 		return "page/ResponsePage";
 	}
 	@RequestMapping("/study_album")
-	public String study_album(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
+	public String study_album(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		String memberid = getSessionId(req);
+		List<StudyVO> groupList=studyDB.getGroupList(memberid);
+		mv.addAttribute("groupList",groupList);
 		return "page/study_album";
 	}
 
 	@RequestMapping("/study_making")
-	public String study_making(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
+	public String study_making(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		String memberid = getSessionId(req);
+		List<StudyVO> groupList=studyDB.getGroupList(memberid);
+		mv.addAttribute("groupList",groupList);
 		return "page/study_making";
 	}
 	
 	@RequestMapping("/test")
-	public String test(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+	public String test(HttpServletRequest req, String num,Model mv) throws Throwable {
 		autoComplete(mv);
-		HttpSession session = req.getSession();
-			
-		String memberid=((String)session.getAttribute("memberid"));
-			
-		
-		if(memberid==null) {
-			memberid="aaa";
-		}
-		
+		String memberid=getSessionId(req);
+		List<StudyVO> groupList=studyDB.getGroupList(memberid);
+		mv.addAttribute("groupList",groupList);
 		System.out.println(memberid);
-		req.setAttribute("memberid", memberid); 
-		
+		mv.addAttribute("memberid",memberid);
+		mv.addAttribute("num",num);
 		return "page/study_test";
 	}
 	
 	@RequestMapping("/test2")
 	public String test2(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
 		autoComplete(mv);
+		String memberid = getSessionId(req);
+		List<StudyVO> groupList=studyDB.getGroupList(memberid);
+		mv.addAttribute("groupList",groupList);
 		return "page/study_test2";
 	}
 	
 	@RequestMapping("/study_info")
 	public String study_info(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
 		autoComplete(mv);
+		String memberid = getSessionId(req);
+		List<StudyVO> groupList=studyDB.getGroupList(memberid);
+		mv.addAttribute("groupList",groupList);
 		return "study/study_info";
 	}
 	
@@ -225,6 +241,9 @@ public class PageController {
 	@RequestMapping("/study_gallery")
 	public String study_gallery(HttpServletRequest req, HttpServletResponse res, Model mv) throws Throwable {
 		autoComplete(mv);
+		String memberid = getSessionId(req);
+		List<StudyVO> groupList=studyDB.getGroupList(memberid);
+		mv.addAttribute("groupList",groupList);
 		return "gallery/study_gallery";
 	}
 	

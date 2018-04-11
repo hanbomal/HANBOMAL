@@ -2,14 +2,14 @@
 	pageEncoding="EUC-KR"%>
 	     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-    <%
+<%--     <%
     String name=request.getParameter("name");
     if(name==null) name="公疙";
     
     String group=request.getParameter("group");
     if(group==null) group="快府尝府";
     %>
-	
+ --%>	
 		
 <!DOCTYPE html>
 <!--  -->
@@ -214,8 +214,8 @@ onchange="javascript:TextFind.display();">
 
  </div>
   </div>
-  <input type="hidden" name="name" value="<%=name%>">
-  <input type="hidden" name="studynum" value="<%=group%>">
+  <input type="hidden" name="name" value="${memberid}">
+  <input type="hidden" name="studynum" value="${num}">
   
   </form>
   </div>
@@ -258,7 +258,7 @@ if(isEmpty=='false'){
     		
     		 var webSocket = new WebSocket(
     				    'ws://localhost:8080<%=request.getContextPath()%>/webGroup?name='
-    				    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
+    				    		+encodeURIComponent('${memberid}')+'&group='+encodeURIComponent('${num}'));
         var inputMessage = document.getElementById('inputMessage');
     
     webSocket.onerror = function(event) {     onError(event)   };
@@ -275,8 +275,7 @@ if(isEmpty=='false'){
     	for(var i=0;i<cutTmp.length;i++){
     		cutTmp[i].trim();
     	}
-		return cutTmp;
-
+    	return cutTmp;
 
     }
     function onMessage(event) {
