@@ -7,7 +7,7 @@
 <script>
 $(document).ready(function(){    $('#content').load('<%=request.getContextPath()%>/calcontroller/listview');
 document.getElementById('contentTitle').innerHTML='달력';
-$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=1&name=${memberid}'); });
+$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${num}&name=${memberid}'); });
 
  $( function() {
     $( "#draggable" ).draggable({ handle: "#handle" });
@@ -53,7 +53,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       </div>
      <div class="w3-card-4">
  <!-- 채팅 div -->
-  <div class="w3-container ui-widget-content" id="chat" style="padding:0; margin:0; overflow:auto; background: rgba(241, 241, 241, 0.75); ">
+  <div class="w3-container ui-widget-content" id="chat" ondrop="drop(event)" ondragover="allowDrop(event)" style="padding:0; margin:0; overflow:auto; background: rgba(241, 241, 241, 0.75); ">
 
       </div>
   

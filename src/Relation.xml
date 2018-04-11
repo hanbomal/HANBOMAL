@@ -23,7 +23,7 @@
 	<select id="responseList" resultType="Relation" parameterType="hashmap">
 	SELECT * FROM studyrelation WHERE leader=#{memberid} and status=1
 	</select>
-	
+
 	<update id="answerYes" parameterType="hashmap">
 		update studyrelation set status=2 
 		where memberid=#{memberid} and leader=#{leader}
@@ -35,6 +35,5 @@
 		where memberid=#{memberid} and leader=#{leader}
 		and studyName=#{studyName}
 	</update>
-	
 	
 </mapper>

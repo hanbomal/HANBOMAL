@@ -27,6 +27,7 @@ public class StudyDAO extends MybatisConnector{
 		int num=sqlSession.selectOne(namespace+".getNextNum");
 		study.setNum(num);
 		sqlSession.insert(namespace+".makingStudy",study);
+		sqlSession.insert(namespace+".addRelation",study);
 		sqlSession.commit();
 		sqlSession.close();
 	}
@@ -72,4 +73,15 @@ public class StudyDAO extends MybatisConnector{
 		sqlSession.close();
 		return li;
 	}
+	
+	public List<StudyVO> getGroupList(String memberid) {
+		sqlSession=sqlSession();
+		Map<String, String> map = new HashMap<>();
+		map.put("memberid", memberid);
+		List<StudyVO> li=sqlSession.selectList(namespace+".getGroupList",map);
+		sqlSession.close();
+		return li;
+	}
+	
+	
 }

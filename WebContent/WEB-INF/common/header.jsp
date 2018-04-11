@@ -115,12 +115,18 @@ body, html {
 					<button class="w3-button">
 						<i class="fa fa-th"></i> WORKSPACE
 					</button>
+					
+					<c:if test="${sessionScope.memberid!=null}">
 					<div class="w3-dropdown-content w3-bar-block w3-border">
-						<a href="study_making" class="w3-bar-item w3-button">개설하기</a> 
-						
-						<a href="test" class="w3-bar-item w3-button">TEST</a>
-							
+						<a href="study_making" class="w3-bar-item w3-button">
+						<i class="fa fa-plus"></i> 
+						그룹추가</a> 
+						<c:forEach items="${groupList}" var="groupList">
+					 <a href="test?group=${groupList.num}" class="w3-bar-item w3-button">${groupList.studyName}</a> 
+						</c:forEach>
 					</div>
+					</c:if>
+					
 				</div>
 		
 			</div>

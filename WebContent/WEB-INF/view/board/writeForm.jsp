@@ -63,7 +63,7 @@
 				</tr>
 				<tr>
 					<th  width="10%" class=" w3-center">내 용</th>
-					<td width="90%"><textarea name="content" rows="13" cols="40"
+					<td width="90%"><textarea name="content" rows="10" cols="40"
 					class="w3-input w3-border-0 w3-hover-light-grey" required="required"
 					></textarea>
 					</td>
