@@ -107,7 +107,7 @@ public class ChatController {
 
 					for (String readLine : list) {
 						readLine.trim();
-						System.out.println(readLine); 
+						 
 						
 						if (readLine.substring(1,8).equals("=======")) {
 							Chatdata cd = new Chatdata();
