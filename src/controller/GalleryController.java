@@ -24,6 +24,7 @@ public class GalleryController {
 	String studynum = "1";
 	String pageNum = "1";
 	String memberid="aaa";
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	
 	@ModelAttribute
 	public void addAttributes(String studynum, String pageNum, String memberid) {
@@ -39,7 +40,7 @@ public class GalleryController {
 	@RequestMapping("/list")
 	public String list(Model model) throws Exception {
 		int pageSize = 8;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
 		
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize + 1;
@@ -58,7 +59,7 @@ public class GalleryController {
 		}
 		number = count - (currentPage - 1) * pageSize;
 
-		int bottomLine = 3;
+		int bottomLine = 5;
 		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
 		int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine;
 		int endPage = startPage + bottomLine - 1;
@@ -91,6 +92,8 @@ public class GalleryController {
 		String num=request.getParameter("num");
 		
 		GalleryVO gallery=gPro.getImage(num);
+		
+		gallery.setFormatDate(sdf.format(gallery.getRegdate()));
 		
 		model.addAttribute("gallery",gallery);
 		

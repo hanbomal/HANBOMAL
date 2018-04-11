@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.websocket.OnClose;
@@ -28,6 +30,7 @@ public class WebSocketServerGroup {
     String datetext=sdf.format(date);
     String forDateTitle=sdf2.format(date);
     String checkDate=sdf3.format(date);
+ 
     
 	@OnMessage
 	public void onMessage(String message, Session session) throws IOException {
@@ -109,14 +112,27 @@ public class WebSocketServerGroup {
 		System.out.println("onOpen");
 		System.out.println(session.getRequestParameterMap());
 		// Add session to the connected sessions set
+		
+		int count=0;
+		  HashSet<String> nameSet=new HashSet<String>();
+		   
+		   
 		clients.add(session);
-		String line ="===fromServer===";
 		
 		for (Session client : clients) {
-			
-		line += (String)client.getRequestParameterMap().get("name").get(0)+",";
+		nameSet.add(client.getRequestParameterMap().get("name").get(0));
+		
 		}
-		line+=clients.size();
+		System.out.println("======네임셋테스트======"+nameSet);
+	
+		String line ="===fromServer===";
+		
+		
+		for (String name : nameSet) {
+			
+		line += name+",";
+		}
+		line+=nameSet.size();
 		System.out.println(line+"=============");
 		
 		try {

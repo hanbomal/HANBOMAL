@@ -50,7 +50,7 @@ overflow: hidden;
  transform: translate(50%,50%);
  } 
 
-.thumbnail .centered #thum { 
+.thumbnail .centered .thum { 
 position: absolute;
  top: 0; left: 0; 
 max-width: 100%;
@@ -93,16 +93,19 @@ list-style: none;}
 <div class="w3-quarter w3-container w3-margin-bottom ">
  
   
-<c:if test="${gallery.name==memberid}">  <!--  나중에 수정  -->
+<c:if test="${gallery.name==memberid}"> 
   <div class="w3-display-container w3-card-4 w3-white thumbnail-wrapper">
     
      <div class="thumbnail w3-topbar  w3-border-amber "> 
 	<div class="centered ">
 	
-		    <img src="<%=request.getContextPath()%>/fileSave/${gallery.filename}" id="thum" style="width: 100%; cursor:pointer; display: max-height: 300px;"
-		     onclick="onClick(${gallery.num})">
+		    <img draggable="true" ondragstart="drag(event)" 
 		    
-		    </div>
+		    src="<%=request.getContextPath()%>/fileSave/${gallery.filename}" class="thum" id="${gallery.num }" style="width: 100%; cursor:pointer; display: max-height: 300px;"
+		     onclick="onClick(${gallery.num})">
+		     
+		     	    
+		      </div>
     </div>
     
     <div class="w3-display-topright w3-display-hover">
@@ -117,7 +120,9 @@ list-style: none;}
      <div class="thumbnail"> 
 	<div class="centered ">
 	
-		    <img src="<%=request.getContextPath()%>/fileSave/${gallery.filename}" id="thum" style="width: 100%; cursor:pointer; max-height: 300px;"
+		    <img draggable="true" ondragstart="drag(event)" 
+		    
+		    src="<%=request.getContextPath()%>/fileSave/${gallery.filename}" class="thum" id="${gallery.num }" style="width: 100%; cursor:pointer; max-height: 300px;"
 		     onclick="onClick(${gallery.num})">
 		    
 		    </div>
@@ -200,8 +205,8 @@ list-style: none;}
 
 <script>
 
-function imageToChat(){
-	var imgSrc=document.getElementById("img01").src;
+function imageToChat(id){
+	var imgSrc=document.getElementById(id).src;
 	var chkMem=document.getElementById("chkMem").value;
 
 	 var now = new Date();
@@ -266,6 +271,30 @@ function deleteImage(num){
 
 	
 }
+
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    //alert(document.getElementById(data).id);
+    imageToChat(document.getElementById(data).id);
+    
+    
+    
+    
+    
+    //ev.target.appendChild(document.getElementById(data));
+}
+
+
 
 </script>
 

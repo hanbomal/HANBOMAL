@@ -69,6 +69,11 @@ function resetFile(){
 	 document.getElementById('fileUpload').value="";
 }
 
+
+
+
+
+
 </script>
 <style type="text/css">
 
@@ -205,8 +210,7 @@ height:auto;}
 
 <label><i class="fa fa-search w3-margin-left" style="font-size:20px"></i></label>&nbsp;
 <input type="text" class="w3-input  w3-hover-light-grey" 
-style="display: inline-block; width: 140px; " id="searchText" placeholder="검색어 입력"
-onchange="javascript:TextFind.display();">
+style="display: inline-block; width: 140px; " id="searchText" placeholder="검색어 입력">
 
 <span class="w3-right w3-margin-right w3-tag w3-white w3-border" >
 <font color="w3-grey" style="font-size:12px;" id="curCount"></font></span>
@@ -219,7 +223,8 @@ onchange="javascript:TextFind.display();">
   
   </form>
   </div>
-<input id="forFilename" type="hidden"></div>
+
+<input id="isEmpty" type="hidden" value="${isEmpty }">
   <!-- 전송창부분 끝 -->
 
 </body>
@@ -228,15 +233,9 @@ onchange="javascript:TextFind.display();">
 var lastday=${lastday};
 var today =new Date().toString('yyyyMMdd');
 
-/* var isEmpty=${isEmpty};
-alert(isEmpty);
 
-if(isEmpty=='true'){
-	alert('true');
-}
-if(isEmpty=='false'){
-	alert('false');
-} */
+ var isEmpty=document.getElementById('isEmpty').value;
+
 
 
   var chatdata = [
@@ -319,11 +318,11 @@ if(isEmpty=='false'){
     	
     	
     	
-       /* textarea.innerHTML += "연결 성공<br>";  */
-     
+     	if(chatdata.length!=0){
+    	 textarea.innerHTML += "<span class='w3-small'>대화 내용은 3일치까지 표시됩니다.</span><br>";  }
          
 	for(var i=0;i<chatdata.length;i++){
-		
+		  
 		  var l0=chatdata[i].name;
 		  var l1=chatdata[i].date;
 		  var l2=chatdata[i].content.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&"); 
@@ -331,7 +330,7 @@ if(isEmpty=='false'){
 		  
 		
 		if(l0=='server'){
-			textarea.innerHTML +="<div class='w3-margin-top' style='width:100%;' align='center'>"
+			textarea.innerHTML +="<div class='w3-margin-top dateTitle' style='width:100%;' align='center'>"
 			+"<span class='w3-tag w3-white w3-border w3-margin-top'>"+l2+"</span></div><br>";
 			
 		}	
@@ -342,18 +341,31 @@ if(isEmpty=='false'){
 				  +"<li class='w3-large' style='border:none;' align='right'>"
 			          +"<span class='w3-small'>"+l1+"</span>&nbsp;"
 			         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
-			          +"<span class='w3-medium'>"+l2+"</span></span></li></ul></td></tr></table></div>";
+			          +"<span class='w3-medium messageClass'>"+l2+"</span></span></li></ul></td></tr></table></div>";
 		          
 			  
 		  }else{
 
+			  
+			   
+			  textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td><ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
+			      +l0+
+			      "<span class='w3-small'>&nbsp;"+l1+"</span><br>"
+			      +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
+			      +" <span class='w3-medium'><font color='white'>"+l2+"</font></span>"
+			    +" </div></li></ul></td></tr></table></div>"; 
+			     
+			  
+			  
+			  
+		/* 	  시간이 아래쪽에있는거
 		 textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td>"
 		 +"<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
 	        +l0+"<br>"
 	        +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
 	        +" <span class='w3-medium'><font color='white'>"+l2+"</font></span>"
 	      +" </div><br><span class='w3-small'>"+l1+"</span></li></ul></td></tr></table></div>"; 
-	      
+	       */
 		  
 		  
 		  }
@@ -396,22 +408,20 @@ if(isEmpty=='false'){
         	 
          	}
          
-         if(lastday!=today){
+         if((lastday!=today)||(isEmpty=='true')){
         	
         	 var todaytext=new Date().toString('yyyy년 MM월 dd일');
        
 
         	 
-        	 textarea.innerHTML +="<div class='w3-margin-top' style='width:100%;' align='center'>"
+        	 textarea.innerHTML +="<div class='w3-margin-top dateTitle' style='width:100%;' align='center'>"
      			+"<span class='w3-tag w3-white w3-border w3-margin-top'>"+todaytext+"</span></div><br>";
         	 
          	lastday=today;
-         	
+         	isEmpty='false';
          }
         
-         
-        
-         
+      
         	
        if( document.getElementById('fileUpload').value!=""){
     	   
@@ -480,9 +490,41 @@ if(isEmpty=='false'){
   			  
         inputMessage.value = "";
        }
+         
+         
+         
+         document.getElementById('searchText').value='';
+            
+             
+             $("#messageWindow > div").show();
+         
        textarea.scrollTop=textarea.scrollHeight;
 			
 	}
+    
+    
+    
+    
+    
+    $(document).ready(function() {
+        $('#searchText').keyup(function() {
+            var k = $(this).val();
+            if(k==""||k==null){
+            	 textarea.scrollTop=textarea.scrollHeight;
+            }
+            
+            $("#messageWindow > div").hide();
+            var temp = $("#messageWindow > div>table:contains('" + k + "')");
+    	$('.dateTitle').show();
+            $(temp).parent().show(); 
+           
+        })
+    })
+    
+    
+    
+    
+    
 
 function checkKey(e){
     if(!e){ e = window.event; }
