@@ -4,10 +4,12 @@
 <html>
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/lib/jquery.min.js"></script>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 
+
 <script>
-$(document).ready(function(){    $('#content').load('<%=request.getContextPath()%>/calcontroller/listview');
+$(document).ready(function(){    $('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=<%=request.getParameter("group")%>');
 document.getElementById('contentTitle').innerHTML='달력';
-$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${num}&name=${memberid}'); });
+$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=<%=request.getParameter("group")%>&name=<%=session.getAttribute("memberid")%>'); });
 
  $( function() {
     $( "#draggable" ).draggable({ handle: "#handle" });

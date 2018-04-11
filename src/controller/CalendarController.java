@@ -16,28 +16,16 @@ import model.CalendarVO;
 @RequestMapping("/calcontroller")
 public class CalendarController {
 
-	@RequestMapping("/test")
-	public String test(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 
-		CalendarDAO cpro = CalendarDAO.getInstance();
-
-		List li = null;
-
-		li = cpro.getCalendarList(1); // 임의로 1로 해놓음
-
-		req.setAttribute("list", li);
-
-		return "calendar/study_calendar";
-	}
 
 	@RequestMapping("/listview")
-	public String listview(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+	public String listview(HttpServletRequest req, HttpServletResponse res, String num) throws Throwable {
 
 		CalendarDAO cpro = CalendarDAO.getInstance();
 
 		List li = null;
 
-		li = cpro.getCalendarList(1); // 임의로 1로 해놓음
+		li = cpro.getCalendarList(Integer.parseInt(num)); // 임의로 1로 해놓음
 
 		//System.out.println(li);
 
@@ -47,7 +35,7 @@ public class CalendarController {
 	}
 
 	@RequestMapping("/addPro1")
-	public String addPro1(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+	public String addPro1(HttpServletRequest req, HttpServletResponse res, String num) throws Throwable {
 		CalendarDAO cpro=CalendarDAO.getInstance();
     	CalendarVO calendar=new CalendarVO();
     	
@@ -65,7 +53,7 @@ public class CalendarController {
         	
     	calendar.setStartdate(req.getParameter("startdate"));
     	calendar.setEnddate(req.getParameter("enddate"));
-    	calendar.setStudynum(1);	//임의로 1로 해놓음
+    	calendar.setStudynum(Integer.parseInt(num));	
     	
     	cpro.addCalendar(calendar);
     	System.out.println(calendar);

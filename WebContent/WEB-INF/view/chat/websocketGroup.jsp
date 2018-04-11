@@ -2,14 +2,14 @@
 	pageEncoding="EUC-KR"%>
 	     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%--     <%
+     <%
     String name=request.getParameter("name");
     if(name==null) name="¹«¸í";
     
     String group=request.getParameter("group");
     if(group==null) group="¿ì¸®³¢¸®";
     %>
- --%>	
+
 		
 <!DOCTYPE html>
 <!--  -->
@@ -219,7 +219,7 @@ style="display: inline-block; width: 140px; " id="searchText" placeholder="°Ë»ö¾
  </div>
   </div>
   <input type="hidden" name="name" value="${memberid}">
-  <input type="hidden" name="studynum" value="${num}">
+  <input type="hidden" name="studynum" value="${group}">
   
   </form>
   </div>
@@ -257,7 +257,7 @@ var today =new Date().toString('yyyyMMdd');
     		
     		 var webSocket = new WebSocket(
     				    'ws://211.238.142.34:8080<%=request.getContextPath()%>/webGroup?name='
-    				    		+encodeURIComponent('${memberid}')+'&group='+encodeURIComponent('${num}'));
+    				    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
         var inputMessage = document.getElementById('inputMessage');
     
     webSocket.onerror = function(event) {     onError(event)   };

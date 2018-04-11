@@ -203,14 +203,14 @@ public class PageController {
 	}
 	
 	@RequestMapping("/test")
-	public String test(HttpServletRequest req, String num,Model mv) throws Throwable {
+	public String test(HttpServletRequest req, String group,Model mv) throws Throwable {
 		autoComplete(mv);
 		String memberid=getSessionId(req);
 		List<StudyVO> groupList=studyDB.getGroupList(memberid);
 		mv.addAttribute("groupList",groupList);
 		System.out.println(memberid);
 		mv.addAttribute("memberid",memberid);
-		mv.addAttribute("num",num);
+		mv.addAttribute("num",group);
 		return "page/study_test";
 	}
 	
