@@ -54,9 +54,9 @@ public class BoardController {
 		}
 		boardDB.addBoard(board);
 		
-		String boardid=board.getBoardid();
 		int studyNum=board.getStudynum();
 		String group=Integer.toString(studyNum);
+		boardid=boardDB.getNextBoardid(group)+"";
 		
 		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
 		mv.addAttribute("typeList",typeList);
@@ -64,7 +64,7 @@ public class BoardController {
 		mv.addAttribute("group",group);
 		
 		
-		return "board/study_board";
+		return "redirect:/board/study_board?boardid="+boardid;
 	}
 	
 	

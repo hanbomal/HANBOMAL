@@ -101,5 +101,17 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 		return deleteNum;
 	}
+	
+
+	public int getNextBoardid(String group) {
+		int x = 0;
+		sqlSession = sqlSession();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("group", group);
+		
+		x = sqlSession.selectOne(namespace + ".getNextBoardid", map);
+		sqlSession.close();
+		return x;
+	}
 
 }

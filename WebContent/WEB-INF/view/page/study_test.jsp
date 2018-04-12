@@ -79,7 +79,20 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       	    <c:forEach var="typeList" items="${typeList}">
      			 <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board?group=${type.studynum }&boardid=${type.boardid }');document.getElementById('contentTitle').innerHTML='게시판'">${typeList.boardname }</a> 
 			</c:forEach>
-	  </c:if>	   	
+	  </c:if>
+	  
+	  
+	  <!-- 	   
+	  
+  textarea.innerHTML +="<table align='left' style='width:100%;'><tr><td><ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
+      +texts[0]+
+      "<span class='w3-small'>&nbsp;"+texts[1]+"</span><br>"
+      +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
+      +" <span class='w3-medium'><font color='white'>"+texts[2]+"</font></span>"
+    +" </div></li></ul></td></tr></table>"; 
+    
+	  
+	  	 -->
     </div> 
 
   </div>

@@ -19,6 +19,9 @@
 		select studyboardser.nextval from dual
 	</select>
 	
+	<select id="getNextBoardid" resultType="int">
+		select boardidser.nextval from dual
+	</select>
 	
 	<select id="boardidser" resultType="string">
 		select boardidser.nextval from dual
