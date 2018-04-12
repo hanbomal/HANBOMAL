@@ -53,7 +53,7 @@ body, html {
 	<!-- Navbar (sit on top) -->
 	<div class="w3-top">
 		<div class="w3-bar w3-white w3-card" id="myNavbar">
-			<a href="main" class="w3-bar-item w3-button w3-wide">HANBOMAL</a>
+			<a href="<%=request.getContextPath()%>/page/main" class="w3-bar-item w3-button w3-wide">HANBOMAL</a>
 
 			<!-- autoComplete Form-->
 			<div class="w3-left" style="margin-top: 11px;">
@@ -102,7 +102,7 @@ body, html {
 						<i class="fa fa-th"></i> ${sessionScope.memberid} 님
 					</button>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
-						<a href="../member/before_check" class="w3-bar-item w3-button">MY PAGE
+						<a href="<%=request.getContextPath() %>/member/before_check" class="w3-bar-item w3-button">MY PAGE<!-- 지혜가 도와준 절대경로 -->
 						</a> 
 						<a href="RequestPage" class="w3-bar-item w3-button">WAITING
 						</a>
@@ -175,7 +175,7 @@ body, html {
 			</div>
 			
 
-			<form class="w3-container" method="post" action="../member/loginPro" onsubmit="return checkValue()">
+			<form class="w3-container" method="post" action="${pageContext.request.contextPath}/member/loginPro"" onsubmit="return checkValue()">
 				<div class="w3-section">
 			
 					<label><b>ID</b></label> <input
@@ -197,7 +197,7 @@ body, html {
 					type="button" class="w3-button w3-black">취소</button>
 					
 				<span class="w3-right w3-padding w3-hide-small"><a
-					href="../member/join2">회원가입</a>&nbsp;&nbsp;&nbsp; <a href="../member/findPasswd">비밀번호</a>를
+					href="${pageContext.request.contextPath}/member/join2"">회원가입</a>&nbsp;&nbsp;&nbsp; <a href=".${pageContext.request.contextPath}/member/findpasswd"">비밀번호</a>를
 					잊으셨나요?</span>
 					
 			</div>

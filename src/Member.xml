@@ -50,5 +50,10 @@
 	select memberser.nextval from dual
 	
 	</select>
+	
+
+
+
+</insert>	
 
 </mapper>

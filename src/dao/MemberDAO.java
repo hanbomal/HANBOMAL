@@ -73,6 +73,7 @@ public class MemberDAO extends MybatisConnector {
 		}
 		
 
+
 		public MemberVO getMember(String memberid) {
 		
 			sqlSession= sqlSession();
@@ -199,10 +200,10 @@ public int confirmId(String memberid) {
         pstmt.setString(1, memberid);
         rs= pstmt.executeQuery();
 
-		if(rs.next())//아이디 존재
-			x= 1; //같은 아이디 있음
+		if(rs.next())//���대�� 議댁��
+			x= 1; //媛��� ���대�� ����
 		else
-			x= -1;//같은 아이디 없음
+			x= -1;//媛��� ���대�� ����
     } catch(Exception ex) {
         ex.printStackTrace();
     } finally {

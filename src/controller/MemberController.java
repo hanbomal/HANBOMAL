@@ -78,9 +78,13 @@ public class MemberController {
 	   public String LogoutPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		      
 	       HttpSession  session = req.getSession();
+	       
+	       MemberVO member = new MemberVO();
+			MemberDAO dbpro = MemberDAO.getInstance();
+			
 	      
 	       session.invalidate(); //
-	       res.sendRedirect(req.getContextPath() + "/page/main"); // ����ȭ������ �ٽ� ���ư���.
+	       res.sendRedirect(req.getContextPath() + "/page/main"); // 
 	      return null;
 	   }
 	
@@ -196,7 +200,7 @@ public class MemberController {
     return "member/before_checkPro";
 }
  
- @RequestMapping("/findPasswd")    //패스워드 찾는 폼 
+ @RequestMapping("/findPasswd")    //�⑥�ㅼ���� 李얜�� �� 
  public String bfindPasswd(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 
  return "member/findPasswd";
