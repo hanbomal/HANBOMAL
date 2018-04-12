@@ -37,22 +37,40 @@ public class BoardController {
 	
 	String boardid = "1";
 	String pageNum = "1";
+	String group="1";
 
 	@ModelAttribute
-	public void addAttributes(String boardid, String pageNum) {
+	public void addAttributes(String boardid, String pageNum, String group) {
 		if (boardid != null)
 			this.boardid = boardid;
 		if (pageNum != null && pageNum != "")
 			this.pageNum = pageNum;
+		if (group != null)
+			this.group = group;
 	}
 	
 	@RequestMapping("/addBoardType")
-	public String addBoardType(BoardTypeVO board) throws Throwable {
+	public String addBoardType(BoardTypeVO board,Model mv,HttpServletRequest req) throws Throwable {
 		String chkprivate = board.getChkprivate();
 		if(chkprivate==null) {
 			board.setChkprivate("0"); // public board
 		}
+		group=board.getStudynum()+"";
+		boardid=boardDB.getNextBoardid(group)+"";
+		board.setBoardid(boardid);
 		boardDB.addBoard(board);
+		//typeList 
+		HttpSession session = req.getSession();
+		List<BoardTypeVO> typeList=(List)session.getAttribute("typeList");
+		typeList=boardDB.getTypeList(group);
+		session.setAttribute("typeList", typeList);
+		
+		
+		
+		mv.addAttribute("boardid",boardid);
+		mv.addAttribute("group",group);
+		
+		
 		return "redirect:/board/study_board";
 	}
 	
@@ -61,7 +79,6 @@ public class BoardController {
 	@RequestMapping("/study_board")
 	public String study_board(Model mv) throws Throwable {
 		int pageSize = 5;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize + 1;
 		int endRow = currentPage * pageSize;
@@ -69,9 +86,9 @@ public class BoardController {
 		int number = 0;
 		List articleList = null;
 		BoardDAO dbPro = BoardDAO.getInstance();
-		count = dbPro.getArticleCount(boardid);
+		count = dbPro.getArticleCount(boardid,group);
 		if (count > 0) {
-			articleList = dbPro.getArticles(startRow, endRow, boardid);
+			articleList = dbPro.getArticles(startRow, endRow, boardid,group);
 		}
 		number = count - (currentPage - 1) * pageSize;
 		
@@ -82,6 +99,10 @@ public class BoardController {
 		if (endPage > pageCount)
 			endPage = pageCount;
 			
+		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
+		mv.addAttribute("boardType",boardType);
+		
+		
 		mv.addAttribute("boardid",boardid);
 		mv.addAttribute("pageCount",pageCount);
 		mv.addAttribute("endPage",endPage);

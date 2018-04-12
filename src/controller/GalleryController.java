@@ -38,8 +38,9 @@ public class GalleryController {
 	}
 	
 	@RequestMapping("/list")
-	public String list(Model model) throws Exception {
+	public String list(HttpServletRequest request, Model model) throws Exception {
 		int pageSize = 8;
+		
 		
 		
 		int currentPage = Integer.parseInt(pageNum);
@@ -77,6 +78,7 @@ public class GalleryController {
 		model.addAttribute("number", number);
 		model.addAttribute("count", count);
 		model.addAttribute("memberid", memberid);
+		
 		
 		
 		return "gallery/study_gallery";
@@ -119,8 +121,6 @@ public class GalleryController {
 		gallery.setContent("삭제된 사진입니다.");
 		
 		gPro.updateGallery(gallery);
-		
-		
 		
 		
 		String path = request.getRealPath("/") + "fileSave/deletedImage.png";

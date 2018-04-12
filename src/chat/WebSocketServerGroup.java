@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.websocket.OnClose;
@@ -44,7 +44,8 @@ public class WebSocketServerGroup {
 			= "["+name.substring(1, name.indexOf("]"))
 			+ "] [" +datetext+"] ["+ message+"]";
 			
-			System.out.println(movemessage);
+			//System.out.println(movemessage);
+			
 			String cid = (String)session.getRequestParameterMap().get("group").get(0);
 
 		
@@ -114,16 +115,22 @@ public class WebSocketServerGroup {
 		// Add session to the connected sessions set
 		
 		int count=0;
+	
+			
 		  HashSet<String> nameSet=new HashSet<String>();
 		   
 		   
 		clients.add(session);
 		
 		for (Session client : clients) {
+			
+		
+			
+			
 		nameSet.add(client.getRequestParameterMap().get("name").get(0));
 		
 		}
-		System.out.println("======네임셋테스트======"+nameSet);
+		//System.out.println("======네임셋테스트======"+nameSet);
 	
 		String line ="===fromServer===";
 		
