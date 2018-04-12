@@ -71,10 +71,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       <div class="w3-dropdown-hover w3-right"> 
     <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
     <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;">
-      <a href="#" class="w3-bar-item w3-button" onclick="document.getElementById('makeBoard').style.display='block'">게시판추가</a>
-      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판2</a>
-      <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판3</a>
-    </div>
+      <a href="#" class="w3-bar-item w3-button" onclick="document.getElementById('makeBoard').style.display='block'"><i class="fa fa-plus"></i>게시판추가</a>
+      <c:if test="${typeList!=null}">
+      	    <c:forEach var="typeList" items="${typeList}">
+     			 <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board?group=${type.studynum }&boardid=${type.boardid }');document.getElementById('contentTitle').innerHTML='게시판'">${typeList.boardname }</a> 
+			</c:forEach>
+	  </c:if>	   	
+    </div> 
   </div>
   <button class="w3-button w3-right " onclick="$('#content').load('<%=request.getContextPath()%>/calcontroller/listview');document.getElementById('contentTitle').innerHTML='달력'">달력</button>
       
@@ -116,6 +119,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       </header>
       <form id="addboardForm" method="post">
       <input type="hidden" name="studynum" value="<%=request.getParameter("group") %>" >
+      <input type="hidden" name="boardid" value="${boardid }" >
       <div class="w3-container">
       <div style="margin-top:10px">
       <font size=3>⦁ 게시판 이름</font>
@@ -123,7 +127,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
        <input type="checkbox" name="chkprivate" value="1">]
        <!-- null or 1(private)  -->
       </div>
-        <input class="w3-input" type="text" name="boardname">
+        <input id="clearName" class="w3-input" type="text" name="boardname">
       </div>
       <div class="w3-container">
        	<input type="submit" onclick="addboard()" 
@@ -132,25 +136,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
         </form>
     </div>
   </div>
-<!--   
- <script type="text/javascript" src="../api/httpRequest.js"></script> 
- <script type="text/javascript">
-	function contentToServer(num){
-		var params ="num="+num+"&pageNum=${currentPage}"
-		sendRequest("../board/content",params,responseFromServer,"POST");
-	}
-	function writeFormToServer(){
-		var params ="boardid=${boardid}"
-		sendRequest("../board/writeForm",params,responseFromServer,"POST");
-	}
-	function responseFromServer(){
-		if(httpRequest.readyState==4){
-			if(httpRequest.status==200){
-				document.getElementById("content").innerHTML=httpRequest.responseText
-			}
-		}
-	}
-</script>  -->
 
 	<script type="text/javascript">
 		function addboard(){
@@ -161,13 +146,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 			 $.ajax({
                          type: 'POST',
               			 url: '../board/addBoardType',
-              		     	data: formData,
-              		      processData: false,
-                          contentType: false,
+              		     data: formData,
+              		     processData: false,
+                         contentType: false,
                          success: function(data){
                             $('#content').html(data);
                          }
                  });
+			 document.getElementById('clearName').value=""; 
 			 document.getElementById('makeBoard').style.display='none'; 
 		}
 	

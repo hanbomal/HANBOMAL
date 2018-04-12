@@ -47,21 +47,28 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/addBoardType")
-	public String addBoardType(BoardTypeVO board) throws Throwable {
+	public String addBoardType(BoardTypeVO board,Model mv) throws Throwable {
 		String chkprivate = board.getChkprivate();
 		if(chkprivate==null) {
 			board.setChkprivate("0"); // public board
 		}
 		boardDB.addBoard(board);
-		return "redirect:/board/study_board";
+		
+		String boardid=board.getBoardid();
+		int studyNum=board.getStudynum();
+		String group=Integer.toString(studyNum);
+		
+		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
+		mv.addAttribute("typeList",typeList);
+		
+		return "redirect:/board/study_board?group="+group+"boardid="+boardid;
 	}
 	
 	
 	
 	@RequestMapping("/study_board")
-	public String study_board(Model mv) throws Throwable {
+	public String study_board(Model mv, String group, String boardid) throws Throwable {
 		int pageSize = 5;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize + 1;
 		int endRow = currentPage * pageSize;
@@ -69,9 +76,9 @@ public class BoardController {
 		int number = 0;
 		List articleList = null;
 		BoardDAO dbPro = BoardDAO.getInstance();
-		count = dbPro.getArticleCount(boardid);
+		count = dbPro.getArticleCount(boardid,group);
 		if (count > 0) {
-			articleList = dbPro.getArticles(startRow, endRow, boardid);
+			articleList = dbPro.getArticles(startRow, endRow, boardid,group);
 		}
 		number = count - (currentPage - 1) * pageSize;
 		
@@ -82,6 +89,10 @@ public class BoardController {
 		if (endPage > pageCount)
 			endPage = pageCount;
 			
+		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
+		mv.addAttribute("typeList",typeList);
+		
+		
 		mv.addAttribute("boardid",boardid);
 		mv.addAttribute("pageCount",pageCount);
 		mv.addAttribute("endPage",endPage);
