@@ -60,8 +60,11 @@ public class BoardController {
 		
 		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
 		mv.addAttribute("typeList",typeList);
+		mv.addAttribute("boardid",boardid);
+		mv.addAttribute("group",group);
 		
-		return "redirect:/board/study_board?group="+group+"boardid="+boardid;
+		
+		return "board/study_board";
 	}
 	
 	

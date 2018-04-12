@@ -123,7 +123,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       </header>
       <form id="addboardForm" method="post">
       <input type="hidden" name="studynum" value="<%=request.getParameter("group") %>" >
-      <input type="hidden" name="boardid" value="${boardid }" >
+     
       <div class="w3-container">
       <div style="margin-top:10px">
       <font size=3>⦁ 게시판 이름</font>
