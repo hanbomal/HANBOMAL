@@ -19,7 +19,15 @@ public class BoardDAO extends MybatisConnector {
 	}
 
 	SqlSession sqlSession;
-
+	public List<BoardTypeVO> getTypeList(String group) {
+		sqlSession = sqlSession();
+		Map<String, String> map = new HashMap<>();
+		map.put("group", group);
+		List<BoardTypeVO> li = sqlSession.selectList(namespace + ".getTypeList", map);
+		sqlSession.close();
+		return li;
+	}
+	
 	public void addBoard(BoardTypeVO board) {
 		sqlSession = sqlSession();
 		String boardid = sqlSession.selectOne(namespace + ".boardidser");
@@ -29,22 +37,24 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 	}
 	
-	public int getArticleCount(String boardid) {
+	public int getArticleCount(String boardid,String group) {
 		int x = 0;
 		sqlSession = sqlSession();
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("boardid", boardid);
+		map.put("num", group);
 		x = sqlSession.selectOne(namespace + ".getArticleCount", map);
 		sqlSession.close();
 		return x;
 	}
-
-	public List getArticles(int startRow, int endRow, String boardid) {
+	
+	public List getArticles(int startRow, int endRow, String boardid, String group) {
 		sqlSession = sqlSession();
 		Map map = new HashMap();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		map.put("boardid", boardid);
+		map.put("num", group);
 		List li = sqlSession.selectList(namespace + ".getArticles", map);
 		sqlSession.close();
 		return li;

@@ -3,21 +3,15 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
-
 	<select id="getArticleCount" resultType="int" parameterType="hashmap">
-		select nvl(count(*),0) from studyboard
-		<if test="num!=null">
-			WHERE num = #{num}
-		</if>
-		<if test="boardid!=null">
-			WHERE boardid=#{boardid}
-		</if>
+		select nvl(count(*),0) from studyboard 	WHERE num = #{num}
+		and boardid=#{boardid}
 	</select>
 	
 	<select id="getArticles" resultType="Board" parameterType="hashmap">
 		select * from (select rownum rnum ,a.* from (select num,writer,subject,
 					reg_date,readcount,content
-					 from studyboard where boardid = #{boardid} order by reg_date desc) 
+					 from studyboard where boardid = #{boardid} and num=#{num} order by reg_date desc) 
 					a ) where rnum  between #{startRow} and #{endRow}
 	</select>
 	
@@ -60,5 +54,9 @@
  	  delete from studyboard where num=#{num} and passwd=#{passwd} 
    </delete> 	
 		
+	<select id="getTypeList" resultType="Type" parameterType="hashmap">	
+	select * from boardtype where studynum = #{group} order by chkprivate desc
+	</select> 
+					
 		
 </mapper>

@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import dao.BoardDAO;
 import dao.RelationDAO;
 import dao.StudyDAO;
+import model.BoardTypeVO;
 import model.RelationVO;
 import model.StudyVO;
 
@@ -25,7 +27,7 @@ import model.StudyVO;
 public class PageController {
 	RelationDAO relationDB = RelationDAO.getInstance();
 	StudyDAO studyDB = StudyDAO.getInstance();
-	
+	BoardDAO boardDB = BoardDAO.getInstance();
 	
 	// autoComplete Method
 	public void autoComplete(Model mv) throws Throwable {
@@ -199,13 +201,17 @@ public class PageController {
 		autoComplete(mv);
 		String memberid=getSessionId(req);
 		List<StudyVO> groupList=studyDB.getGroupList(memberid);
+		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
 		mv.addAttribute("groupList",groupList);
-		System.out.println(memberid);
 		mv.addAttribute("memberid",memberid);
 		
+
 		mv.addAttribute("group",group);
-		
+		mv.addAttribute("typeList",typeList);
 		//System.out.println("====group test======="+group);
+
+		
+
 		return "page/study_test";
 	}
 	
