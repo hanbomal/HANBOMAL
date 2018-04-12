@@ -7,9 +7,9 @@
  
 
 <script>
-$(document).ready(function(){    $('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=<%=request.getParameter("group")%>');
+$(document).ready(function(){    $('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=${group}');
 document.getElementById('contentTitle').innerHTML='달력';
-$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=<%=request.getParameter("group")%>&name=<%=session.getAttribute("memberid")%>'); });
+$('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=${group}&name=${memberid }'); });
 
  $( function() {
     $( "#draggable" ).draggable({ handle: "#handle" });
@@ -20,6 +20,8 @@ $('#chat').load('<%=request.getContextPath()%>/chatcontroller/intro?group=<%=req
          minWidth: 500
     });
   } );
+ 
+
  
  
   </script>
@@ -66,7 +68,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   <div class="w3-twothird w3-container resizable1" id="draggable2" >
   <div class="w3-container w3-white"><h6  style="display: inline-block; cursor: move;" id="contentTitle"></h6>
   <button class="w3-button w3-right "
-  onclick="$('#content').load('<%=request.getContextPath()%>/gallery/list?memberid=${memberid }');document.getElementById('contentTitle').innerHTML='사진첩'">사진첩</button>
+  onclick="$('#content').load('<%=request.getContextPath()%>/gallery/list?memberid=${memberid }&studynum=${group }');document.getElementById('contentTitle').innerHTML='사진첩'">사진첩</button>
   
       <div class="w3-dropdown-hover w3-right"> 
     <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
@@ -74,9 +76,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       <a href="#" class="w3-bar-item w3-button" onclick="document.getElementById('makeBoard').style.display='block'">게시판추가</a>
       <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판2</a>
       <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판3</a>
+    
+    
     </div>
   </div>
-  <button class="w3-button w3-right " onclick="$('#content').load('<%=request.getContextPath()%>/calcontroller/listview');document.getElementById('contentTitle').innerHTML='달력'">달력</button>
+  <button class="w3-button w3-right " onclick="$('#content').load('<%=request.getContextPath()%>/calcontroller/listview?num=${group }');document.getElementById('contentTitle').innerHTML='달력'">달력</button>
       
       </div>
     <div class="w3-card-4" >

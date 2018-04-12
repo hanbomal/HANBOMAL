@@ -180,6 +180,7 @@ jQuery(document).ready(function(){
 	<input type="reset" class="w3-button" value="다시쓰기"></li>
 	
 	</ul>
+	<input type="hidden" name="num" value="${num}">
 	</form>
 
 </div>
@@ -269,8 +270,8 @@ function checkValue(){
 
 function toUpdatePage(data){
 	
-	var id="id="+data;
-		sendRequest("<%=request.getContextPath()%>/calcontroller/updateForm",id,fromServer,"POST");	
+	var data1="id="+data+"&num=<%=request.getAttribute("num")%>";
+		sendRequest("<%=request.getContextPath()%>/calcontroller/updateForm",data1,fromServer,"POST");	
 		event.preventDefault(); 	
 	}
 
@@ -299,9 +300,9 @@ function update(data){
 		
 	}
 function deleteSchedule(data){
-	var id="id="+data;
+	var data1="id="+data+"&num=<%=request.getAttribute("num")%>";
 	
-	sendRequest("<%=request.getContextPath()%>/calcontroller/deleteCalendar",id,fromServer,"POST");
+	sendRequest("<%=request.getContextPath()%>/calcontroller/deleteCalendar",data1,fromServer,"POST");
 	
 }
 

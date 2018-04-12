@@ -6,8 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import dao.CalendarDAO;
 import model.CalendarVO;
@@ -30,6 +31,7 @@ public class CalendarController {
 		//System.out.println(li);
 
 		req.setAttribute("list", li);
+		req.setAttribute("num", num);
 
 		return "calendar/study_calendar2";
 	}
@@ -58,7 +60,10 @@ public class CalendarController {
     	cpro.addCalendar(calendar);
     	System.out.println(calendar);
     	
+    	req.setAttribute("group", num);
     	
+    	
+    	//System.out.println(num+"=============testtesttest");
 
 		return "calendar/addComp";
 	}
@@ -67,12 +72,15 @@ public class CalendarController {
 	public String deleteCalendar(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 
 		CalendarDAO cpro=CalendarDAO.getInstance();
-    	String num=req.getParameter("id");
+    	String snum=req.getParameter("id");
+    	String num=req.getParameter("num");
     	
-    	cpro.deleteCalendar(num);
+    	cpro.deleteCalendar(snum);
     	
         System.out.println("스케쥴 삭제");
        
+        req.setAttribute("group", num);
+        
 		return "calendar/deleteComp";
 	}
 
@@ -95,9 +103,11 @@ public class CalendarController {
 
 		
 		  String id = req.getParameter("id");
+		  String num=req.getParameter("num");
 		  CalendarDAO cpro=CalendarDAO.getInstance();
 		  CalendarVO calendar=cpro.getCalendar(id);
 		  req.setAttribute("calendar",calendar); 
+		  req.setAttribute("group", num);
 		
 		return "calendar/updateSchedule";
 
@@ -119,15 +129,12 @@ public class CalendarController {
 		  calendar.setTitle(req.getParameter("title"));
 		  
 		cpro.updateCalendar(calendar);
+		
+		req.setAttribute("group", req.getParameter("studynum"));
 	  
 		return "calendar/updateComp";
 
 	}
 
-	@RequestMapping("/test1")
-	public String test1(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-
-		return "calendar/addComp";
-
-	}
+	
 }

@@ -202,7 +202,10 @@ public class PageController {
 		mv.addAttribute("groupList",groupList);
 		System.out.println(memberid);
 		mv.addAttribute("memberid",memberid);
-		req.setAttribute("group", group);
+		
+		mv.addAttribute("group",group);
+		
+		//System.out.println("====group test======="+group);
 		return "page/study_test";
 	}
 	
