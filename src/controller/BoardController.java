@@ -37,40 +37,47 @@ public class BoardController {
 	
 	String boardid = "1";
 	String pageNum = "1";
+	String group="1";
 
 	@ModelAttribute
-	public void addAttributes(String boardid, String pageNum) {
+	public void addAttributes(String boardid, String pageNum, String group) {
 		if (boardid != null)
 			this.boardid = boardid;
 		if (pageNum != null && pageNum != "")
 			this.pageNum = pageNum;
+		if (group != null)
+			this.group = group;
 	}
 	
 	@RequestMapping("/addBoardType")
-	public String addBoardType(BoardTypeVO board,Model mv) throws Throwable {
+	public String addBoardType(BoardTypeVO board,Model mv,HttpServletRequest req) throws Throwable {
 		String chkprivate = board.getChkprivate();
 		if(chkprivate==null) {
 			board.setChkprivate("0"); // public board
 		}
-		boardDB.addBoard(board);
-		
-		int studyNum=board.getStudynum();
-		String group=Integer.toString(studyNum);
+		group=board.getStudynum()+"";
 		boardid=boardDB.getNextBoardid(group)+"";
+		board.setBoardid(boardid);
+		boardDB.addBoard(board);
+		//typeList 
+		HttpSession session = req.getSession();
+		List<BoardTypeVO> typeList=(List)session.getAttribute("typeList");
+		typeList=boardDB.getTypeList(group);
+		session.setAttribute("typeList", typeList);
 		
-		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
-		mv.addAttribute("typeList",typeList);
+		
+		
 		mv.addAttribute("boardid",boardid);
 		mv.addAttribute("group",group);
 		
 		
-		return "redirect:/board/study_board?boardid="+boardid;
+		return "redirect:/board/study_board";
 	}
 	
 	
 	
 	@RequestMapping("/study_board")
-	public String study_board(Model mv, String group, String boardid) throws Throwable {
+	public String study_board(Model mv) throws Throwable {
 		int pageSize = 5;
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize + 1;
@@ -92,8 +99,8 @@ public class BoardController {
 		if (endPage > pageCount)
 			endPage = pageCount;
 			
-		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
-		mv.addAttribute("typeList",typeList);
+		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
+		mv.addAttribute("boardType",boardType);
 		
 		
 		mv.addAttribute("boardid",boardid);

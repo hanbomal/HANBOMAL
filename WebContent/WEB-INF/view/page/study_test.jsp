@@ -77,7 +77,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       <a href="#" class="w3-bar-item w3-button" onclick="document.getElementById('makeBoard').style.display='block'"><i class="fa fa-plus"></i>게시판추가</a>
       <c:if test="${typeList!=null}">
       	    <c:forEach var="typeList" items="${typeList}">
-     			 <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board?group=${type.studynum }&boardid=${type.boardid }');document.getElementById('contentTitle').innerHTML='게시판'">${typeList.boardname }</a> 
+     			 <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board?group=${typeList.studynum }&boardid=${typeList.boardid }');document.getElementById('contentTitle').innerHTML='게시판'">${typeList.boardname }</a> 
 			</c:forEach>
 	  </c:if>
 	  

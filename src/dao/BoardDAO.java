@@ -30,11 +30,22 @@ public class BoardDAO extends MybatisConnector {
 	
 	public void addBoard(BoardTypeVO board) {
 		sqlSession = sqlSession();
-		String boardid = sqlSession.selectOne(namespace + ".boardidser");
-		board.setBoardid(boardid);
 		sqlSession.insert(namespace + ".addBoard", board);
 		sqlSession.commit();
 		sqlSession.close();
+	}
+	
+	
+
+	public BoardTypeVO getBoardType(String boardid, String group) {
+		sqlSession = sqlSession();
+		Map map = new HashMap<>();
+		map.put("boardid", boardid);
+		map.put("group", group);
+		BoardTypeVO boardType = sqlSession.selectOne(namespace + ".getBoardType", map);
+		sqlSession.commit();
+		sqlSession.close();
+		return boardType;
 	}
 	
 	public int getArticleCount(String boardid,String group) {

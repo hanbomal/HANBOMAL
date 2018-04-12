@@ -205,11 +205,12 @@ public class PageController {
 		mv.addAttribute("groupList",groupList);
 		mv.addAttribute("memberid",memberid);
 		
-
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("typeList", typeList);
 		mv.addAttribute("group",group);
-		mv.addAttribute("typeList",typeList);
 		//System.out.println("====group test======="+group);
-
+		
 		
 
 		return "page/study_test";

@@ -23,10 +23,6 @@
 		select boardidser.nextval from dual
 	</select>
 	
-	<select id="boardidser" resultType="string">
-		select boardidser.nextval from dual
-	</select>
-	
 	<insert id="addBoard" parameterType="Type">
       insert into boardtype(studynum, boardid, boardname, chkprivate)
       values(#{studynum},#{boardid},#{boardname},#{chkprivate})
@@ -47,6 +43,10 @@
 	<select id="getArticle" resultType="Board" parameterType="hashmap">
 		select * from studyboard where num =#{num} and boardid =#{boardid}
 	</select>
+					
+	<select id="getBoardType" resultType="Type" parameterType="hashmap">
+		select * from boardtype where studynum =#{group} and boardid =#{boardid}
+	</select>			
 					
 	<update id="updateArticle" parameterType="Board">
 		update studyboard set writer=#{writer}, email=#{email},subject=#{subject},

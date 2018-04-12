@@ -35,11 +35,11 @@
 <div class="w3-container " style="width: 100%;">
   <div class="w3-card-2" style="margin-top:10px" >
  <div  id="content" style="height:100%; background: rgba(241, 241, 241, 0.75);" >
-     <font size=6>${typeList.boardname}</font>
-   <c:if test="${typeList.chkprivate==1}">
+     <font size=6>${boardType.boardname}</font>
+   <c:if test="${boardType.chkprivate==1}">
    |비공개 게시판
    </c:if>
-   <c:if test="${typeList.chkprivate!=1}">
+   <c:if test="${boardType.chkprivate!=1}">
    |공개 게시판
    </c:if>
      <br><br>
