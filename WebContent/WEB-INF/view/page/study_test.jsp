@@ -114,7 +114,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       onclick="$('#content').load('<%=request.getContextPath()%>/page/study_admin');document.getElementById('contentTitle').innerHTML='스터디 관리'">스터디 관리</button></span>
       
       <span class="w3-right w3-margin-right">
-      <button class="w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/page/study_info');document.getElementById('contentTitle').innerHTML='스터디 정보'">스터디 정보</button></span> 
+      <button class="w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/page/study_info?studynum=${group }');document.getElementById('contentTitle').innerHTML='스터디 정보'">스터디 정보</button></span> 
       
       </div>
     </div>

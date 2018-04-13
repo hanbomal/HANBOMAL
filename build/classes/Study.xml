@@ -18,7 +18,7 @@
 		insert into studyrelation
 		values(#{leader},
 		#{studyName},0,#{leader},sysdate,sysdate,
-		'방장',#{leader},2)
+		'방장',#{leader},2,null)
 	</insert>
 
 	<select id="resultList" resultType="Room" parameterType="hashmap">
@@ -44,6 +44,11 @@ or studyname in (select studyName from studyrelation where (memberid=#{memberid}
 	<select id="getAllStudy" resultType="Room">
 		select * from studygroup
 	</select>
+	
+		<select id="getOneStudy" resultType="Room">
+		select * from studygroup where num=#{num}
+	</select>
+	
 	
 	
 </mapper>

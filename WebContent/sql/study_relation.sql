@@ -8,7 +8,8 @@ CREATE table studyrelation(
   lastDate DATE NOT NULL ,
   position VARCHAR2(100),
   leader VARCHAR2(100),
-  status INT
+  status INT,
+  photo varchar(50)
 );
 SELECT *
 FROM studyrelation;

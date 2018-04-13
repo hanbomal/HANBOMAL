@@ -281,14 +281,27 @@ var today =new Date().toString('yyyyMMdd');
     	 if(event.data.substr(0,16)=='===fromServer==='){
       		var serverMessage=event.data.substr(16,event.data.length);
       		var fromServer=serverMessage.split(',');
-      		document.getElementById("curCount").innerHTML ='현재 접속자 : '+fromServer[fromServer.length-1]+'명'; 
+      		
+      		
+      		
       		
       		var curmem="";
+      		var count=0;
       		for(var i=0; i<fromServer.length-1;i++){
-      			curmem+=fromServer[i]+",";
+      			
+      			var groupAndName=fromServer[i].split("-");
+      			
+      			if(groupAndName[0]==<%=group%>){
+      				count++;
+      				curmem+=groupAndName[1]+",";
+      			}
+      			
+      			
+      			
+      			
       		}
       		document.getElementById("curMember").innerHTML =curmem.substr(0,curmem.length-1)+'님이 참여 중'; 
-      		
+      		document.getElementById("curCount").innerHTML ='현재 접속자 : '+count+'명'; 
       		 textarea.scrollTop=textarea.scrollHeight;
       		return;
       	}
@@ -336,7 +349,7 @@ var today =new Date().toString('yyyyMMdd');
 		else if(l0=='<%=name%>'){
 			
 		          
-			  textarea.innerHTML +="<div><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+			  textarea.innerHTML +="<div ><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
 				  +"<li class='w3-large' style='border:none;' align='right'>"
 			          +"<span class='w3-small'>"+l1+"</span>&nbsp;"
 			         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
@@ -447,7 +460,7 @@ var today =new Date().toString('yyyyMMdd');
     	       rename=data;
     	       
        	    inputMessage.value="<img src=<%=request.getContextPath()%>/fileSave/"+rename+"><br>"+inputMessage.value;
-       	 textarea.innerHTML +="<div><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+       	 textarea.innerHTML +="<div><table  align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
 			  +"<li class='w3-large' style='border:none;' align='right'>"
 		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
 		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
@@ -472,7 +485,7 @@ var today =new Date().toString('yyyyMMdd');
     	    
        }else{
     	   
-    	   textarea.innerHTML +="<div><table align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
+    	   textarea.innerHTML +="<div><table  align='right' width='100%'><tr><td><ul class='w3-ul w3-margin-bottom' style='display:block; '>"
  			  +"<li class='w3-large' style='border:none;' align='right'>"
  		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
  		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"

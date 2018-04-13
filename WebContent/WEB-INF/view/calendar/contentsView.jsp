@@ -19,14 +19,6 @@
 	</table>
 	<button class="w3-button"  onclick="toUpdatePage(${calendar.num});">수정</button>
 	<input type="reset" class="w3-button" onclick="deleteSchedule(${calendar.num});" value="삭제">
-	<%-- <ul class="w3-ul w3-light-grey"><li>
-	<table class="w3-table"><tr ><td><label>제목</label></td><td>${calendar.title}</td></tr></table></li>
-	<li><table class="w3-table"><tr><td><label>장소</label></td><td>${calendar.place}</td></tr></table></li>
-	<li><label>시작일</label>${calendar.startdate}</li>
-	<li><label>종료일</label>${calendar.enddate}</li>
-	<li><label>내용</label>${calendar.description}</li>
-	<li><button class="w3-button"  onclick="toUpdatePage(${calendar.num});">수정</button><input type="reset" class="w3-button" onclick="deleteSchedule(${calendar.num});" value="삭제"></li>
 	
-	</ul> --%>
 	</form>
 </div></div></div>
