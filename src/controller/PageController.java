@@ -231,6 +231,21 @@ public class PageController {
 		String memberid = getSessionId(req);
 		List<StudyVO> groupList=studyDB.getGroupList(memberid);
 		mv.addAttribute("groupList",groupList);
+		
+		String studynum=req.getParameter("studynum");
+		
+		StudyVO study=studyDB.getOneStudy(studynum);
+		
+		List members=relationDB.getJoinMemberList(study.getStudyName());
+		
+		
+		mv.addAttribute("members",members);
+		mv.addAttribute("study",study);
+		mv.addAttribute("memberCount",members.size());
+		mv.addAttribute("memberid",memberid);
+	
+		
+		
 		return "study/study_info";
 	}
 	
@@ -248,6 +263,26 @@ public class PageController {
 		mv.addAttribute("groupList",groupList);
 		return "gallery/study_gallery";
 	}
+	
+	
+	@RequestMapping("/showMyInfo")
+	public String showMyInfo(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		autoComplete(mv);
+		
+		String memberid=req.getParameter("name");
+		String group=req.getParameter("group");
+		
+		StudyVO study=studyDB.getOneStudy(group);
+		
+		RelationVO memberInfo=relationDB.getMemberInfo(study.getStudyName(), memberid);
+		
+		
+		mv.addAttribute("memberInfo",memberInfo);
+		
+		
+		return "study/viewMyInfo";
+	}
+	
 	
 
 }

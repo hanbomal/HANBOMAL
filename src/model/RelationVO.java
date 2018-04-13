@@ -12,7 +12,14 @@ public class RelationVO {
 	String position; 
 	String leader; 
 	String status;
+	String photo;
 	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public String getStatus() {
 		return status;
 	}

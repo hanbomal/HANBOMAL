@@ -41,4 +41,12 @@
 		and studyName=#{studyName}
 	</update>
 	
+	<select id="getJoinMemberList" resultType="Relation" parameterType="hashmap">
+	SELECT * FROM studyrelation WHERE studyName=#{studyName} and status=2
+	</select>
+	
+	<select id="getMemberInfo" resultType="Relation" parameterType="hashmap">
+	SELECT * FROM studyrelation WHERE studyName=#{studyName} and memberid=#{memberid} and status=2
+	</select>
+	
 </mapper>
