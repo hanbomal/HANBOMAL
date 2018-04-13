@@ -104,7 +104,7 @@ body, html {
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 						<a href="<%=request.getContextPath() %>/member/before_check" class="w3-bar-item w3-button">MY PAGE<!-- 지혜가 도와준 절대경로 -->
 						</a> 
-						<a href="RequestPage" class="w3-bar-item w3-button">WAITING
+						<a href="<%=request.getContextPath()%>/page/RequestPage" class="w3-bar-item w3-button">WAITING
 						</a>
 						<input class="w3-bar-item w3-button" value="LOGOUT" onclick="logoutPro()"/>
 						
@@ -118,7 +118,7 @@ body, html {
 					
 					<c:if test="${sessionScope.memberid!=null}">
 					<div class="w3-dropdown-content w3-bar-block w3-border">
-						<a href="study_making" class="w3-bar-item w3-button">
+						<a href="<%=request.getContextPath()%>/page/study_making" class="w3-bar-item w3-button">
 						<i class="fa fa-plus"></i> 
 						그룹추가</a> 
 						<c:forEach items="${groupList}" var="groupList">
@@ -197,7 +197,7 @@ body, html {
 					type="button" class="w3-button w3-black">취소</button>
 					
 				<span class="w3-right w3-padding w3-hide-small"><a
-					href="${pageContext.request.contextPath}/member/join2"">회원가입</a>&nbsp;&nbsp;&nbsp; <a href=".${pageContext.request.contextPath}/member/findpasswd"">비밀번호</a>를
+					href="<%=request.getContextPath()%>/member/join2">회원가입</a>&nbsp;&nbsp;&nbsp; <a href=".${pageContext.request.contextPath}/member/findpasswd"">비밀번호</a>를
 					잊으셨나요?</span>
 					
 			</div>

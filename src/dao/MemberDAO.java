@@ -5,17 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-
-import model.MemberVO;
-import dao.MybatisConnector;;
+import model.MemberVO;;
 
 
 public class MemberDAO extends MybatisConnector {
@@ -200,10 +196,10 @@ public int confirmId(String memberid) {
         pstmt.setString(1, memberid);
         rs= pstmt.executeQuery();
 
-		if(rs.next())//���대�� 議댁��
-			x= 1; //媛��� ���대�� ����
+		if(rs.next())
+			x= 1; 
 		else
-			x= -1;//媛��� ���대�� ����
+			x= -1;
     } catch(Exception ex) {
         ex.printStackTrace();
     } finally {
@@ -214,6 +210,31 @@ public int confirmId(String memberid) {
 	return x;
 }
 
+
+
+
+public int getMemberCount() {
+    int x = 0;
+    sqlSession=sqlSession();
+    x = sqlSession.selectOne(namespace+".getMemberCount");
+    sqlSession.close();
+    return x;
+ }
+
+public List getMembers(int startRow, int endRow) {
+	// TODO Auto-generated method stub
+	sqlSession= sqlSession();
+    Map map = new HashMap();
+    map.put("startRow", startRow);
+    map.put("endRow", endRow);
+   
+    
+    List li = sqlSession.selectList(namespace + ".getMembers",map);
+    sqlSession.close();
+	
+	
+	return li;
+}
 
 
 

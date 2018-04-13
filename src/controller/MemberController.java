@@ -1,6 +1,7 @@
 package controller;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -200,7 +201,7 @@ public class MemberController {
     return "member/before_checkPro";
 }
  
- @RequestMapping("/findPasswd")    //�⑥�ㅼ���� 李얜�� �� 
+ @RequestMapping("/findPasswd")    //占썩�ο옙�쇽옙占쏙옙占� 筌≪��占쏙옙 占쏙옙 
  public String bfindPasswd(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 
  return "member/findPasswd";
@@ -233,6 +234,58 @@ public class MemberController {
   
  return "/member/findpasswdPro";
 }
+ @RequestMapping("/member_List")
+ public String member_List(HttpServletRequest request,
+	       HttpServletResponse response)  throws Throwable { 
+	
+	   int pageSize= 10;
+	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	   String pageNum = request.getParameter("pageNum");
+	   if (pageNum == null || pageNum =="") {
+	      pageNum = "1";
+	   }
+	   int currentPage = Integer.parseInt(pageNum);
+	   int startRow = (currentPage - 1) * pageSize + 1;  
+	   
+	   int endRow = currentPage * pageSize;
+	   int count = 0;
+	   int number = 0;
+	   List memberList = null;
+	   MemberDAO dbPro = MemberDAO.getInstance();
+	   count = dbPro.getMemberCount();
+	   //게시판에 있는 글 수 count
+	   if (count > 0) {
+	      memberList = dbPro.getMembers(startRow, endRow);
+	   }
+	   number = count - (currentPage - 1) * pageSize;
+	   int bottomLine = 3; 
+	   int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+	   int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //곱셈, 나눗셈먼저.
+	   int endPage = startPage + bottomLine -1;
+	   
+	   if (endPage > pageCount) endPage = pageCount;
+	   
+	 
+	   request.setAttribute("count", count);
+	  
+	   request.setAttribute("memberList",memberList);
+	   request.setAttribute("number",number);
+	   request.setAttribute("startPage", startPage);
+	   request.setAttribute("bottomLine", bottomLine);
+	   request.setAttribute("pageCount", pageCount);
+	   request.setAttribute("currentPage", currentPage);
+	   request.setAttribute("endPage", endPage);
+	   
+	       return "/member/member_List"; 
+	      } 
+
+
+
+ 
+ 
+ 
+ 
+ 
  
 
 
