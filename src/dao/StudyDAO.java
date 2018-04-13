@@ -83,5 +83,18 @@ public class StudyDAO extends MybatisConnector{
 		return li;
 	}
 	
+	public StudyVO getOneStudy(String studynum) {
+		sqlSession=sqlSession();
+		Map map=new HashMap();
+		map.put("num", studynum);
+		
+		StudyVO study=sqlSession.selectOne(namespace+".getOneStudy",map);
+		
+		sqlSession.close();
+		
+		return study;
+	}
+
+
 	
 }

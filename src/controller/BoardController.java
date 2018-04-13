@@ -104,6 +104,7 @@ public class BoardController {
 		
 		
 		mv.addAttribute("boardid",boardid);
+		mv.addAttribute("group",group);
 		mv.addAttribute("pageCount",pageCount);
 		mv.addAttribute("endPage",endPage);
 		mv.addAttribute("bottomLine",bottomLine);
@@ -117,7 +118,9 @@ public class BoardController {
 	
 	@RequestMapping("/content")
 	public String content(Model mv, int num) throws Throwable {
-		BoardVO article = boardDB.getArticle(num, boardid,"content");
+		BoardVO article = boardDB.getArticle(num, group,boardid,"content");
+		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
+		mv.addAttribute("boardType",boardType);
 		mv.addAttribute("article", article);
 		mv.addAttribute("num", num);
 		mv.addAttribute("pageNum", pageNum);
@@ -127,10 +130,14 @@ public class BoardController {
 	public ModelAndView writeForm(BoardVO article,HttpServletRequest req) throws Exception {
 		String memberid=getSessionId(req);
 		ModelAndView mv = new ModelAndView();
+		System.out.println(boardid);
+		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
+		mv.addObject("boardType",boardType);
 		mv.addObject("boardid", boardid);
 		mv.addObject("num", article.getNum());
 		mv.addObject("pageNum", pageNum);
 		mv.addObject("memberid", memberid);
+		mv.addObject("studynum",group);
 		mv.setViewName("board/writeForm");
 		return mv;
 	}
@@ -155,7 +162,9 @@ public class BoardController {
 			article.setFilename("");
 			article.setFilesize(0);
 		}
+		System.out.println("11111111111111111");
 		System.out.println(article);
+		System.out.println("11111111111111111");
 		boardDB.insertArticle(article);
 		mv.addAttribute("pageNum", pageNum);
 		return "redirect:/board/study_board";

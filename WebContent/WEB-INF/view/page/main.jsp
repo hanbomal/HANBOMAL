@@ -61,7 +61,7 @@
 						
 
 						</div>
-						<div class="w3-cell w3-cell-middle w3-center "
+						<div class="w3-cell w3-cell-middle w3-center"
 							style="width: 10%;padding:5px">
 							<c:if test="${room.relation.status==null||room.relation.status==0}">
 								<form action="requestJoin" method="post">
@@ -92,6 +92,14 @@
 								</div>
 
 							</c:if>
+								<c:if test="${room.relation.status==2}">
+									<div class="w3-tag w3-teal  w3-center" 
+									style="height:50px;width:64px">
+									<div style="margin-top:10px">
+									<i class="fa fa-check"></i>회원</div>
+									</div>
+							
+								</c:if>
 						</div>
 					</div>
 			

@@ -114,7 +114,7 @@ public class WebSocketServerGroup {
 		System.out.println(session.getRequestParameterMap());
 		// Add session to the connected sessions set
 		
-		int count=0;
+		
 	
 			
 		  HashSet<String> nameSet=new HashSet<String>();
@@ -127,7 +127,7 @@ public class WebSocketServerGroup {
 		
 			
 			
-		nameSet.add(client.getRequestParameterMap().get("name").get(0));
+		nameSet.add(client.getRequestParameterMap().get("group").get(0)+"-"+client.getRequestParameterMap().get("name").get(0));
 		
 		}
 		//System.out.println("======네임셋테스트======"+nameSet);
@@ -139,7 +139,7 @@ public class WebSocketServerGroup {
 			
 		line += name+",";
 		}
-		line+=nameSet.size();
+		//line+=nameSet.size();
 		System.out.println(line+"=============");
 		
 		try {
@@ -170,14 +170,26 @@ public class WebSocketServerGroup {
 		System.out.println("onClose");
 		// Remove session from the connected sessions set
 		clients.remove(session);
-String line ="===fromServer===";
-		
-		for (Session client : clients) {
+
+		 HashSet<String> nameSet=new HashSet<String>();
+		   
+			for (Session client : clients) {
+				
+			nameSet.add(client.getRequestParameterMap().get("group").get(0)+"-"+client.getRequestParameterMap().get("name").get(0));
 			
-		line += (String)client.getRequestParameterMap().get("name").get(0)+",";
-		}
-		line+=clients.size();
-		System.out.println(line+"=============");
+			}
+			//System.out.println("======네임셋테스트======"+nameSet);
+		
+			String line ="===fromServer===";
+			
+			for (String name : nameSet) {
+				
+			line += name+",";
+			}
+			//line+=nameSet.size();
+			System.out.println(line+"=============");
+			
+		
 		
 		try {
 			for (Session client : clients) {

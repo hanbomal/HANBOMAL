@@ -65,7 +65,7 @@ public class BoardDAO extends MybatisConnector {
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		map.put("boardid", boardid);
-		map.put("num", group);
+		map.put("group", group);
 		List li = sqlSession.selectList(namespace + ".getArticles", map);
 		sqlSession.close();
 		return li;
@@ -73,18 +73,22 @@ public class BoardDAO extends MybatisConnector {
 
 	public void insertArticle(BoardVO article) {
 		sqlSession = sqlSession();
-		int number = sqlSession.selectOne(namespace + ".getNextNumber");
-		article.setNum(number);
+		Map map = new HashMap<>();
+		map.put("studynum", article.getStudynum());
+		map.put("boardid", article.getBoardid());
+		int number = sqlSession.selectOne(namespace + ".getNextNumber",map);
+		article.setNum(number+1);
 		sqlSession.insert(namespace + ".insertBoard", article);
 		sqlSession.commit();
 		sqlSession.close();
 	}
 
-	public BoardVO getArticle(int num, String boardid, String chk) {
+	public BoardVO getArticle(int num,String group, String boardid, String chk) {
 		sqlSession = sqlSession();
 		Map map = new HashMap<>();
 		map.put("num", num);
 		map.put("boardid", boardid);
+		map.put("group", group);
 		if(chk.equals("content")) {
 			sqlSession.update(namespace + ".addReadCount", map);
 		}

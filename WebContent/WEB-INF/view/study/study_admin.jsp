@@ -8,21 +8,31 @@
 </head>
 <body>
 <div class="w3-container w3-padding">
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
-스터디 관리~~<br>
+<div>
+<ul class="w3-ul">
+<li>게시판 관리
+	<ul>
+		<li>게시판1<button>수정</button></li>
+		<li>게시판2</li>
+		<li>게시판3</li>
+		<li>게시판4</li>
+	</ul>
+</li>
 
+<li>회원 관리
+	<ul>
+		<li>회원1</li>
+		<li>회원2</li>
+		<li>회원3</li>
+		<li>회원4</li>
+	
+	</ul>
+
+</li>
+
+
+</ul>
+</div>
 </div>
 </body>
 </html>
