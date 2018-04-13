@@ -4,19 +4,19 @@
 
 <mapper namespace="board">
 	<select id="getArticleCount" resultType="int" parameterType="hashmap">
-		select nvl(count(*),0) from studyboard 	WHERE num = #{num}
+		select nvl(count(*),0) from studyboard 	WHERE studynum = #{num}
 		and boardid=#{boardid}
 	</select>
 	
 	<select id="getArticles" resultType="Board" parameterType="hashmap">
 		select * from (select rownum rnum ,a.* from (select num,writer,subject,
 					reg_date,readcount,content
-					 from studyboard where boardid = #{boardid} and num=#{num} order by reg_date desc) 
+					 from studyboard where boardid = #{boardid} and studynum=#{group} order by reg_date desc) 
 					a ) where rnum  between #{startRow} and #{endRow}
 	</select>
 	
 	<select id="getNextNumber" resultType="int">
-		select studyboardser.nextval from dual
+		 select nvl(max(num),0) from studyboard where boardid=#{boardid} and studynum=#{studynum}
 	</select>
 	
 	<select id="getNextBoardid" resultType="int">
@@ -30,9 +30,9 @@
 	
 	
 	<insert id="insertBoard" parameterType="Board">
-      insert into studyboard(num, writer, subject, reg_date, 
+      insert into studyboard(num, studynum ,writer, subject, reg_date, 
       content,readcount,  boardid, filename, filesize)
-      values(#{num},#{writer},#{subject}, sysdate, 
+      values(#{num},#{studynum}, #{writer},#{subject}, sysdate, 
       #{content},0,#{boardid},#{filename},#{filesize})
    </insert>
 	
@@ -41,7 +41,7 @@
 	</update>
    
 	<select id="getArticle" resultType="Board" parameterType="hashmap">
-		select * from studyboard where num =#{num} and boardid =#{boardid}
+		select * from studyboard where num =#{num} and boardid =#{boardid} and studynum=#{group}
 	</select>
 					
 	<select id="getBoardType" resultType="Type" parameterType="hashmap">

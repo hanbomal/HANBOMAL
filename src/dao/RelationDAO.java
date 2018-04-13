@@ -78,6 +78,7 @@ public class RelationDAO extends MybatisConnector{
 		map.put("leader", leader);
 		map.put("studyName", studyName);
 		sqlSession.update(namespace+".answerYes",map);
+		sqlSession.update(namespace+".peopleCountUp",map);
 		sqlSession.commit();
 		sqlSession.close();
 	}

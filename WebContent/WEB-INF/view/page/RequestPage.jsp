@@ -20,6 +20,33 @@
       <div class="w3-container " style="overflow:auto; background: rgba(241, 241, 241, 0.75); ">
      
 <div class="w3-container">
+<!--  
+<table class="w3-table  w3-centered" style="width: 100%; border:black;">
+    <tr class="w3-black">
+      <th class="w3-center" width="50">번 호</th>
+      <th class="w3-center" width="250">제 목</th>
+      <th class="w3-center" width="100">작성자</th>
+      <th class="w3-center" width="150">작성일</th>
+      <th class="w3-center" width="50">조 회</th>
+    </tr>
+		
+			<tr class="w3-hover-white">
+			<td class="w3-center" width="50">${number}</td>
+			<c:set var="number" value="${number-1}"/>
+				<td width="250">${article.subject }</td>
+				<td class="w3-center" width="100">${article.writer}</td>
+				<td class="w3-center" width="150">${article.reg_date}</td>
+				<td class="w3-center" width="50">${article.readcount}</td>
+			</tr>
+  </table>
+
+
+
+-->
+
+
+
+
   <table class="w3-table  ">
     <tr>
       <th>Date</th>

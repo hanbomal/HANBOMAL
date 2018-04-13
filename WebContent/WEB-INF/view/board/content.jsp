@@ -1,7 +1,7 @@
 <%@page import="model.BoardVO"%>
 <%@page import="dao.BoardDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,12 +13,17 @@
 
 <div class="w3-container " style="height:600px; overflow:auto; ">
 	<div class="w3-container " style="width: 100%;">
-  		<div class="w3-card-2" style="margin-top:10px" >
-  		 	 <div  id="content" style="height:100%; background: rgba(241, 241, 241, 0.75);" >
-  		 	   <font size=6>...게시판</font>|비공개 게시판<br>
-  		 	   <br>
-  		 	   
-	<div class="w3-container">
+  		<!-- <div class="w3-card-2" style="margin-top:10px" > -->
+  		 	 <div  id="content" style="height:100%;" >
+  		 
+  		  <font size=6>${boardType.boardname}</font>
+          <c:if test="${boardType.chkprivate==1}">
+          |비공개 게시판</c:if>
+  		  <c:if test="${boardType.chkprivate!=1}">
+  		  |공개 게시판
+ 		  </c:if>
+ 		  <br> 
+	<div class="w3-container" style="margin-top:10px">
 		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 90%;margin-left:5%">
 			<tr>
 				<th class="w3-black w3-center" colspan="4" >제목: [${article.subject}]</th>
@@ -56,7 +61,7 @@
   		 	 
   		 	 
   		 	 </div>
-  		</div>
+  	<!-- 	</div> -->
     </div>
 
 

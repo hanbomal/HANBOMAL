@@ -33,8 +33,8 @@
 <div class="w3-container " style="height:600px; width:100%; overflow:auto;  ">
      
 <div class="w3-container " style="width: 100%;">
-  <div class="w3-card-2" style="margin-top:10px" >
- <div  id="content" style="height:100%; background: rgba(241, 241, 241, 0.75);" >
+ <!--  <div class="w3-card-2" style="margin-top:10px" > -->
+ <div  id="content" style="height:100%;" >
      <font size=6>${boardType.boardname}</font>
    <c:if test="${boardType.chkprivate==1}">
    |비공개 게시판
@@ -46,7 +46,7 @@
 <div class="w3-container"><div class="w3-bar ">
   	<span >전체 글 : ${count }</span>
   <button class="w3-button w3-padding-small w3-right w3-black w3-margin-bottom" 
-  title="글쓰기" onclick="$('#content').load('../board/writeForm?boardid=${boardid}')">+</button>
+  title="글쓰기" onclick="$('#content').load('../board/writeForm?boardid=${boardType.boardid}')">+</button>
 </div>
   <table class="w3-table  w3-centered" style="width: 100%; border:black;">
     <tr class="w3-black">
@@ -115,7 +115,7 @@
   
   
   </div>
-</div>
+<!-- </div> -->
 
 
  </div>

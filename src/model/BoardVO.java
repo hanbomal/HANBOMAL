@@ -5,14 +5,20 @@ import java.sql.Date;
 public class BoardVO {
 	private int num;
 	private String boardid;
+	private String studynum;
 	private String writer;
 	private String subject;
-	private String passwd;
 	private Date reg_date;
 	private int readcount;
 	private String content;
 	private String filename;
 	private int filesize;
+	public String getStudynum() {
+		return studynum;
+	}
+	public void setStudynum(String studynum) {
+		this.studynum = studynum;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -36,12 +42,6 @@ public class BoardVO {
 	}
 	public void setSubject(String subject) {
 		this.subject = subject;
-	}
-	public String getPasswd() {
-		return passwd;
-	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
 	}
 	public Date getReg_date() {
 		return reg_date;
@@ -75,11 +75,10 @@ public class BoardVO {
 	}
 	@Override
 	public String toString() {
-		return "BoardVO [num=" + num + ", boardid=" + boardid + ", writer=" + writer + ", subject=" + subject
-				+ ", passwd=" + passwd + ", reg_date=" + reg_date + ", readcount=" + readcount + ", content=" + content
-				+ ", filename=" + filename + ", filesize=" + filesize + "]";
+		return "BoardVO [num=" + num + ", boardid=" + boardid + ", studynum=" + studynum + ", writer=" + writer
+				+ ", subject=" + subject + ", reg_date=" + reg_date + ", readcount=" + readcount + ", content="
+				+ content + ", filename=" + filename + ", filesize=" + filesize + "]";
 	}
-	
 	
 
 }

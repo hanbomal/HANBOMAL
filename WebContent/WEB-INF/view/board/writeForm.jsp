@@ -13,47 +13,24 @@
 
 <div class="w3-container " style="height:600px; width:100%; overflow:auto;  ">
 <div class="w3-container " style="width: 100%;">
-<div class="w3-card-2" style="margin-top:10px" >
-	 <div  id="content" style="height:100%; background: rgba(241, 241, 241, 0.75);" >
-  		 	   <font size=6>...게시판</font>|비공개 게시판<br>
-  		 	   <br>
- <div class="w3-container">
+<!-- <div class="w3-card-2" style="margin-top:10px" > -->
+	 <div  id="content" style="height:100%; " >
+  		 	     <font size=6>${boardType.boardname}</font>
+          <c:if test="${boardType.chkprivate==1}">
+          |비공개 게시판</c:if>
+  		  <c:if test="${boardType.chkprivate!=1}">
+  		  |공개 게시판
+ 		  </c:if>
+ 	
+ <div class="w3-container" style="margin-top:10px">
 		<form id="uploadform" method="post" name="writeform" enctype="multipart/form-data">
 			  	<input type="hidden" name="writer" value="${memberid}">
 			 	<input type="hidden" name="boardid" value="${boardid}">
+			 	<input type="hidden" name="studynum" value="${studynum}">
 		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 90%;margin-left:5%">
 			<tr>
 				<th class="w3-black w3-center" colspan="2" >[글쓰기]</th>
 			</tr>
-		<%-- 	   <tr>
-					<td align="right" colspan="2"><a href="#" 
-					onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board')">글목록</a></td>
-				</tr> --%>
-			
-			<!--  
-			
-  <tr>
-    <td  width="70" class=" w3-center "><label><b>제 목</b></label>
-    </td>
-    <td width="330">
-       <input type="text" size="40" maxlength="50" name="subject"  required="required" 
-       class="w3-input w3-border-0 w3-hover-light-grey">
-   </td>
-  </tr>
-  <tr>
-    <td  width="70" class=" w3-center " ><label><b>Email</b></label></td>
-    <td  width="330">
-       <input type="text" size="40" maxlength="30" name="email" 
-       class="w3-input w3-border-0 w3-hover-light-grey" ></td>
-  </tr>
-  <tr>
-    <td  width="70" class=" w3-center " ><label><b>내 용</b></label></td>
-    <td  width="330" >
-     <textarea name="content" rows="13" cols="40" class="w3-input w3-border-0 w3-hover-light-grey" required="required"></textarea> </td>
-  </tr>-->
-			<!--   <input type="text" size="40" maxlength="50" name="subject"  required="required" 
-       class="w3-input w3-border-0 w3-hover-light-grey">  -->
-			
 				<tr>
 					<th  width="10%" class=" w3-center">제 목</th>
 					<td width="90%">
@@ -68,21 +45,9 @@
 					></textarea>
 					</td>
 				</tr>
-			<!-- 	<tr>
-					<td width="70" align="center">비밀번호</td>
-					<td width="330">
-					<input type="password" size="8" maxlength="12" name="passwd" required="required"></td>
-				</tr>   -->
 				<tr>
 					<td colspan=2 align="center">
 					 <input type="file" name="uploadfile" id="uploadfile">
-					 
-					
-					<!-- <input type="submit" value="확인" onclick="upload()" 
-					class="w3-right"> 
-					
-					
-					-->
 					</td>
 				</tr>
 			</table>
@@ -98,7 +63,8 @@
 		</form> 
 	</div>  
 	
-</div></div></div></div>
+</div></div></div>
+<!-- </div> -->
 	<script type="text/javascript">
 		function upload(){
 			event.preventDefault();

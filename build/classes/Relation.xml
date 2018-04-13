@@ -16,6 +16,11 @@
 		and studyName=#{studyName}
 	</delete>
 	
+	<update id="peopleCountUp" parameterType="hashmap">
+		update studygroup set peoplecount=peoplecount+1 
+		where studyName=#{studyName}
+	</update>
+	
 	<select id="requestList" resultType="Relation" parameterType="hashmap">
 	SELECT * FROM studyrelation WHERE memberid=#{memberid} and status=1
 	</select>
