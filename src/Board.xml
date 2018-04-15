@@ -24,16 +24,15 @@
 	</select>
 	
 	<insert id="addBoard" parameterType="Type">
-      insert into boardtype(studynum, boardid, boardname, chkprivate)
-      values(#{studynum},#{boardid},#{boardname},#{chkprivate})
+      insert into boardtype(studynum, boardid, boardname, createdate)
+      values(#{studynum},#{boardid},#{boardname},sysdate)
    </insert>
 	
-	
 	<insert id="insertBoard" parameterType="Board">
-      insert into studyboard(num, studynum ,writer, subject, reg_date, 
-      content,readcount,  boardid, filename, filesize)
-      values(#{num},#{studynum}, #{writer},#{subject}, sysdate, 
-      #{content},0,#{boardid},#{filename},#{filesize})
+      insert into studyboard(num, boardid, studynum, writer, subject, reg_date, 
+      readcount, content, filename, filesize)
+      values(#{num}, #{boardid},#{studynum},#{writer},#{subject},sysdate, 0, #{content},
+      #{filename},#{filesize})
    </insert>
 	
 	<update id="addReadCount" parameterType="hashmap">
@@ -52,13 +51,21 @@
 		update studyboard set writer=#{writer}, email=#{email},subject=#{subject},
 		content=#{content} where num=#{num} 
 	</update>
+	
+	<update id="updateBoardType" parameterType="Type">
+		update boardtype set boardname=#{boardname} where studynum=#{studynum} and boardid=#{boardid} 
+	</update>
    
    <delete id="deleteArticle" parameterType="hashmap" >
  	  delete from studyboard where num=#{num} and passwd=#{passwd} 
    </delete> 	
+   
+	<delete id="deleteBoard" parameterType="hashmap" >
+ 	  delete from boardtype where studynum=#{studynum} and boardid=#{boardid} 
+   </delete> 	
 		
 	<select id="getTypeList" resultType="Type" parameterType="hashmap">	
-	select * from boardtype where studynum = #{group} order by chkprivate desc
+	select * from boardtype where studynum = #{group} order by createdate desc
 	</select> 
 					
 		

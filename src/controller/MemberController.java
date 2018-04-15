@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.MemberDAO;
@@ -16,10 +17,11 @@ import model.MemberVO;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-
+PageController page=new PageController();
 	@RequestMapping("/join2")
-	public String join(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-
+	public String join(HttpServletRequest request, HttpServletResponse response,Model mv) throws Throwable {
+		page.autoComplete(mv);
+		page.HeaderInfo(request, mv);
 		int num = 0;
 		
 
@@ -61,10 +63,12 @@ public class MemberController {
 		String passwd = req.getParameter("passwd");
 		MemberDAO dbPro = MemberDAO.getInstance();
 		int pwcheck = dbPro.login(memberid, passwd);
+		MemberVO member =dbPro.getMember(memberid);
 		if (pwcheck == 1) {
 		
 			HttpSession session = req.getSession();
 			session.setAttribute("memberid", memberid);
+			session.setAttribute("nickname", member.getNickname());
 		
 			res.sendRedirect(req.getContextPath() + "/page/main");
 		
@@ -92,9 +96,10 @@ public class MemberController {
 	
 	
 	@RequestMapping("/member_update")	 //form 
-	   public String member_update(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+	   public String member_update(HttpServletRequest req, HttpServletResponse res,Model mv)  throws Throwable {
 		HttpSession session = req.getSession();
-		
+		page.autoComplete(mv);
+		page.HeaderInfo(req, mv);
 		
 		
 
@@ -144,7 +149,9 @@ public class MemberController {
 }
 	
 	@RequestMapping("/member_delete")	 //form 
-	   public String member_delete(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+	   public String member_delete(HttpServletRequest req, HttpServletResponse res,Model mv)  throws Throwable {
+		page.autoComplete(mv);
+		page.HeaderInfo(req, mv);
 		HttpSession session = req.getSession();
 		
 		String memberid=((String)session.getAttribute("memberid"));
@@ -173,8 +180,9 @@ public class MemberController {
 	
 	
 	@RequestMapping("/before_check")    //form 
-    public String before_check(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-    
+    public String before_check(HttpServletRequest req, HttpServletResponse res,Model mv)  throws Throwable {
+		page.autoComplete(mv);
+		page.HeaderInfo(req, mv);
        HttpSession session = req.getSession();
     
     String memberid=((String)session.getAttribute("memberid"));
@@ -236,8 +244,9 @@ public class MemberController {
 }
  @RequestMapping("/member_List")
  public String member_List(HttpServletRequest request,
-	       HttpServletResponse response)  throws Throwable { 
-	
+	       HttpServletResponse response,Model mv)  throws Throwable { 
+		page.autoComplete(mv);
+		page.HeaderInfo(request, mv);
 	   int pageSize= 10;
 	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	   String pageNum = request.getParameter("pageNum");

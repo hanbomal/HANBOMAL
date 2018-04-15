@@ -11,6 +11,7 @@
   <typeAlias type="model.GalleryVO" alias="Gallery"/>
   <typeAlias type="model.BoardVO" alias="Board"/>
   <typeAlias type="model.BoardTypeVO" alias="Type"/>
+  <typeAlias type="model.PositionVO" alias="Position"/>
    </typeAliases> 
    <!--  -->
    <environments default="development">

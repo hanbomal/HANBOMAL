@@ -4,26 +4,29 @@ import java.sql.Date;
 
 public class BoardVO {
 	private int num;
-	private String boardid;
 	private String studynum;
+	private String boardid;
 	private String writer;
 	private String subject;
+	private int ref;
+	private int re_step;
+	private int re_level;
 	private Date reg_date;
 	private int readcount;
 	private String content;
 	private String filename;
 	private int filesize;
-	public String getStudynum() {
-		return studynum;
-	}
-	public void setStudynum(String studynum) {
-		this.studynum = studynum;
-	}
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
+	}
+	public String getStudynum() {
+		return studynum;
+	}
+	public void setStudynum(String studynum) {
+		this.studynum = studynum;
 	}
 	public String getBoardid() {
 		return boardid;
@@ -42,6 +45,24 @@ public class BoardVO {
 	}
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
+	public int getRe_step() {
+		return re_step;
+	}
+	public void setRe_step(int re_step) {
+		this.re_step = re_step;
+	}
+	public int getRe_level() {
+		return re_level;
+	}
+	public void setRe_level(int re_level) {
+		this.re_level = re_level;
 	}
 	public Date getReg_date() {
 		return reg_date;
@@ -64,6 +85,13 @@ public class BoardVO {
 	public String getFilename() {
 		return filename;
 	}
+	@Override
+	public String toString() {
+		return "BoardVO [num=" + num + ", studynum=" + studynum + ", boardid=" + boardid + ", writer=" + writer
+				+ ", subject=" + subject + ", ref=" + ref + ", re_step=" + re_step + ", re_level=" + re_level
+				+ ", reg_date=" + reg_date + ", readcount=" + readcount + ", content=" + content + ", filename="
+				+ filename + ", filesize=" + filesize + "]";
+	}
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
@@ -72,12 +100,6 @@ public class BoardVO {
 	}
 	public void setFilesize(int filesize) {
 		this.filesize = filesize;
-	}
-	@Override
-	public String toString() {
-		return "BoardVO [num=" + num + ", boardid=" + boardid + ", studynum=" + studynum + ", writer=" + writer
-				+ ", subject=" + subject + ", reg_date=" + reg_date + ", readcount=" + readcount + ", content="
-				+ content + ", filename=" + filename + ", filesize=" + filesize + "]";
 	}
 	
 

@@ -16,11 +16,7 @@
 <!-- <div class="w3-card-2" style="margin-top:10px" > -->
 	 <div  id="content" style="height:100%; " >
   		 	     <font size=6>${boardType.boardname}</font>
-          <c:if test="${boardType.chkprivate==1}">
-          |비공개 게시판</c:if>
-  		  <c:if test="${boardType.chkprivate!=1}">
-  		  |공개 게시판
- 		  </c:if>
+       
  	
  <div class="w3-container" style="margin-top:10px">
 		<form id="uploadform" method="post" name="writeform" enctype="multipart/form-data">

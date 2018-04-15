@@ -17,11 +17,11 @@
   		 	 <div  id="content" style="height:100%;" >
   		 
   		  <font size=6>${boardType.boardname}</font>
-          <c:if test="${boardType.chkprivate==1}">
+      <%--     <c:if test="${boardType.chkprivate==1}">
           |비공개 게시판</c:if>
   		  <c:if test="${boardType.chkprivate!=1}">
   		  |공개 게시판
- 		  </c:if>
+ 		  </c:if> --%>
  		  <br> 
 	<div class="w3-container" style="margin-top:10px">
 		<table class="w3-table w3-card-2 w3-white w3-bordered " style="width: 90%;margin-left:5%">

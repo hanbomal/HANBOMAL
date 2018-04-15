@@ -4,11 +4,18 @@
 
 <mapper namespace="relation">
 	<insert id="requestJoin" parameterType="hashmap">
-		insert into studyrelation
-		values(#{memberid},
-		#{studyName},0,#{nickname},sysdate,sysdate,
-		#{position},#{leader},1)
+		insert into studyrelation(memberId,studynum,studyName,joinPoint,nickName,
+		joinDate, lastDate, position, leader, status, photo)
+		values(#{memberid},#{studynum}, #{studyName},0,#{nickname},
+		sysdate,sysdate,'회원',#{leader},1,null)
 	</insert>
+
+	<select id="requestCount" resultType="int" parameterType="hashmap">
+		select nvl(count(*),0) from studyrelation where memberid=#{memberid} and status=1
+	</select>
+	<select id="responseCount" resultType="int" parameterType="hashmap">
+		select nvl(count(*),0) from studyrelation where leader=#{memberid} and status=1
+	</select>
 
 	<delete id="cancelJoin" parameterType="hashmap">
 		delete from studyrelation
@@ -18,15 +25,19 @@
 	
 	<update id="peopleCountUp" parameterType="hashmap">
 		update studygroup set peoplecount=peoplecount+1 
-		where studyName=#{studyName}
+		where studyName=#{studyName} 
 	</update>
 	
 	<select id="requestList" resultType="Relation" parameterType="hashmap">
-	SELECT * FROM studyrelation WHERE memberid=#{memberid} and status=1
+	select * from (select rownum rnum ,a.* from 
+	(SELECT * FROM studyrelation WHERE memberid=#{memberid} and leader !=#{memberid} )
+					a ) where rnum  between #{startRow} and #{endRow}
 	</select>
 	
 	<select id="responseList" resultType="Relation" parameterType="hashmap">
-	SELECT * FROM studyrelation WHERE leader=#{memberid} and status=1
+		select * from (select rownum rnum ,a.* from 
+	(SELECT * FROM studyrelation WHERE leader=#{memberid} and status=1 )
+					a ) where rnum  between #{startRow} and #{endRow}
 	</select>
 
 	<update id="answerYes" parameterType="hashmap">

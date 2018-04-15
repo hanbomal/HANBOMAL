@@ -58,7 +58,7 @@ body, html {
 			<!-- autoComplete Form-->
 			<div class="w3-left" style="margin-top: 11px;">
 
-				<form action="main" autocomplete="off" method="post">
+				<form action="../page/main" autocomplete="off" method="post">
 					<input type="text" style="outline: none; width: 300px"
 						placeholder="Search..." name="studyName"
 						id="myInput">
@@ -72,26 +72,9 @@ body, html {
 
 			<!-- Right-sided navbar links -->
 			<div class="w3-right w3-hide-small">
-				<a href="about" class="w3-bar-item w3-button">ABOUT</a>
-
-				<div class="w3-dropdown-hover">
-					<button class="w3-button">
-						<i class="fa fa-globe"></i> NOTICE
-					</button>
-					<div class="w3-dropdown-content w3-bar-block w3-border">
-						<a href="RequestPage" class="w3-bar-item w3-button">REQUEST
-						</a> 
-						<a href="ResponsePage" class="w3-bar-item w3-button">RESPONSE
-						<span class="w3-badge w3-small w3-blue">2</span>
-						</a>
-					</div>
-				</div>
-
-<!--  -->
-
+				<a href="../page/about" class="w3-bar-item w3-button">ABOUT</a>
 
 		<c:if test="${sessionScope.memberid==null}">
-        
 				<a href="javascript:void(0)" class="w3-bar-item w3-button"
 					onclick="document.getElementById('login').style.display='block'"><i
 					class="fa fa-user"></i> MYPAGE</a>
@@ -103,9 +86,17 @@ body, html {
 					</button>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 						<a href="<%=request.getContextPath() %>/member/before_check" class="w3-bar-item w3-button">MY PAGE<!-- 지혜가 도와준 절대경로 -->
-						</a> 
-						<a href="<%=request.getContextPath()%>/page/RequestPage" class="w3-bar-item w3-button">WAITING
 						</a>
+						<a href="../page/RequestPage" class="w3-bar-item w3-button">신청목록
+						<c:if test="${reqcount>0 }">
+						<span class="w3-badge w3-small w3-blue">${reqcount}</span>
+						</c:if>
+						</a> 
+						<a href="../page/ResponsePage" class="w3-bar-item w3-button">받은요청
+						<c:if test="${rescount>0 }">
+						<span class="w3-badge w3-small w3-blue">${rescount}</span>
+						</c:if>
+						</a> 
 						<input class="w3-bar-item w3-button" value="LOGOUT" onclick="logoutPro()"/>
 						
 					</div>
@@ -122,7 +113,7 @@ body, html {
 						<i class="fa fa-plus"></i> 
 						그룹추가</a> 
 						<c:forEach items="${groupList}" var="groupList">
-					 <a href="test?group=${groupList.num}" class="w3-bar-item w3-button">${groupList.studyName}</a> 
+					 <a href="../page/test?group=${groupList.num}" class="w3-bar-item w3-button">${groupList.studyName}</a> 
 						</c:forEach>
 					</div>
 					</c:if>
@@ -175,7 +166,7 @@ body, html {
 			</div>
 			
 
-			<form class="w3-container" method="post" action="${pageContext.request.contextPath}/member/loginPro"" onsubmit="return checkValue()">
+			<form class="w3-container" method="post" action="${pageContext.request.contextPath}/member/loginPro" onsubmit="return checkValue()">
 				<div class="w3-section">
 			
 					<label><b>ID</b></label> <input

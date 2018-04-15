@@ -73,8 +73,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       <div class="w3-dropdown-hover w3-right"> 
     <button class="w3-button " onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board');document.getElementById('contentTitle').innerHTML='게시판'">게시판</button>
     <div class="w3-dropdown-content w3-bar-block w3-border" style="z-index: 5;">
-
-      <a href="#" class="w3-bar-item w3-button" onclick="document.getElementById('makeBoard').style.display='block'"><i class="fa fa-plus"></i>게시판추가</a>
+    
       <c:if test="${typeList!=null}">
       	    <c:forEach var="typeList" items="${typeList}">
      			 <a href="#" class="w3-bar-item w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/board/study_board?group=${typeList.studynum }&boardid=${typeList.boardid }');document.getElementById('contentTitle').innerHTML='게시판'">${typeList.boardname }</a> 
@@ -83,7 +82,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 	  
 	  
 	  <!-- 	   
-	  
   textarea.innerHTML +="<table align='left' style='width:100%;'><tr><td><ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
       +texts[0]+
       "<span class='w3-small'>&nbsp;"+texts[1]+"</span><br>"
@@ -109,10 +107,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       <!-- 내용끝 -->
       
       <div class="w3-container w3-padding w3-light-grey ">
+      <c:if test="${study.leader==memberid }">
       <span class="w3-right w3-margin-right">
       <button class="w3-button" 
-      onclick="$('#content').load('<%=request.getContextPath()%>/page/study_admin');document.getElementById('contentTitle').innerHTML='스터디 관리'">스터디 관리</button></span>
-      
+      onclick="$('#content').load('<%=request.getContextPath()%>/page/study_admin?studynum=${group }');document.getElementById('contentTitle').innerHTML='스터디 관리'">스터디 관리</button></span>
+      </c:if>
       <span class="w3-right w3-margin-right">
       <button class="w3-button" onclick="$('#content').load('<%=request.getContextPath()%>/page/study_info?studynum=${group }');document.getElementById('contentTitle').innerHTML='스터디 정보'">스터디 정보</button></span> 
       
@@ -126,56 +125,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 </div>
 
 
-
-  <div id="makeBoard" class="w3-modal "  >
-    <div class="w3-modal-content w3-card-4" style="width:40%">
-      <header class="w3-container w3-teal"> 
-        <span onclick="document.getElementById('makeBoard').style.display='none'" 
-        class="w3-button w3-display-topright">&times;</span>
-        <h6><i class="fa fa-plus"></i> 게시판 만들기</h6>
-      </header>
-      <form id="addboardForm" method="post">
-      <input type="hidden" name="studynum" value="<%=request.getParameter("group") %>" >
-     
-      <div class="w3-container">
-      <div style="margin-top:10px">
-      <font size=3>⦁ 게시판 이름</font>
-      <font size=2>[비공개 여부</font>
-       <input type="checkbox" name="chkprivate" value="1">]
-       <!-- null or 1(private)  -->
-      </div>
-        <input id="clearName" class="w3-input" type="text" name="boardname">
-      </div>
-      <div class="w3-container">
-       	<input type="submit" onclick="addboard()" 
-        class="w3-input w3-teal w3-center w3-section" value="만들기">
-        </div>
-        </form>
-    </div>
-  </div>
-
-	<script type="text/javascript">
-		function addboard(){
-			event.preventDefault();
-			
-			var form=$('#addboardForm')[0];
-			var formData= new FormData(form);
-			 $.ajax({
-                         type: 'POST',
-              			 url: '../board/addBoardType',
-              		     data: formData,
-              		     processData: false,
-                         contentType: false,
-                         success: function(data){
-                            $('#content').html(data);
-                         }
-                 });
-			 document.getElementById('clearName').value=""; 
-			 document.getElementById('makeBoard').style.display='none'; 
-		}
-	
-	</script>
-	
 
 
   
