@@ -79,12 +79,20 @@ public class MemberController {
 	   public String LogoutPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		      
 	       HttpSession  session = req.getSession();
-	       
-	       MemberVO member = new MemberVO();
+	     
 			MemberDAO dbpro = MemberDAO.getInstance();
 			
-	      
+			String memberid=((String)session.getAttribute("memberid"));
+			
+			   req.setAttribute("memberid", memberid); //
+			   
+			   
+			
+			dbpro.insertOuttime(memberid);
+	   
 	       session.invalidate(); //
+	       
+	       
 	       res.sendRedirect(req.getContextPath() + "/page/main"); // 
 	      return null;
 	   }
@@ -95,9 +103,6 @@ public class MemberController {
 	   public String member_update(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession();
 		
-		
-		
-
 		try {
 	
 		 MemberDAO dbPro=MemberDAO.getInstance();
@@ -279,6 +284,23 @@ public class MemberController {
 	       return "/member/member_List"; 
 	      } 
 
+ @RequestMapping("/member_deletead")    //form 
+ public String member_deletead(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+ 
+		String memberid=req.getParameter("memberid");
+		String passwd = req.getParameter("passwd");
+		
+		MemberDAO dbPro=MemberDAO.getInstance();
+		int chk=dbPro.deleteMember(memberid, passwd);
+		
+		
+		req.setAttribute("memberid",memberid);
+		req.setAttribute("chk", chk);
+ 
+
+ 
+ return "member/member_deletead";
+}
 
 
  

@@ -1,10 +1,13 @@
 package dao;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +68,25 @@ public class MemberDAO extends MybatisConnector {
 			      sqlSession.commit();
 			      sqlSession.close();
 
+			
+		}
+		
+		public MemberVO insertOuttime(String memberid) {
+			sqlSession= sqlSession();
+			
+			Map map = new HashMap();
+			
+			map.put("memberid", memberid);
+			MemberVO member=sqlSession.selectOne(namespace+ ".getOuttime" ,map);
+			Date lastdate=new Date();
+			
+			member.setLastdate(lastdate);
+			
+			sqlSession.commit();
+			sqlSession.close();
+			
+			return member;
+			
 			
 		}
 		
