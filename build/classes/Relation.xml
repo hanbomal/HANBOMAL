@@ -7,7 +7,7 @@
 		insert into studyrelation
 		values(#{memberid},
 		#{studyName},0,#{nickname},sysdate,sysdate,
-		#{position},#{leader},1)
+		#{position},#{leader},1,null)
 	</insert>
 
 	<delete id="cancelJoin" parameterType="hashmap">
