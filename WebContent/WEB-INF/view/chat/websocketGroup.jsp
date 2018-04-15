@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 	     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,6 +9,10 @@
     
     String group=request.getParameter("group");
     if(group==null) group="우리끼리";
+    
+    HashMap nameMap=(HashMap)request.getAttribute("nameMap");
+   // System.out.println(nameMap);
+    //System.out.println(nameMap.get("aaa"));
     %>
 
 		
@@ -167,7 +172,7 @@ height:auto;}
  <!--  대화내용 div  -->
 
   <div class="w3-container "  style="margin:0; padding:0;">
- 
+
       <div class="w3-container w3-padding" style="height:500px;    overflow-x: hidden;  overflow-y: auto; background: inherit;" id="messageWindow">
    
       </div>
@@ -230,6 +235,7 @@ style="display: inline-block; width: 140px; " id="searchText" placeholder="검색�
 </body>
 <script type="text/javascript">
 
+
 var lastday=${lastday};
 var today =new Date().toString('yyyyMMdd');
 
@@ -249,15 +255,27 @@ var today =new Date().toString('yyyyMMdd');
 	    </c:forEach> 
 	];
   
+
+  var nameMap=[];
+
   
+  
+      ERR_MSG[<c:out value="${}">]        = <%=nameMap.get("name")%>;  
+
+    alert(ERR_MSG[<%=name%>]);
+
         var textarea = document.getElementById("messageWindow");
+      
+      
       <%--   var webSocket = new WebSocket(
     'ws://211.238.142.34:8080<%=request.getContextPath()%>/webGroup?name='
     		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>')); --%>
     		
     		 var webSocket = new WebSocket(
-    				    'ws://211.238.142.34:8080<%=request.getContextPath()%>/webGroup?name='
+    				    'ws://localhost:8080<%=request.getContextPath()%>/webGroup?name='
     				    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
+    		 
+    		 
         var inputMessage = document.getElementById('inputMessage');
     
     webSocket.onerror = function(event) {     onError(event)   };
@@ -311,7 +329,7 @@ var today =new Date().toString('yyyyMMdd');
     	 
      var texts=testProcess(event.data);
 
-
+     
   textarea.innerHTML +="<table align='left' style='width:100%;'><tr><td><ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
       +texts[0]+
       "<span class='w3-small'>&nbsp;"+texts[1]+"</span><br>"
@@ -328,7 +346,7 @@ var today =new Date().toString('yyyyMMdd');
          }
     function onOpen(event) {
     	
-    	
+    	<%-- textarea.innerHTML +="<img src=<c:out value='<%=nameMap.get("aaa")%>'/>>"; --%>
     	
      	if(chatdata.length!=0){
     	 textarea.innerHTML += "<span class='w3-small'>대화 내용은 3일치까지 표시됩니다.</span><br>";  }
@@ -359,7 +377,7 @@ var today =new Date().toString('yyyyMMdd');
 		  }else{
 
 			  
-			   
+			 
 			  textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td><ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
 			      +l0+
 			      "<span class='w3-small'>&nbsp;"+l1+"</span><br>"

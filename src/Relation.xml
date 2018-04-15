@@ -8,6 +8,7 @@
 		joinDate, lastDate, position, leader, status, photo)
 		values(#{memberid},#{studynum}, #{studyName},0,#{nickname},
 		sysdate,sysdate,'회원',#{leader},1,null)
+
 	</insert>
 
 	<select id="requestCount" resultType="int" parameterType="hashmap">

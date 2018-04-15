@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,20 +28,25 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import chat.Chatdata;
 import dao.GalleryDAO;
+import dao.RelationDAO;
+import dao.StudyDAO;
 import model.GalleryVO;
+import model.RelationVO;
 
 @Controller
 @RequestMapping("/chatcontroller")
 public class ChatController {
 	GalleryDAO gPro = GalleryDAO.getInstance();
+	RelationDAO rPro=RelationDAO.getInstance();
+	StudyDAO sPro=StudyDAO.getInstance();
 	Date date = new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	String datetext = sdf.format(date);
 
 	@RequestMapping("/intro")
-	public String intro(HttpServletRequest req, HttpServletResponse res,String group, String memberid ) throws Throwable {
+	public String intro(HttpServletRequest req, HttpServletResponse res,String group, String name, Model mv) throws Throwable {
 		req.setAttribute("group", group);
-		req.setAttribute("name", memberid);
+		req.setAttribute("name", name);
 		
 		String cid = group; 
 
@@ -159,6 +165,38 @@ public class ChatController {
 		}
 		
 		req.setAttribute("lastday", lastdayText);
+		
+		
+		String groupName=sPro.getOneStudy(group).getStudyName();
+		List<RelationVO> memberList=rPro.getJoinMemberList(groupName);
+		//System.out.println(groupName);
+		//System.out.println(memberList.get(0).getNickName());
+		
+		HashMap<String,String> namemap=new HashMap<String,String>();
+		
+		
+		Iterator<RelationVO> it=memberList.iterator();
+		while(it.hasNext()) {
+			RelationVO member=(RelationVO)it.next();
+			String username=member.getMemberId();
+			
+			if((member.getPhoto()!="")&&(member.getPhoto()!=null)) {
+				
+				namemap.put(username,req.getContextPath()+"/fileSave/"+member.getPhoto());
+				
+				//System.out.println(req.getContextPath()+"/fileSave/"+member.getPhoto());
+			}
+			
+			else {
+				namemap.put(username,req.getContextPath()+"/imgs/profile.png");
+			
+				
+				//System.out.println(req.getContextPath()+"/imgs/profile.png");
+			}
+		}
+		mv.addAttribute("nameMap",namemap);
+		mv.addAttribute("test","test");
+		
 		
 		return "chat/websocketGroup";
 
