@@ -36,12 +36,7 @@
  <!--  <div class="w3-card-2" style="margin-top:10px" > -->
  <div  id="content" style="height:100%;" >
      <font size=6>${boardType.boardname}</font>
-   <c:if test="${boardType.chkprivate==1}">
-   |비공개 게시판
-   </c:if>
-   <c:if test="${boardType.chkprivate!=1}">
-   |공개 게시판
-   </c:if>
+  
      <br><br>
 <div class="w3-container"><div class="w3-bar ">
   	<span >전체 글 : ${count }</span>

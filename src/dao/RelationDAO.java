@@ -20,14 +20,34 @@ public class RelationDAO extends MybatisConnector{
 	private final String namespace="relation";
 	SqlSession sqlSession;
 	
-	public void requestJoin(String memberid, String studyName, String nickname,
-			String position, String leader) {
+	public int requestCount(String memberid) {
+		int x = 0;
+		sqlSession=sqlSession();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("memberid", memberid);
+		x=sqlSession.selectOne(namespace+".requestCount", map);
+		sqlSession.close();
+		return x;
+		}
+	
+	public int responseCount(String memberid) {
+		int x = 0;
+		sqlSession=sqlSession();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("memberid", memberid);
+		x=sqlSession.selectOne(namespace+".responseCount", map);
+		sqlSession.close();
+		return x;
+	}
+	
+	public void requestJoin(String memberid,String studynum, String studyName, String nickname,
+			 String leader) {
 		sqlSession=sqlSession();
 		Map<String, String> map = new HashMap<>();
 		map.put("memberid", memberid);
+		map.put("studynum", studynum);
 		map.put("studyName", studyName);
 		map.put("nickname", nickname);
-		map.put("position", position);
 		map.put("leader", leader);
 		sqlSession.insert(namespace+".requestJoin",map);
 		sqlSession.commit();
@@ -42,23 +62,27 @@ public class RelationDAO extends MybatisConnector{
 		sqlSession.commit();
 		sqlSession.close();
 	}
-	public List requestList(String memberid) {
+	public List requestList(int startRow, int endRow,String memberid) {
 		sqlSession=sqlSession();
-		Map<String, String> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("memberid", memberid);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 		List<RelationVO> li=sqlSession.selectList(namespace+".requestList",map);
 		sqlSession.close();
 		return li;
 	}
-	
-	public List responseList(String memberid) {
+	public List responseList(int startRow, int endRow, String memberid) {
 		sqlSession=sqlSession();
-		Map<String, String> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("memberid", memberid);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 		List<RelationVO> li=sqlSession.selectList(namespace+".responseList",map);
 		sqlSession.close();
 		return li;
 	}
+	
 	
 	public void answerNo(String memberid, String leader, String studyName) {
 		sqlSession=sqlSession();

@@ -1,10 +1,17 @@
 package model;
 
+import java.sql.Date;
+
 public class BoardTypeVO {
+	@Override
+	public String toString() {
+		return "BoardTypeVO [studynum=" + studynum + ", boardid=" + boardid + ", boardname=" + boardname
+				+ ", createdate=" + createdate + "]";
+	}
 	private int studynum;
 	private String boardid;
 	private String boardname;
-	private String chkprivate;
+	private Date createdate;
 	public int getStudynum() {
 		return studynum;
 	}
@@ -17,16 +24,11 @@ public class BoardTypeVO {
 	public void setBoardid(String boardid) {
 		this.boardid = boardid;
 	}
-	@Override
-	public String toString() {
-		return "BoardTypeVO [studynum=" + studynum + ", boardid=" + boardid + ", boardname=" + boardname
-				+ ", chkprivate=" + chkprivate + "]";
+	public Date getCreatedate() {
+		return createdate;
 	}
-	public String getChkprivate() {
-		return chkprivate;
-	}
-	public void setChkprivate(String chkprivate) {
-		this.chkprivate = chkprivate;
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
 	}
 	public String getBoardname() {
 		return boardname;

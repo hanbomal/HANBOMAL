@@ -3,40 +3,28 @@ package model;
 import java.sql.Date;
 
 public class RelationVO {
-	String memberId;
-	String studyName;
-	int joinPoint; //참여율에 따른 포인트
-	String nickName;
-	Date joinDate;
-	Date lastDate; //마지막 접속 일자
-	String position; 
-	String leader; 
-	String status;
-	String photo;
-	
-	public String getPhoto() {
-		return photo;
-	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public String getLeader() {
-		return leader;
-	}
-	public void setLeader(String leader) {
-		this.leader = leader;
-	}
+	private String memberId;
+	private String studynum;
+	private String studyName;
+	private int joinPoint; //참여율에 따른 포인트
+	private String nickName;
+	private Date joinDate;
+	private Date lastDate; //마지막 접속 일자
+	private String position; 
+	private String leader; 
+	private String status;
+	private String photo;
 	public String getMemberId() {
 		return memberId;
 	}
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+	public String getStudynum() {
+		return studynum;
+	}
+	public void setStudynum(String studynum) {
+		this.studynum = studynum;
 	}
 	public String getStudyName() {
 		return studyName;
@@ -74,5 +62,29 @@ public class RelationVO {
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	
+	public String getLeader() {
+		return leader;
+	}
+	public void setLeader(String leader) {
+		this.leader = leader;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	@Override
+	public String toString() {
+		return "RelationVO [memberId=" + memberId + ", studynum=" + studynum + ", studyName=" + studyName
+				+ ", joinPoint=" + joinPoint + ", nickName=" + nickName + ", joinDate=" + joinDate + ", lastDate="
+				+ lastDate + ", position=" + position + ", leader=" + leader + ", status=" + status + ", photo=" + photo
+				+ "]";
+	}
 }

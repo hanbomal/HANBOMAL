@@ -13,12 +13,17 @@
 		#{study_intro},#{proSize},#{backSize})
 	</insert>
 	
-	<!--두번째 리더가 닉네임에 해당, 나중에 변경  -->
+	<insert id="addPosition" parameterType="Position">
+		insert into groupposition
+		values(#{studynum},#{groupposition})
+	</insert>
+	
+     <!--방장이 그룹만들때 relation 테이블에도 추가-->
 	<insert id="addRelation" parameterType="hashmap">
-		insert into studyrelation
-		values(#{leader},
-		#{studyName},0,#{leader},sysdate,sysdate,
-		'방장',#{leader},2,null)
+		insert into studyrelation(memberid, studynum, studyname, joinpoint, nickname,
+		joindate, lastdate,position, leader,status,photo ) 
+		values(#{memberid},#{studynum},#{studyname},0,#{nickname},
+		sysdate,sysdate,'방장',#{leader},2,null)
 	</insert>
 
 	<select id="resultList" resultType="Room" parameterType="hashmap">
@@ -43,6 +48,9 @@ or studyname in (select studyName from studyrelation where (memberid=#{memberid}
 
 	<select id="getAllStudy" resultType="Room">
 		select * from studygroup
+	</select>
+	<select id="getAllPosition" resultType="Position">
+		select * from groupposition where studynum=#{studynum}
 	</select>
 	
 		<select id="getOneStudy" resultType="Room">

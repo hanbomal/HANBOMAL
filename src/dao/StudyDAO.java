@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import dao.MybatisConnector;
+import model.PositionVO;
 import model.RelationVO;
 import model.StudyVO;
 
@@ -22,12 +23,18 @@ public class StudyDAO extends MybatisConnector{
     private final String namespace="study";
     SqlSession sqlSession;
     
-	public void makingStudy(StudyVO study) {
+	public void makingStudy(StudyVO study,String nickname) {
 		sqlSession=sqlSession();
 		int num=sqlSession.selectOne(namespace+".getNextNum");
 		study.setNum(num);
+		Map<String,Object> map = new HashMap<>();
+		map.put("memberid", study.getLeader());
+		map.put("studynum", study.getNum());
+		map.put("studyname",study.getStudyName());
+		map.put("nickname", nickname);
+		map.put("leader", study.getLeader());
 		sqlSession.insert(namespace+".makingStudy",study);
-		sqlSession.insert(namespace+".addRelation",study);
+		sqlSession.insert(namespace+".addRelation",map);
 		sqlSession.commit();
 		sqlSession.close();
 	}
@@ -73,6 +80,14 @@ public class StudyDAO extends MybatisConnector{
 		sqlSession.close();
 		return li;
 	}
+	public List<PositionVO> getAllPosition(String studynum) {
+		sqlSession=sqlSession();
+		Map<String, String> map = new HashMap<>();
+		map.put("studynum", studynum);
+		List<PositionVO> li=sqlSession.selectList(namespace+".getAllPosition",map);
+		sqlSession.close();
+		return li;
+	}
 	
 	public List<StudyVO> getGroupList(String memberid) {
 		sqlSession=sqlSession();
@@ -95,6 +110,12 @@ public class StudyDAO extends MybatisConnector{
 		return study;
 	}
 
+	public void addPosition(PositionVO position) {
+		sqlSession=sqlSession();
+		sqlSession.insert(namespace+".addPosition",position);
+		sqlSession.commit();
+		sqlSession.close();
+	}
 
 	
 }

@@ -49,12 +49,8 @@ public class BoardController {
 			this.group = group;
 	}
 	
-	@RequestMapping("/addBoardType")
+	/*@RequestMapping("/addBoardType")
 	public String addBoardType(BoardTypeVO board,Model mv,HttpServletRequest req) throws Throwable {
-		String chkprivate = board.getChkprivate();
-		if(chkprivate==null) {
-			board.setChkprivate("0"); // public board
-		}
 		group=board.getStudynum()+"";
 		boardid=boardDB.getNextBoardid(group)+"";
 		board.setBoardid(boardid);
@@ -71,8 +67,8 @@ public class BoardController {
 		mv.addAttribute("group",group);
 		
 		
-		return "redirect:/board/study_board";
-	}
+		return "redirect:/board/study_";
+	}*/
 	
 	
 	
@@ -162,9 +158,7 @@ public class BoardController {
 			article.setFilename("");
 			article.setFilesize(0);
 		}
-		System.out.println("11111111111111111");
 		System.out.println(article);
-		System.out.println("11111111111111111");
 		boardDB.insertArticle(article);
 		mv.addAttribute("pageNum", pageNum);
 		return "redirect:/board/study_board";
