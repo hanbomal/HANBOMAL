@@ -31,7 +31,7 @@
 	
 	<select id="requestList" resultType="Relation" parameterType="hashmap">
 	select * from (select rownum rnum ,a.* from 
-	(SELECT * FROM studyrelation WHERE memberid=#{memberid} and leader !=#{memberid} )
+	(SELECT * FROM studyrelation WHERE memberid=#{memberid} and leader !=#{memberid} and status=1)
 					a ) where rnum  between #{startRow} and #{endRow}
 	</select>
 	

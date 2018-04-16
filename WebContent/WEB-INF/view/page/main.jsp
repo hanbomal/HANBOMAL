@@ -49,8 +49,16 @@
 							</c:if>
 						</div>
 						<div class="w3-cell " style="height:65px;padding:5px;padding-left:10px">
+						<c:if test="${room.relation.status!=2}">
 							<div >⦁그룹명: <font size="3"><Strong>${room.studyName}</Strong></font>
-						</div>	
+					    	</div>	
+						</c:if>	
+						<c:if test="${room.relation.status==2}">
+							<div >⦁그룹명: <a href="../page/test?group=${room.num}">
+							<font size="3"><Strong>${room.studyName}</Strong></font></a>
+					    	</div>	
+					    	
+						</c:if>
 						<div class="w3-row">
 							<div class="w3-third">⦁방 장: ${room.leader}</div>	
 							<div class="w3-third">⦁멤버수: ${room.peopleCount}</div>

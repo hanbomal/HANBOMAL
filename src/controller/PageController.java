@@ -254,16 +254,18 @@ public class PageController {
 	}
 	@RequestMapping("/sendRedirect")
 	public String sendRedirect(Model mv,HttpServletRequest req
-			,String memberId, String answer, String studyName) throws Throwable {
+			,String memberId, String yes,String no, String studyName) throws Throwable {
 		autoComplete(mv);
 		String leader = getSessionId(req);
-		if(answer.equals("yes")) {
+		if(yes==null) yes="";
+		if(no==null) no="";
+		if(yes.equals("yes")) {
 			relationDB.answerYes(memberId, leader,studyName);
-		}else if(answer.equals("no")) {
+		}else if(no.equals("no")) {
 			relationDB.answerNo(memberId, leader,studyName);
 		}
 		HeaderInfo(req, mv);
-		return "page/ResponsePage";
+		return "redirect:/page/ResponsePage";
 	}
 	@RequestMapping("/study_album")
 	public String study_album(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
@@ -339,6 +341,7 @@ public class PageController {
 		//typeList 
 		HttpSession session = req.getSession();
 		List<BoardTypeVO> typeList=(List)session.getAttribute("typeList");
+		System.out.println("group:"+group);
 		typeList=boardDB.getTypeList(group);
 		session.setAttribute("typeList", typeList);
 		mv.addAttribute("boardid",boardid);
@@ -347,8 +350,6 @@ public class PageController {
 	}
 	@RequestMapping("/updateBoardType")
 	public String updateBoardType(BoardTypeVO board) throws Throwable {
-		System.out.println("boadid="+board.getBoardid());
-		System.out.println("studynum="+board.getStudynum());
 		boardDB.updateBoardType(board);
 		return "redirect:/page/study_admin";
 	}
@@ -357,6 +358,19 @@ public class PageController {
 		boardDB.deleteBoard(boardid,group);
 		return "redirect:/page/study_admin";
 	}
+	
+	@RequestMapping("/updatePosition")
+	public String updatePosition(String groupposition) throws Throwable {
+		boardDB.updatePosition(group,groupposition);
+		return "redirect:/page/study_admin";
+	}
+	@RequestMapping("/deletePosition")
+	public String deletePosition() throws Throwable {
+		boardDB.deletePosition(group);
+		return "redirect:/page/study_admin";
+	}
+	
+	
 	@RequestMapping("/study_admin")
 	public String study_admin(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
 		autoComplete(mv);
@@ -414,6 +428,16 @@ public class PageController {
 		return "study/viewBoardInfo";
 	}
 	
+	@RequestMapping("/PositionInfo")
+	public String PositionInfo(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		autoComplete(mv);
+		HeaderInfo(req, mv);
+		String studynum=req.getParameter("studynum");
+		String groupposition=req.getParameter("groupposition");
+		mv.addAttribute("studynum",studynum);
+		mv.addAttribute("groupposition",groupposition);
+		return "study/viewPositionInfo";
+	}
 	
 
 }

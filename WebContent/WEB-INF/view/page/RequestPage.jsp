@@ -85,19 +85,18 @@
 			 <div class="w3-center w3-padding-16">
     <div class="w3-bar">
 			<c:if test="${startPage>bottomLine }">
-		
-			<a onclick="$('#req1').load('<%=request.getContextPath()%>/page/RequestPage?pageNum=${startPage-bottomLine}');" class="w3-bar-item w3-button w3-hover-black">«</a>
+			<a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${startPage-bottomLine}" class="w3-bar-item w3-button w3-hover-black">«</a>
 			</c:if>
 			
 	<c:forEach var="i" begin="${startPage }" end="${endPage}">
-				<c:if test="${i!=currentPage }">  <a onclick="$('#req1').load('<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }');" class="w3-bar-item w3-button w3-hover-black">${i }</a>
+				<c:if test="${i!=currentPage }">  <a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>
 				</c:if>
-				<c:if test="${i==currentPage }">  <a onclick="$('#req1').load('<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }');" class="w3-bar-item w3-black w3-button">${i }</a>
+				<c:if test="${i==currentPage }">  <a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }" class="w3-bar-item w3-black w3-button">${i }</a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${endPage<pageCount }">
 				
-				<a onclick="$('#req1').load('<%=request.getContextPath()%>/page/RequestPage?pageNum=${startPage+bottomLine}');" class="w3-bar-item w3-button w3-hover-black">»</a>
+				<a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${startPage+bottomLine}" class="w3-bar-item w3-button w3-hover-black">»</a>
 			</c:if>
 			    </div>
   </div>

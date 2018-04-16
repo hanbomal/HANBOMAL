@@ -9,9 +9,8 @@
 	</select>
 	
 	<select id="getArticles" resultType="Board" parameterType="hashmap">
-		select * from (select rownum rnum ,a.* from (select num,writer,subject,
-					reg_date,readcount,content
-					 from studyboard where boardid = #{boardid} and studynum=#{group} order by reg_date desc) 
+		select * from (select rownum rnum ,a.* from (select *
+		 from studyboard where boardid = #{boardid} and studynum=#{group} order by reg_date desc) 
 					a ) where rnum  between #{startRow} and #{endRow}
 	</select>
 	
@@ -55,6 +54,11 @@
 	<update id="updateBoardType" parameterType="Type">
 		update boardtype set boardname=#{boardname} where studynum=#{studynum} and boardid=#{boardid} 
 	</update>
+	
+	<update id="updatePosition" parameterType="hashmap">
+		update groupposition set groupposition=#{groupposition} where studynum=#{studynum}
+	</update>
+	
    
    <delete id="deleteArticle" parameterType="hashmap" >
  	  delete from studyboard where num=#{num} and passwd=#{passwd} 
@@ -63,6 +67,11 @@
 	<delete id="deleteBoard" parameterType="hashmap" >
  	  delete from boardtype where studynum=#{studynum} and boardid=#{boardid} 
    </delete> 	
+		
+	<delete id="deletePosition" parameterType="hashmap" >
+ 	  delete from groupposition where studynum=#{studynum} 
+   </delete> 	
+		
 		
 	<select id="getTypeList" resultType="Type" parameterType="hashmap">	
 	select * from boardtype where studynum = #{group} order by createdate desc

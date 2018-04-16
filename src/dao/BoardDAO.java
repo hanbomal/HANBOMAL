@@ -45,7 +45,17 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 		return deleteNum;
 	}
-
+	
+	public int deletePosition(String group) {
+		sqlSession = sqlSession();
+		Map map = new HashMap<>();
+		map.put("studynum", group);
+		int deleteNum = sqlSession.delete(namespace + ".deletePosition", map);
+		sqlSession.commit();
+		sqlSession.close();
+		return deleteNum;
+	}
+	
 	public BoardTypeVO getBoardType(String boardid, String group) {
 		sqlSession = sqlSession();
 		Map map = new HashMap<>();
@@ -123,7 +133,16 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 		return updateCount;
 	}
-	
+	public int updatePosition(String studynum, String groupposition) {
+		sqlSession = sqlSession();
+		Map<String, String> map = new HashMap<>();
+		map.put("studynum", studynum);
+		map.put("groupposition", groupposition);
+		int updateCount = sqlSession.update(namespace + ".updatePosition", map);
+		sqlSession.commit();
+		sqlSession.close();
+		return updateCount;
+	}
 	
 	public int deleteArticle(int num, String passwd) {
 		sqlSession = sqlSession();
