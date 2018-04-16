@@ -12,9 +12,9 @@
 	<div class="w3-quarter">&nbsp;</div>
 
   <div class="w3-half w3-container ">
-  <div class="w3-container w3-white">
+  <div class="w3-container w3-black">
       
-       <h6>회원관리</h6>
+       <h6>회원관리   (회원수:${count })</h6>
       </div>
     <div class="w3-card-4">
       <div class="w3-container " style="overflow:auto; background: rgba(241, 241, 241, 0.75); ">
@@ -22,21 +22,17 @@
 <div class="w3-container">
   <table class="w3-table  ">
     <tr>
-    <th>회원번호</th>
+    <th>NUMBER</th>
       <th>ID</th>
       <th>NICKNAME</th>
       <th>JOINDATE</th>
 
      <th>LASTDATE</th>
-     <th>삭제</th>
+     <th>DELETE</th>
       
     </tr>
     
-  	<c:if test="${memberList.size()==0}">
-    <tr>
-      <td colspan="3" class="w3-center">회원이없습니다.</td>
-    </tr>
-  	</c:if>
+ 
   	
   	
   	<c:forEach var="member" items="${memberList}">
@@ -48,10 +44,18 @@
         <td>${member.lastdate}</td>
          <td>
      
-                  <form method="post" action="<%=request.getContextPath() %>/member/deletePro">
+                  <form method="post" action="<%=request.getContextPath() %>/member/member_deletead">
+                  
+                  
+                  
+                  
+                  
+                     <input type="hidden" name="memberid" value="${member.memberid}">
+					<input type="hidden" name="passwd" value="${member.passwd}"> 
+							
                      <input type="submit" class="w3-button w3-w3-pale-red w3-hover-black" value="삭제">
-                           
-         
+                      
+         </form>
          </td>
          
   
@@ -65,16 +69,35 @@
 
 
   <!-- Pagination -->
-  <div class="w3-center w3-padding-16">
-    <div class="w3-bar">
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-      <a href="#" class="w3-bar-item w3-black w3-button">1</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">>></a>
-    </div>
-  </div>
+ <div class="w3-center">
+		<c:if test="${count>0 }">
+			<c:if test="${startPage>bottomLine }">
+				<a href="member_List?pageNum=${startPage-bottomLine}">[이전]</a>				
+				
+			</c:if>
+			
+			<c:forEach var="i" begin="${startPage }" end="${endPage }">
+		
+					<a href="member_List?pageNum=${i}">
+					<!-- pageNum넘김 -->
+					<c:if test="${i!=currentPage }">
+							[${i}]
+					</c:if>
+					<c:if test="${i==currentPage }">
+						<font color='black'>[${i}]</font>						
+					</c:if>
+					</a>			
+			</c:forEach>
+				
+				<c:if test="${endPage<pageCount}">
+			
+					<a href="member_List?pageNum=${startPage+bottomLine}">[다음]</a>	
+				</c:if>
+
+	
+			</c:if>
+			
+</div>
       </div>
     </div>
   </div>
