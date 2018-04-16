@@ -1,6 +1,8 @@
+<%@page import="model.RelationVO"%>
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+
 	     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
      <%
@@ -10,20 +12,18 @@
     String group=request.getParameter("group");
     if(group==null) group="우리끼리";
     
-    HashMap nameMap=(HashMap)request.getAttribute("nameMap");
-   // System.out.println(nameMap);
-    //System.out.println(nameMap.get("aaa"));
     %>
 
 		
 <!DOCTYPE html>
-<!--  -->
 <html>
 <head>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="../api/date.js"></script>
+<script type="text/javascript" src="../api/JMAP.js"></script>
+
 <meta charset="UTF-8">
 
 <script>
@@ -161,6 +161,10 @@ width:auto;
 max-width: 100%;
 height:auto;}
 
+#messageWindow .profileThum{
+width:30px;
+height:30px;
+margin-bottom:5px;}
 
 </style>
 </head>
@@ -222,6 +226,8 @@ style="display: inline-block; width: 140px; " id="searchText" placeholder="검색�
 </div>
 
  </div>
+ 
+ 
   </div>
   <input type="hidden" name="name" value="${memberid}">
   <input type="hidden" name="studynum" value="${group}">
@@ -256,24 +262,19 @@ var today =new Date().toString('yyyyMMdd');
 	];
   
 
-  var nameMap=[];
+  ${nameJs}
 
-  
-  
-      ERR_MSG[<c:out value="${}">]        = <%=nameMap.get("name")%>;  
-
-    alert(ERR_MSG[<%=name%>]);
 
         var textarea = document.getElementById("messageWindow");
       
       
-      <%--   var webSocket = new WebSocket(
-    'ws://211.238.142.34:8080<%=request.getContextPath()%>/webGroup?name='
-    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>')); --%>
+     <%--   var webSocket = new WebSocket(
+   'ws://211.238.142.34:8080<%=request.getContextPath()%>/webGroup?name='
+   		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>')); --%>
     		
-    		 var webSocket = new WebSocket(
-    				    'ws://localhost:8080<%=request.getContextPath()%>/webGroup?name='
-    				    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
+		 var webSocket = new WebSocket(
+				    'ws://localhost:8080<%=request.getContextPath()%>/webGroup?name='
+				    		+encodeURIComponent('<%=name%>')+'&group='+encodeURIComponent('<%=group%>'));
     		 
     		 
         var inputMessage = document.getElementById('inputMessage');
@@ -315,8 +316,6 @@ var today =new Date().toString('yyyyMMdd');
       			}
       			
       			
-      			
-      			
       		}
       		document.getElementById("curMember").innerHTML =curmem.substr(0,curmem.length-1)+'님이 참여 중'; 
       		document.getElementById("curCount").innerHTML ='현재 접속자 : '+count+'명'; 
@@ -329,14 +328,21 @@ var today =new Date().toString('yyyyMMdd');
     	 
      var texts=testProcess(event.data);
 
-     
+  /*    
   textarea.innerHTML +="<table align='left' style='width:100%;'><tr><td><ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
       +texts[0]+
       "<span class='w3-small'>&nbsp;"+texts[1]+"</span><br>"
       +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
       +" <span class='w3-medium'><font color='white'>"+texts[2]+"</font></span>"
-    +" </div></li></ul></td></tr></table>"; 
+    +" </div></li></ul></td></tr></table>";  */
     
+    
+    textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td>"
+		 +"<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
+	        +"<img src='"+map[texts[0]]+"' class='profileThum' >&nbsp;"+texts[0]+"<br>"
+	        +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
+	        +" <span class='w3-medium'><font color='white'>"+texts[2]+"</font></span>"
+	      +" </div><br><span class='w3-small'>"+texts[1]+"</span></li></ul></td></tr></table></div>"; 
   
   
     
@@ -346,7 +352,7 @@ var today =new Date().toString('yyyyMMdd');
          }
     function onOpen(event) {
     	
-    	<%-- textarea.innerHTML +="<img src=<c:out value='<%=nameMap.get("aaa")%>'/>>"; --%>
+    
     	
      	if(chatdata.length!=0){
     	 textarea.innerHTML += "<span class='w3-small'>대화 내용은 3일치까지 표시됩니다.</span><br>";  }
@@ -376,34 +382,34 @@ var today =new Date().toString('yyyyMMdd');
 			  
 		  }else{
 
-			  
+			  /* 
 			 
-			  textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td><ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
-			      +l0+
+			 textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td><ul class='w3-ul' style='display:block;' >"
+			 +"<li class='w3-large' style='border:none; max-width:80%;'><img src='"+map[l0]+"' class='profileThum' >";
+			  textarea.innerHTML +=l0+
 			      "<span class='w3-small'>&nbsp;"+l1+"</span><br>"
 			      +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
 			      +" <span class='w3-medium'><font color='white'>"+l2+"</font></span>"
-			    +" </div></li></ul></td></tr></table></div>"; 
-			     
+			    +" </div></li></ul></td></tr></table></div>";  
+			      */
 			  
 			  
 			  
-		/* 	  시간이 아래쪽에있는거
+		//시간이 아래쪽에 있는 거
+		
 		 textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td>"
 		 +"<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
-	        +l0+"<br>"
+	        +"<img src='"+map[l0]+"' class='profileThum' >&nbsp;"+l0+"<br>"
 	        +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
 	        +" <span class='w3-medium'><font color='white'>"+l2+"</font></span>"
 	      +" </div><br><span class='w3-small'>"+l1+"</span></li></ul></td></tr></table></div>"; 
-	       */
+	       
 		  
 		  
 		  }
 		
 	}
       
-        
-    
     
              textarea.scrollTop=textarea.scrollHeight;
        
@@ -484,12 +490,20 @@ var today =new Date().toString('yyyyMMdd');
 		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
 		          +"<span class='w3-medium'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table></div>";
        	resetFile();
-	    inputMessage.focus();
+	    
+       	
+       	if(document.getElementById('contentTitle').innerHTML=='사진첩'){
+       		
+       	$('#content').load('<%=request.getContextPath()%>/gallery/list?memberid=<%=name%>&studynum=<%=group%>');
+       	}
+       	
+       	
+       	inputMessage.focus();
 	   
-        
-        webSocket.send(inputMessage.value.trim());
+	    webSocket.send(inputMessage.value.trim());
  			  
        inputMessage.value = "";
+       
        textarea.scrollTop=textarea.scrollHeight;
     	        
     	        },
@@ -509,9 +523,6 @@ var today =new Date().toString('yyyyMMdd');
  		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
  		          +"<span class='w3-medium'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table></div>";
        
-       
-         
-      
        
         
 		 textarea.scrollTop=textarea.scrollHeight;
@@ -578,9 +589,6 @@ function checkKey(e){
 	document.onkeypress = checkKey;
 
 	
-	
-
-
 
 //preview image 
 
@@ -598,9 +606,6 @@ var reader = new FileReader();
 reader.onload = function(e){
 	var src = e.target.result;
 	
-	
-  
-   
 	parent.prepend('<div class="upload-display" id="upload-display"><div class="upload-thumb-wrap w3-display-container "><img src="'+src+'" class="upload-thumb"></div></div>'); 
 	
 	//document.getElementById('addfilebtn').style.display='none';

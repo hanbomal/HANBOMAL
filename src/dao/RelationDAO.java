@@ -134,6 +134,15 @@ public class RelationDAO extends MybatisConnector{
 		return memberInfo;
 	}
 	
+	public void updateMemberInfo(RelationVO member) {
+		sqlSession=sqlSession();
+	
+		
+		sqlSession.update(namespace+".updateMemberInfo",member);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
 	
 	
 	

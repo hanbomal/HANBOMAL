@@ -13,6 +13,13 @@
       select * from member WHERE memberid = #{memberid} 
    </select>	
    
+<insert id="logOuttime" parameterType="member"  >
+       update member set 
+      lastdate= sysdate  where memberid=#{memberid} 
+   </insert>      
+   	   
+   
+   
  <update id="updateMember" parameterType="member">
       update member set 
 		nickname=#{nickname},passwd=#{passwd},passwdq=#{passwdq},passwdkey=#{passwdkey} where memberid=#{memberid}
@@ -36,7 +43,7 @@
   <!-- -for memberlist output -->
   
  	<select id="getMembers" resultType="member" parameterType="hashmap">
-	select * from (select rownum rnum, a.* from (select num, memberid, nickname, joindate,lastdate
+	select * from (select rownum rnum, a.* from (select num,passwd,memberid, nickname, joindate,lastdate
  from member)a) where rnum between #{startRow} and #{endRow} order by joindate
 	</select> 
   

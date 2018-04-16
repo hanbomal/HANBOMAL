@@ -125,6 +125,11 @@ jQuery(document).ready(function(){
             alert('The calendar has adjusted to a window resize');
         } */
        /* ,allDay:true  각 스케쥴에 map으로 넣기*/
+       , navLinkDayClick: function(date, jsEvent) {
+    	    //console.log('day', date.format()); // date is a moment
+    	    //console.log('coords', jsEvent.pageX, jsEvent.pageY);
+    	    alert("test");
+    	  }
        , select: function(startDate, endDate) {
     	   document.getElementById('title').value='';
 	    	  document.getElementById('place').value='';

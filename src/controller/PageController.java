@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -413,6 +414,8 @@ public class PageController {
 		return "study/viewMyInfo";
 	}
 	
+	
+	
 	@RequestMapping("/boardInfo")
 	public String boardInfo(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
 		autoComplete(mv);
@@ -438,6 +441,41 @@ public class PageController {
 		mv.addAttribute("groupposition",groupposition);
 		return "study/viewPositionInfo";
 	}
+	
+	@RequestMapping(value = "/profileChange", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	public String profileChange(MultipartHttpServletRequest request, RelationVO member, String studynum, String memberId,
+			Model model) throws Throwable {
+	
+		autoComplete(model);
+		MultipartFile multi = request.getFile("uploadfile");
+
+		String filename = multi.getOriginalFilename();
+		System.out.println("filename:[" + filename + "]");
+		if (filename != null && !filename.equals("")) {
+			String uploadPath = request.getRealPath("/") + "fileSave";
+			System.out.println(uploadPath);
+
+			String fileType = filename.substring(filename.lastIndexOf('.'), filename.length());
+			String rename = member.getMemberId() + "profile_" + System.currentTimeMillis() + fileType;
+			FileCopyUtils.copy(multi.getInputStream(), new FileOutputStream(uploadPath + "/" + rename));
+
+			member.setPhoto(rename);
+			
+			model.addAttribute("filename", rename);
+		} else {
+
+			//member.setPhoto("");
+		}
+
+		
+		relationDB.updateMemberInfo(member);
+		//System.out.println("프로필 변경 성공");
+		
+		System.out.println(member.getStudynum());
+		return "redirect:/page/study_info?studynum="+member.getStudynum();
+	}
+	
+	
 	
 
 }

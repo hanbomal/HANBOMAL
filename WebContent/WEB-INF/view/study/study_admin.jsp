@@ -78,7 +78,7 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
 
 <!-- 게시판 만드는 모달 -->
   <div id="makeBoard" class="w3-modal "  >
-    <div class="w3-modal-content w3-card-4" style="width:40%">
+    <div class="w3-modal-content w3-card-4" style="width:20%">
       <header class="w3-container w3-teal"> 
         <span onclick="document.getElementById('makeBoard').style.display='none'" 
         class="w3-button w3-display-topright">&times;</span>
