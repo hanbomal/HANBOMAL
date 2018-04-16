@@ -14,7 +14,7 @@
   <div class="w3-half w3-container ">
   <div class="w3-container w3-black">
       
-       <h6>회원관리   (회원수:${count })</h6>
+       <h6>스터디 그룹 관리  (개설된 스터디 수: ${count } 개)</h6>
       </div>
     <div class="w3-card-4">
       <div class="w3-container " style="overflow:auto; background: rgba(241, 241, 241, 0.75); ">
@@ -40,17 +40,17 @@
       <td>${study.num}</td>
       <td>${study.studyName}</td>
       <td>${study.leader}</td>
-       <td>${study.opendate}</td>
+       <td>${study.openDate}</td>
        
          <td>
      
-                  <form method="post" action="<%=request.getContextPath() %>/member/member_deletead">
+                  <form method="post" action="<%=request.getContextPath() %>/member/study_delete">
                   
                   
                   
                   
                   
-                     <input type="hidden" name="memberid" value="${study.studyName}">
+                     <input type="hidden" name="studyName" value="${study.studyName}">
 					
 							
                      <input type="submit" class="w3-button w3-w3-pale-red w3-hover-black" value="삭제">
