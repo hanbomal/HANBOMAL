@@ -3,7 +3,7 @@ CREATE table boardtype (
   studynum int NOT NULL ,
   boardid VARCHAR2(100) PRIMARY KEY ,
   boardname VARCHAR2(100) NOT NULL ,
-  chkprivate  VARCHAR2(100) NOT NULL
+  createdate Date not null
 );
 SELECT *
 FROM boardtype;

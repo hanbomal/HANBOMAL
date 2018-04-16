@@ -61,4 +61,9 @@
 	SELECT * FROM studyrelation WHERE studyName=#{studyName} and memberid=#{memberid} and status=2
 	</select>
 	
+	<update id="updateMemberInfo" parameterType="Relation">
+		update studyrelation set photo=#{photo}, nickName=#{nickName}
+		where memberId=#{memberId} and studynum=#{studynum}
+	</update>
+	
 </mapper>

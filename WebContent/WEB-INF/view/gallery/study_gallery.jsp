@@ -13,7 +13,8 @@ function onClick(num) {
 		$.ajax({
             type: "POST",
             url: "../gallery/imageView",
-            data: {    "num" : num
+            data: {    "num" : num,
+            	"memberid" : '<c:out value="${memberid}"/>'
                },
             success: function(data) {
             	document.getElementById("modal_imageContent").innerHTML=data;
@@ -72,7 +73,7 @@ list-style: none;}
  <div class="w3-container"><div class="w3-bar w3-padding ">
  <!-- <button class="w3-button w3-padding-small w3-left w3-light-grey">목록보기</button> -->
   	<span >전체 사진 : ${count }</span>
-  <button class="w3-button w3-padding-small w3-right  w3-black w3-margin-bottom" title="사진 올리기">+</button>
+ <span class="w3-right w3-small w3-tag w3-white w3-border">사진을 채팅창에 끌어다 놓으면 다시 전송됩니다.</span>
 </div></div>
  <div class="w3-row w3-container " >
  
@@ -102,7 +103,7 @@ list-style: none;}
 	
 		    <img draggable="true" ondragstart="drag(event)" 
 		    
-		    src="<%=request.getContextPath()%>/fileSave/${gallery.filename}" class="thum" id="${gallery.num }" style="width: 100%; cursor:pointer; display: max-height: 300px;"
+		    src="<%=request.getContextPath()%>/fileSave/${gallery.filename}" class="thum" id="${gallery.num }" style="width: 100%; cursor:pointer;  max-height: 300px;"
 		     onclick="onClick(${gallery.num})">
 		     
 		     	    

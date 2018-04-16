@@ -12,12 +12,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -173,30 +177,51 @@ public class ChatController {
 		//System.out.println(memberList.get(0).getNickName());
 		
 		HashMap<String,String> namemap=new HashMap<String,String>();
+		Set<String> nameset=new HashSet<String>();
 		
 		
 		Iterator<RelationVO> it=memberList.iterator();
 		while(it.hasNext()) {
 			RelationVO member=(RelationVO)it.next();
 			String username=member.getMemberId();
+			nameset.add(username);
 			
 			if((member.getPhoto()!="")&&(member.getPhoto()!=null)) {
 				
 				namemap.put(username,req.getContextPath()+"/fileSave/"+member.getPhoto());
-				
+				nameset.add(username+","+req.getContextPath()+"/fileSave/"+member.getPhoto());
 				//System.out.println(req.getContextPath()+"/fileSave/"+member.getPhoto());
 			}
 			
 			else {
 				namemap.put(username,req.getContextPath()+"/imgs/profile.png");
-			
+				nameset.add(username+","+req.getContextPath()+"/imgs/profile.png");
+				
 				
 				//System.out.println(req.getContextPath()+"/imgs/profile.png");
 			}
 		}
-		mv.addAttribute("nameMap",namemap);
-		mv.addAttribute("test","test");
 		
+		
+	        Set<String> set = namemap.keySet();
+	        Object obj[] = set.toArray();
+
+	        StringBuffer stbf = new StringBuffer();
+	       // stbf.append("<script type='text/javascript'>");
+	        stbf.append("var map = new Array();");
+	        for(int i=0; i<obj.length; i++)
+	        {
+	            if(i!=0)stbf.append("");
+	            stbf.append("map['"+obj[i]+"'] = '"+namemap.get(obj[i])+"';");
+	        }
+	        //stbf.append("</script>");
+
+		
+	   
+	    mv.addAttribute("nameJs",stbf);
+		mv.addAttribute("nameMap",namemap);
+		mv.addAttribute("memberList",memberList);
+		mv.addAttribute("nameset",nameset);
 		
 		return "chat/websocketGroup";
 

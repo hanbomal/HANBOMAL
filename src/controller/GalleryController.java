@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +36,15 @@ public class GalleryController {
 		if (memberid != null && memberid != "")
 			this.memberid = memberid;
 		
+	}
+	
+	public String getSessionId(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String memberid = (String) session.getAttribute("memberid");
+		if (memberid == null) {
+			memberid = "defaultID";
+		}
+		return memberid;
 	}
 	
 	@RequestMapping("/list")
@@ -92,12 +102,14 @@ public class GalleryController {
 			throws Exception {
 		
 		String num=request.getParameter("num");
+		String memberid=request.getParameter("memberid");
 		
 		GalleryVO gallery=gPro.getImage(num);
 		
 		gallery.setFormatDate(sdf.format(gallery.getRegdate()));
 		
 		model.addAttribute("gallery",gallery);
+		model.addAttribute("memberid",memberid);
 		
 		
 		return "gallery/viewPage";

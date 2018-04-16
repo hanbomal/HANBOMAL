@@ -45,6 +45,35 @@ function showMyInfo(){
   onclick="showMyInfo();">내 정보 수정</button>
 </div>
 <div>
+
+<table class='w3-table w3-bordered' style="border:black;">
+<tr><td width="10%" class="w3-black">이름</td><td>${study.studyName }</td></tr>
+<tr><td class="w3-black">개설일</td><td>${study.openDate }</td></tr>
+<tr><td class="w3-black">소개</td><td>${study.study_intro}</td></tr>
+<tr><td class="w3-black">회원 목록 (총 ${memberCount}명)</td>
+<td><ul class="w3-ul">
+	
+	<c:forEach var="member" items="${members }">
+	<li>
+	<c:if test="${(member.photo!=null)&&(member.photo!='')}"><img src="<%=request.getContextPath()%>/fileSave/${member.photo}" width="30px"></c:if>
+	<c:if test="${(member.photo==null)||(member.photo=='')}"><img src="<%=request.getContextPath()%>/imgs/profile.png" width="30px"></c:if>
+	${member.nickName } (${member.memberId }) 
+	<c:if test="${member.position =='방장'}">
+	<span class="w3-tag w3-teal w3-border">${member.position }</span>
+	</c:if>
+	<c:if test="${member.position !='방장'}">
+	<span class="w3-tag w3-white w3-border">${member.position }</span>
+	</c:if>
+	</li>
+	
+	</c:forEach>
+	</ul></td></tr>
+
+
+</table>
+
+<%-- 
+
 <ul class="w3-ul">
 <li>
 스터디 이름 : ${study.studyName }
@@ -64,7 +93,7 @@ function showMyInfo(){
 	</ul>
 
 </li> 
-</ul>
+</ul> --%>
 </div>
 </div>
 </div>
