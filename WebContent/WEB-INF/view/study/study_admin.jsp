@@ -7,13 +7,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript" src="../api/fullcalendar-3.9.0/lib/jquery.min.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 
+
+<script>
+$(document).ready(
+	function(){
+    $('#memberList').load('<%=request.getContextPath()%>/page/admin_memberList');
+    });
+</script>
 <body>
 
 
 <div class="w3-container w3-padding" style="height: 600px;">
 
-<div class="w3-half" style="margin-top:40px">
-<div class="w3-center w3-padding"><b>회원 목록</b>(총 ${memberCount}명)</div>
+<div class="w3-half" id="memberList" style="margin-top:40px">
+<%-- <div class="w3-center w3-padding"><b>회원 목록</b>(총 ${memberCount}명)</div>
  <table class="w3-table  w3-centered" style="width: 100%; border:black;">
     <tr class="w3-black">
       <th class="w3-center" width="25%">닉네임</th>
@@ -29,7 +39,28 @@
  	  <td class="w3-center" width="25%">${member.lastDate }</td>
  	</tr>
   </c:forEach>
- </table>
+ </table> --%>
+  <!-- Pagination -->
+ <%--  <c:if test="${count>0 }">
+			 <div class="w3-center w3-padding-16">
+    <div class="w3-bar">
+			<c:if test="${startPage>bottomLine }">
+			<a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${startPage-bottomLine}" class="w3-bar-item w3-button w3-hover-black">«</a>
+			</c:if>
+			
+	<c:forEach var="i" begin="${startPage }" end="${endPage}">
+				<c:if test="${i!=currentPage }">  <a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>
+				</c:if>
+				<c:if test="${i==currentPage }">  <a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }" class="w3-bar-item w3-black w3-button">${i }</a>
+				</c:if>
+			</c:forEach>
+			<c:if test="${endPage<pageCount }">
+				
+				<a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${startPage+bottomLine}" class="w3-bar-item w3-button w3-hover-black">»</a>
+			</c:if>
+			    </div>
+  </div>
+		</c:if>   --%>
 
 </div>
 
@@ -71,7 +102,9 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
 
 </div>
 
-
+<div>
+<button class="w3-button w3-red w3-right w3-margin">그룹해제</button>
+</div>
 
 
 </div>

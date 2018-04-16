@@ -21,7 +21,6 @@ import dao.BoardDAO;
 import dao.RelationDAO;
 import dao.StudyDAO;
 import model.BoardTypeVO;
-import model.GalleryVO;
 import model.PositionVO;
 import model.RelationVO;
 import model.StudyVO;
@@ -342,7 +341,6 @@ public class PageController {
 		//typeList 
 		HttpSession session = req.getSession();
 		List<BoardTypeVO> typeList=(List)session.getAttribute("typeList");
-		System.out.println("group:"+group);
 		typeList=boardDB.getTypeList(group);
 		session.setAttribute("typeList", typeList);
 		mv.addAttribute("boardid",boardid);
@@ -370,27 +368,59 @@ public class PageController {
 		boardDB.deletePosition(group);
 		return "redirect:/page/study_admin";
 	}
-	
+	@RequestMapping("/admin_memberList")
+	public String admin_memberList(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		int pageSize = 5;
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int endRow = currentPage * pageSize;
+		int count = 0;
+		int number = 0;
+		//메소드 더 안만들고 study에서 peopleCount 끌어옴.
+		StudyVO study=studyDB.getOneStudy(group);
+		List members=null;
+		count=study.getPeopleCount();
+		if(count>0) {
+			members=relationDB.getMemberList(startRow,endRow,study.getStudyName());
+		}
+		number = count - (currentPage - 1) * pageSize;
+		int bottomLine = 5;
+		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine;
+		int endPage = startPage + bottomLine - 1;
+		if (endPage > pageCount)
+			endPage = pageCount;
+		mv.addAttribute("memberCount",members.size());
+		mv.addAttribute("studynum", group);
+		mv.addAttribute("pageCount", pageCount);
+		mv.addAttribute("endPage", endPage);
+		mv.addAttribute("bottomLine", bottomLine);
+		mv.addAttribute("startPage", startPage);
+		mv.addAttribute("currentPage", currentPage);
+		mv.addAttribute("members",members);
+		mv.addAttribute("number", number);
+		mv.addAttribute("count", count);
+		return "study/admin_memberList";
+	}
 	
 	@RequestMapping("/study_admin")
 	public String study_admin(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
 		autoComplete(mv);
 		HeaderInfo(req, mv);
+		
+		StudyVO study=studyDB.getOneStudy(group);
+		List members=relationDB.getJoinMemberList(study.getStudyName());
 		String memberid = getSessionId(req);
 		List<BoardTypeVO> typeList=boardDB.getTypeList(group);
 		
-		StudyVO study=studyDB.getOneStudy(group);
-		
-		List members=relationDB.getJoinMemberList(study.getStudyName());
 		List<PositionVO> position = studyDB.getAllPosition(group);
 		mv.addAttribute("positionList",position);
-		mv.addAttribute("members",members);
+	
 		mv.addAttribute("typeList",typeList);
 		mv.addAttribute("study",study);
 		mv.addAttribute("memberCount",members.size());
 		mv.addAttribute("memberid",memberid);
 		mv.addAttribute("group",group);
-	
 		return "study/study_admin";
 	}
 	

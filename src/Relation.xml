@@ -53,6 +53,13 @@
 		and studyName=#{studyName}
 	</update>
 	
+	<select id="getMemberList" resultType="Relation" parameterType="hashmap">
+	select * from (select rownum rnum ,a.* from 
+	(SELECT * FROM studyrelation WHERE studyName=#{studyName} and status=2 )
+					a ) where rnum  between #{startRow} and #{endRow}
+	</select>				
+					
+					
 	<select id="getJoinMemberList" resultType="Relation" parameterType="hashmap">
 	SELECT * FROM studyrelation WHERE studyName=#{studyName} and status=2
 	</select>
