@@ -13,9 +13,11 @@
       select * from member WHERE memberid = #{memberid} 
    </select>	
    
-<update id="getOuttime" parameterType="member" >
-      update member set lastdate=#{lastdate}  from member WHERE memberid = #{memberid} 
-   </update>	   
+<insert id="logOuttime" parameterType="member"  >
+       update member set 
+      lastdate= sysdate  where memberid=#{memberid} 
+   </insert>      
+   	   
    
    
  <update id="updateMember" parameterType="member">

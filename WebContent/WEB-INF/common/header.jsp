@@ -97,6 +97,11 @@ body, html {
 						<span class="w3-badge w3-small w3-blue">${rescount}</span>
 						</c:if>
 						</a> 
+						
+							<c:if test="${sessionScope.memberid eq 'admin'}">
+							<a href="<%=request.getContextPath() %>/member/member_List" class="w3-bar-item w3-button">회원관리</a>
+							<a href="<%=request.getContextPath() %>/member/study_List" class="w3-bar-item w3-button">그룹관리</a>
+							</c:if>
 						<input class="w3-bar-item w3-button" value="LOGOUT" onclick="logoutPro()"/>
 						
 					</div>
@@ -121,6 +126,10 @@ body, html {
 				</div>
 		
 			</div>
+			
+		
+			
+		
 
 			<!-- Hide right-floated links on small screens and replace them with a menu icon -->
 

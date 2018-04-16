@@ -79,27 +79,33 @@ PageController page=new PageController();
 		return null;
 	}
 	
-	@RequestMapping("/logoutPro")	
-	   public String LogoutPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		      
-	       HttpSession  session = req.getSession();
-	     
-			MemberDAO dbpro = MemberDAO.getInstance();
-			
-			String memberid=((String)session.getAttribute("memberid"));
-			
-			   req.setAttribute("memberid", memberid); //
-			   
-			   
-			
-			dbpro.insertOuttime(memberid);
-	   
-	       session.invalidate(); //
-	       
-	       
-	       res.sendRedirect(req.getContextPath() + "/page/main"); // 
-	      return null;
-	   }
+	@RequestMapping("/logoutPro")   
+    public String LogoutPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+          
+        HttpSession  session = req.getSession();
+      
+       MemberDAO dbpro = MemberDAO.getInstance();
+       
+       String memberid=((String)session.getAttribute("memberid"));
+       
+       req.setAttribute("memberid", memberid);
+       
+    
+       
+       
+       MemberVO member=dbpro.getMember((String)session.getAttribute("memberid"));
+       
+       req.setAttribute("member", member);
+    
+    
+          int chk=dbpro.logOuttime(member);
+    
+        session.invalidate(); //
+        
+        
+        res.sendRedirect(req.getContextPath() + "/page/main"); // 
+       return null;
+    }
 	
 	
 	
@@ -314,13 +320,18 @@ PageController page=new PageController();
  return "member/member_deletead";
 }
 
+ 
+ @RequestMapping("/study_List")
+ public String member_List(HttpServletRequest request,
+	       HttpServletResponse response)  throws Throwable { 
+ 
+ 
+ 
+ 
+ 
+ 
+ return "member/study_List";
 
- 
- 
- 
- 
- 
- 
 
-
+}
 }

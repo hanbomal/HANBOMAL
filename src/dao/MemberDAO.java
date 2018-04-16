@@ -71,24 +71,26 @@ public class MemberDAO extends MybatisConnector {
 			
 		}
 		
-		public MemberVO insertOuttime(String memberid) {
-			sqlSession= sqlSession();
-			
-			Map map = new HashMap();
-			
-			map.put("memberid", memberid);
-			MemberVO member=sqlSession.selectOne(namespace+ ".getOuttime" ,map);
-			Date lastdate=new Date();
-			
-			member.setLastdate(lastdate);
-			
-			sqlSession.commit();
-			sqlSession.close();
-			
-			return member;
-			
-			
-		}
+		  public int logOuttime(MemberVO member) {
+		         sqlSession= sqlSession();
+		         
+		         
+		            Map map = new HashMap();
+		         
+		      
+		         
+		       int chk=sqlSession.update(namespace+".logOuttime", member);
+		       
+		       
+		         
+		         sqlSession.commit();
+		         sqlSession.close();
+		         
+		      return chk;
+		         
+		         
+		      }
+		      
 		
 
 
