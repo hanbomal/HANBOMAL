@@ -116,6 +116,45 @@ public class StudyDAO extends MybatisConnector{
 		sqlSession.commit();
 		sqlSession.close();
 	}
+	
+	
 
+public List getStudyList(int startRow, int endRow) {
+	// TODO Auto-generated method stub
+	sqlSession= sqlSession();
+    Map map = new HashMap();
+    map.put("startRow", startRow);
+    map.put("endRow", endRow);
+   
+    
+    List li = sqlSession.selectList(namespace + ".getStudyList",map);
+    sqlSession.close();
+	
+	
+	return li;
+}
+
+public int getStudyCount() {
+    int x = 0;
+    sqlSession=sqlSession();
+    x = sqlSession.selectOne(namespace+".getStudyCount");
+    sqlSession.close();
+    return x;
+ }
+
+public int deleteStudy(String studyName) {
+	
+	sqlSession= sqlSession();
+	Map map = new HashMap();
+	
+	
+	map.put("studyName", studyName);
+	int chk = sqlSession.delete(namespace+".deleteStudy", map);
+	sqlSession.commit();
+	sqlSession.close();
+	
+	return chk;
+	
+}
 	
 }

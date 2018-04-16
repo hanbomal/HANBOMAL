@@ -57,6 +57,19 @@ or studyname in (select studyName from studyrelation where (memberid=#{memberid}
 		select * from studygroup where num=#{num}
 	</select>
 	
+		<select id="getStudyList" resultType="Study" parameterType="hashmap">
+	select * from (select rownum rnum, a.* from (select num,leader,studyName, openDate
+ from studygroup)a) where rnum between #{startRow} and #{endRow} order by openDate
+	</select> 
+	
+	  <select id="getStudyCount" resultType="int">
+      SELECT nvl(count(*),0) FROM studygroup
+   </select>
+   
+    <update id="deleteStudy" parameterType="map">
+      delete from studygroup where studyName=#{studyName} 
+				 
+	 </update>
 	
 	
 </mapper>

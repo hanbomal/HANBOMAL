@@ -5,6 +5,7 @@
    <!-- add -->
    <typeAliases>
    <typeAlias type="model.StudyVO" alias="Room"/> 
+     <typeAlias type="model.StudyVO" alias="Study"/> 
   <typeAlias type="model.CalendarVO" alias="Schedule"/>  
   <typeAlias type="model.RelationVO" alias="Relation"/>  
   <typeAlias type="model.MemberVO" alias="Member"/>  

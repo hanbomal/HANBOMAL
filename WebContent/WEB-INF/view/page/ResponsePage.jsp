@@ -46,14 +46,8 @@
       <form method="post" action="sendRedirect" >
       	<input type="hidden" name="memberId" value="${group.memberId}">
       	<input type="hidden" name="studyName" value="${group.studyName}">
-      	<input type="hidden" name="answer" value="yes">
-    	<input type="submit" value="수락" class="w3-button w3-black w3-half">
-      </form>
-      <form method="post" action="sendRedirect">
-      	<input type="hidden" name="memberId" value="${group.memberId}">
-      	<input type="hidden" name="studyName" value="${group.studyName}">
-      	<input type="hidden" name="answer" value="no">
-   	 	<input type="submit" value="거절" class="w3-button w3-red w3-half">
+      	<button type="submit" name="yes" value="yes" class="w3-button w3-black w3-half">수락</button>
+      	<button type="submit" name="no" value="no" class="w3-button w3-red w3-half">거절</button>
       </form>
       </c:if>
   </td>
@@ -70,18 +64,18 @@
     <div class="w3-bar">
 			<c:if test="${startPage>bottomLine }">
 		
-			<a onclick="$('#res').load('<%=request.getContextPath()%>/page/ResponsePage?pageNum=${startPage-bottomLine}');" class="w3-bar-item w3-button w3-hover-black">«</a>
+			<a href="<%=request.getContextPath()%>/page/ResponsePage?pageNum=${startPage-bottomLine}" class="w3-bar-item w3-button w3-hover-black">«</a>
 			</c:if>
 			
 	<c:forEach var="i" begin="${startPage }" end="${endPage}">
-				<c:if test="${i!=currentPage }">  <a onclick="$('#res').load('<%=request.getContextPath()%>/page/ResponsePage?pageNum=${i }');" class="w3-bar-item w3-button w3-hover-black">${i }</a>
+				<c:if test="${i!=currentPage }">  <a href="<%=request.getContextPath()%>/page/ResponsePage?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>
 				</c:if>
-				<c:if test="${i==currentPage }">  <a onclick="$('#res').load('<%=request.getContextPath()%>/page/ResponsePage?pageNum=${i }');" class="w3-bar-item w3-black w3-button">${i }</a>
+				<c:if test="${i==currentPage }">  <a href="<%=request.getContextPath()%>/page/ResponsePage?pageNum=${i }" class="w3-bar-item w3-black w3-button">${i }</a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${endPage<pageCount }">
 				
-				<a onclick="$('#res').load('<%=request.getContextPath()%>/page/ResponsePage?pageNum=${startPage+bottomLine}');" class="w3-bar-item w3-button w3-hover-black">»</a>
+				<a href="<%=request.getContextPath()%>/page/ResponsePage?pageNum=${startPage+bottomLine}" class="w3-bar-item w3-button w3-hover-black">»</a>
 			</c:if>
 			    </div>
   </div>

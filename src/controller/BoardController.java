@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.BoardDAO;
 import model.BoardTypeVO;
 import model.BoardVO;
+import model.GalleryVO;
 
 @Controller
 @RequestMapping("/board")
@@ -49,32 +50,10 @@ public class BoardController {
 			this.group = group;
 	}
 	
-	/*@RequestMapping("/addBoardType")
-	public String addBoardType(BoardTypeVO board,Model mv,HttpServletRequest req) throws Throwable {
-		group=board.getStudynum()+"";
-		boardid=boardDB.getNextBoardid(group)+"";
-		board.setBoardid(boardid);
-		boardDB.addBoard(board);
-		//typeList 
-		HttpSession session = req.getSession();
-		List<BoardTypeVO> typeList=(List)session.getAttribute("typeList");
-		typeList=boardDB.getTypeList(group);
-		session.setAttribute("typeList", typeList);
-		
-		
-		
-		mv.addAttribute("boardid",boardid);
-		mv.addAttribute("group",group);
-		
-		
-		return "redirect:/board/study_";
-	}*/
-	
-	
-	
 	@RequestMapping("/study_board")
 	public String study_board(Model mv) throws Throwable {
-		int pageSize = 5;
+		
+		int pageSize = 7;
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize + 1;
 		int endRow = currentPage * pageSize;
@@ -88,17 +67,13 @@ public class BoardController {
 		}
 		number = count - (currentPage - 1) * pageSize;
 		
-		int bottomLine = 3;
+		int bottomLine = 5;
 		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
 		int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine;
 		int endPage = startPage + bottomLine - 1;
 		if (endPage > pageCount)
 			endPage = pageCount;
 			
-		BoardTypeVO boardType=boardDB.getBoardType(boardid,group);
-		mv.addAttribute("boardType",boardType);
-		
-		
 		mv.addAttribute("boardid",boardid);
 		mv.addAttribute("group",group);
 		mv.addAttribute("pageCount",pageCount);

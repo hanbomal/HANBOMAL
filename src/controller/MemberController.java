@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.MemberDAO;
+import dao.StudyDAO;
 import model.MemberVO;
 
 @Controller
@@ -322,11 +323,48 @@ PageController page=new PageController();
 
  
  @RequestMapping("/study_List")
- public String member_List(HttpServletRequest request,
+ public String study_List(HttpServletRequest request,
 	       HttpServletResponse response)  throws Throwable { 
  
  
- 
+	 int pageSize= 10;
+	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	   String pageNum = request.getParameter("pageNum");
+	   if (pageNum == null || pageNum =="") {
+	      pageNum = "1";
+	   }
+	   int currentPage = Integer.parseInt(pageNum);
+	   int startRow = (currentPage - 1) * pageSize + 1;  
+	   
+	   int endRow = currentPage * pageSize;
+	   int count = 0;
+	   int number = 0;
+	   List studyList = null;
+	   StudyDAO dbPro = StudyDAO.getInstance();
+	   count = dbPro.getStudyCount();
+	   //게시판에 있는 글 수 count
+	   if (count > 0) {
+	      studyList = dbPro.getStudyList(startRow, endRow);
+	   }
+	   number = count - (currentPage - 1) * pageSize;
+	   int bottomLine = 3; 
+	   int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+	   int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //곱셈, 나눗셈먼저.
+	   int endPage = startPage + bottomLine -1;
+	   
+	   if (endPage > pageCount) endPage = pageCount;
+	   
+	 
+	   request.setAttribute("count", count);
+	  
+	   request.setAttribute("studyList",studyList);
+	   request.setAttribute("number",number);
+	   request.setAttribute("startPage", startPage);
+	   request.setAttribute("bottomLine", bottomLine);
+	   request.setAttribute("pageCount", pageCount);
+	   request.setAttribute("currentPage", currentPage);
+	   request.setAttribute("endPage", endPage);
+	   
  
  
  
@@ -334,4 +372,23 @@ PageController page=new PageController();
 
 
 }
+ 
+ @RequestMapping("/study_delete")    //form 
+ public String study_delete(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+ 
+		String studyName=req.getParameter("studyName");
+		
+		
+		StudyDAO dbPro=StudyDAO.getInstance();
+		int chk=dbPro.deleteStudy(studyName);
+		
+		   
+		req.setAttribute("studyName",studyName);
+		
+		req.setAttribute("chk", chk);
+
+ 
+ return "member/study_delete";
+}
+ 
 }

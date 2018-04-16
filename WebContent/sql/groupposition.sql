@@ -1,6 +1,6 @@
 DROP table groupposition PURGE ;
 CREATE table groupposition (
-  studynum int PRIMARY KEY ,
+  studynum int ,
   groupposition VARCHAR2(100) NOT NULL
 );
 SELECT *

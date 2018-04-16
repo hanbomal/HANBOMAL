@@ -8,26 +8,6 @@
 <script type="text/javascript" src="../api/fullcalendar-3.9.0/lib/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- <script type="text/javascript" src="../api/httpRequest.js"></script> -->
-  
-			 
-<!-- <script type="text/javascript">
-	function contentToServer(num){
-		var params ="num="+num+"&pageNum=${currentPage}"
-		sendRequest("../board/content",params,responseFromServer,"POST");
-	}
-	function writeFormToServer(){
-		var params ="boardid=${boardid}"
-		sendRequest("../board/writeForm",params,responseFromServer,"POST");
-	}
-	function responseFromServer(){
-		if(httpRequest.readyState==4){
-			if(httpRequest.status==200){
-				document.getElementById("content").innerHTML=httpRequest.responseText
-			}
-		}
-	}
-</script> -->
 
 <!-- content -->
 <div class="w3-container " style="height:600px; width:100%; overflow:auto;  ">
@@ -72,37 +52,28 @@
 
 
   <!-- Pagination -->
-  <div class="w3-center w3-padding-16">
-    <div class="w3-bar">
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-      <a href="#" class="w3-bar-item w3-black w3-button">1</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
-    </div>
-  </div>
-  
   <!-- 
-    	<div class="w3-center w3-section w3-small">
-    	<c:if test="${startPage>bottomLine}">
-    		 <a href="list?pageNum=${startPage-bottomLine}" class="w3-bar-item w3-button w3-hover-black">«</a>
-    		</c:if>
-    		<c:forEach var="i" begin="${startPage }" end="${endPage }">
-    		<c:if test="${i!=currentPage}">
-    		  <a href="list?pageNum=${i}"
-    		 class="w3-bar-item w3-button w3-hover-black">${i}</a> 
-    		 	</c:if>
-    		<c:if test="${i==currentPage}">
-    		  <a href="list?pageNum=${i}" 
-    		  class="w3-bar-item w3-black w3-button">${i}</a> 
-    		</c:if>
-    		</c:forEach>
-    	<c:if test="${endPage<pageCount}">
-    		 <a href="list?pageNum=${ startPage+bottomLine}" class="w3-bar-item w3-button w3-hover-black">»</a>
-    			</c:if>
-    		 
-    	</div>
+    	<c:if test="${count>0 }">
+			 <div class="w3-center w3-padding-16">
+    <div class="w3-bar">
+			<c:if test="${startPage>bottomLine }">
+		
+			<a onclick="$('#gallery').load('<%=request.getContextPath()%>/gallery/list?pageNum=${startPage-bottomLine}');" class="w3-bar-item w3-button w3-hover-black">«</a>
+			</c:if>
+			
+	<c:forEach var="i" begin="${startPage }" end="${endPage}">
+				<c:if test="${i!=currentPage }">  <a onclick="$('#gallery').load('<%=request.getContextPath()%>/gallery/list?pageNum=${i }');" class="w3-bar-item w3-button w3-hover-black">${i }</a>
+				</c:if>
+				<c:if test="${i==currentPage }">  <a onclick="$('#gallery').load('<%=request.getContextPath()%>/gallery/list?pageNum=${i }');" class="w3-bar-item w3-black w3-button">${i }</a>
+				</c:if>
+			</c:forEach>
+			<c:if test="${endPage<pageCount }">
+				
+				<a onclick="$('#gallery').load('<%=request.getContextPath()%>/gallery/list?pageNum=${startPage+bottomLine}');" class="w3-bar-item w3-button w3-hover-black">»</a>
+			</c:if>
+			    </div>
+  </div>
+		</c:if>
   
    -->
   
