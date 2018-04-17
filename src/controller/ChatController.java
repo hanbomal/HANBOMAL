@@ -172,7 +172,7 @@ public class ChatController {
 		
 		
 		String groupName=sPro.getOneStudy(group).getStudyName();
-		List<RelationVO> memberList=rPro.getJoinMemberList(groupName);
+		List<RelationVO> memberList=rPro.getJoinMemberListForChat(groupName);
 		//System.out.println(groupName);
 		//System.out.println(memberList.get(0).getNickName());
 		
@@ -186,19 +186,25 @@ public class ChatController {
 			String username=member.getMemberId();
 			nameset.add(username);
 			
-			if((member.getPhoto()!="")&&(member.getPhoto()!=null)) {
-				
-				namemap.put(username,req.getContextPath()+"/fileSave/"+member.getPhoto());
-				nameset.add(username+","+req.getContextPath()+"/fileSave/"+member.getPhoto());
-				//System.out.println(req.getContextPath()+"/fileSave/"+member.getPhoto());
-			}
+			if(member.getStatus()=="2") {
 			
-			else {
-				namemap.put(username,req.getContextPath()+"/imgs/profile.png");
-				nameset.add(username+","+req.getContextPath()+"/imgs/profile.png");
+				if((member.getPhoto()!="")&&(member.getPhoto()!=null)) {
+					
+					namemap.put(username,req.getContextPath()+"/fileSave/"+member.getPhoto());
+					nameset.add(username+","+req.getContextPath()+"/fileSave/"+member.getPhoto());
+					//System.out.println(req.getContextPath()+"/fileSave/"+member.getPhoto());
+				}
 				
-				
-				//System.out.println(req.getContextPath()+"/imgs/profile.png");
+				else {
+					namemap.put(username,req.getContextPath()+"/imgs/profile.png");
+					nameset.add(username+","+req.getContextPath()+"/imgs/profile.png");
+					
+					
+					//System.out.println(req.getContextPath()+"/imgs/profile.png");
+				}
+			
+			}else {
+				namemap.put(username,req.getContextPath()+"/imgs/Xprofile.png");
 			}
 		}
 		

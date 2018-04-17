@@ -376,7 +376,7 @@ public class PageController {
 		int endRow = currentPage * pageSize;
 		int count = 0;
 		int number = 0;
-		//메소드 더 안만들고 study에서 peopleCount 끌어옴.
+		
 		StudyVO study=studyDB.getOneStudy(group);
 		List members=null;
 		count=study.getPeopleCount();
@@ -517,7 +517,7 @@ public class PageController {
 
 		
 		relationDB.updateMemberInfo(member);
-		//System.out.println("프로필 변경 성공");
+	
 		
 		System.out.println(member.getStudynum());
 		return "redirect:/page/study_info?studynum="+member.getStudynum();

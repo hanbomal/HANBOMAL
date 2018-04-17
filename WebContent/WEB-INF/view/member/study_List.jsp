@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- content -->
@@ -24,6 +27,7 @@
     <tr>
     <th>NUMBER</th>
       <th>NAME</th>
+      <th>INFO</th>
       <th>LEADER</th>
       <th>OPEN DATE</th>
 
@@ -39,6 +43,7 @@
      <tr id="study_List">
       <td>${study.num}</td>
       <td>${study.studyName}</td>
+      <td>${study.study_intro}</td>
       <td>${study.leader}</td>
        <td>${study.openDate}</td>
        
@@ -53,7 +58,7 @@
                      <input type="hidden" name="studyName" value="${study.studyName}">
 					
 							
-                     <input type="submit" class="w3-button w3-w3-pale-red w3-hover-black" value="삭제">
+                    <input type="submit" class="w3-button w3-w3-pale-red w3-hover-black" value="삭제" onclick="button_event();">
                       
          </form>
          </td>
