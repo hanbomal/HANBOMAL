@@ -56,7 +56,7 @@
 	</update>
 	
 	<update id="updatePosition" parameterType="hashmap">
-		update groupposition set groupposition=#{groupposition} where studynum=#{studynum}
+		update groupposition set groupposition=#{groupposition} where studynum=#{studynum} and id=#{id}
 	</update>
 	
    
@@ -69,7 +69,7 @@
    </delete> 	
 		
 	<delete id="deletePosition" parameterType="hashmap" >
- 	  delete from groupposition where studynum=#{studynum} 
+ 	  delete from groupposition where studynum=#{studynum} and id=#{id}
    </delete> 	
 		
 		

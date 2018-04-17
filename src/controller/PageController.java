@@ -359,13 +359,13 @@ public class PageController {
 	}
 	
 	@RequestMapping("/updatePosition")
-	public String updatePosition(String groupposition) throws Throwable {
-		boardDB.updatePosition(group,groupposition);
+	public String updatePosition(String groupposition,String id, String studynum) throws Throwable {
+		boardDB.updatePosition(id,groupposition,studynum);
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/deletePosition")
-	public String deletePosition() throws Throwable {
-		boardDB.deletePosition(group);
+	public String deletePosition(String id,String studynum) throws Throwable {
+		boardDB.deletePosition(id,studynum);
 		return "redirect:/page/study_admin";
 	}
 	@RequestMapping("/admin_memberList")
@@ -390,7 +390,6 @@ public class PageController {
 		int endPage = startPage + bottomLine - 1;
 		if (endPage > pageCount)
 			endPage = pageCount;
-		mv.addAttribute("memberCount",members.size());
 		mv.addAttribute("studynum", group);
 		mv.addAttribute("pageCount", pageCount);
 		mv.addAttribute("endPage", endPage);
@@ -463,14 +462,33 @@ public class PageController {
 	
 	@RequestMapping("/PositionInfo")
 	public String PositionInfo(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
-		autoComplete(mv);
-		HeaderInfo(req, mv);
-		String studynum=req.getParameter("studynum");
+		String id=req.getParameter("positionid");
 		String groupposition=req.getParameter("groupposition");
-		mv.addAttribute("studynum",studynum);
+		String studynum=req.getParameter("studynum");
+		mv.addAttribute("id",id);
 		mv.addAttribute("groupposition",groupposition);
+		mv.addAttribute("studynum",studynum);
 		return "study/viewPositionInfo";
 	}
+	
+	@RequestMapping("/MemberInfo")
+	public String MemberInfo(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		
+		String leader=req.getParameter("leader");
+		String memberid=req.getParameter("memberid");
+		String groupposition=req.getParameter("groupposition");
+		String studynum=req.getParameter("studynum");
+		List<PositionVO> AllPosition=studyDB.getAllPosition(studynum);
+		
+		mv.addAttribute("AllPosition",AllPosition);
+		mv.addAttribute("leader",leader);
+		mv.addAttribute("memberid",memberid);
+		mv.addAttribute("groupposition",groupposition);
+		mv.addAttribute("studynum",studynum);
+		return "study/viewMemberInfo";
+	}
+	
+	
 	
 	@RequestMapping(value = "/profileChange", method = RequestMethod.POST, consumes = { "multipart/form-data" })
 	public String profileChange(MultipartHttpServletRequest request, RelationVO member, String studynum, String memberId,

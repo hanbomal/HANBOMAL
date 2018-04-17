@@ -71,7 +71,7 @@
 						</div>
 						<div class="w3-cell w3-cell-middle w3-center"
 							style="width: 10%;padding:5px">
-							<c:if test="${room.relation.status==null||room.relation.status==0}">
+							<c:if test="${room.relation.status==null||room.relation.status==0||room.relation.status==3}">
 								<form action="requestJoin" method="post">
 									<input type="hidden" name="reqNum" value="1" /> 
 									<input type="hidden" name="correctName" value="${room.studyName}" />

@@ -21,49 +21,12 @@ $(document).ready(
 
 
 <div class="w3-container w3-padding" style="height: 600px;">
-
+<!-- 스터디 관리 왼쪽 회원 목록부분 -->
 <div class="w3-half" id="memberList" style="margin-top:40px">
-<%-- <div class="w3-center w3-padding"><b>회원 목록</b>(총 ${memberCount}명)</div>
- <table class="w3-table  w3-centered" style="width: 100%; border:black;">
-    <tr class="w3-black">
-      <th class="w3-center" width="25%">닉네임</th>
-      <th class="w3-center" width="25%">역할</th>
-      <th class="w3-center" width="25%">가입일</th>
-      <th class="w3-center" width="25%">최종접속일</th>
-    </tr>
-  <c:forEach var="member" items="${members }">
- 	<tr class="w3-hover-white">
- 	  <td class="w3-center" width="25%">${member.nickName }</td>
- 	  <td class="w3-center" width="25%">${member.position }</td>
- 	  <td class="w3-center" width="25%">${member.joinDate }</td>
- 	  <td class="w3-center" width="25%">${member.lastDate }</td>
- 	</tr>
-  </c:forEach>
- </table> --%>
-  <!-- Pagination -->
- <%--  <c:if test="${count>0 }">
-			 <div class="w3-center w3-padding-16">
-    <div class="w3-bar">
-			<c:if test="${startPage>bottomLine }">
-			<a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${startPage-bottomLine}" class="w3-bar-item w3-button w3-hover-black">«</a>
-			</c:if>
-			
-	<c:forEach var="i" begin="${startPage }" end="${endPage}">
-				<c:if test="${i!=currentPage }">  <a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>
-				</c:if>
-				<c:if test="${i==currentPage }">  <a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${i }" class="w3-bar-item w3-black w3-button">${i }</a>
-				</c:if>
-			</c:forEach>
-			<c:if test="${endPage<pageCount }">
-				
-				<a href="<%=request.getContextPath()%>/page/RequestPage?pageNum=${startPage+bottomLine}" class="w3-bar-item w3-button w3-hover-black">»</a>
-			</c:if>
-			    </div>
-  </div>
-		</c:if>   --%>
 
 </div>
 
+<!-- 역할 부분 -->
 <div class="w3-quarter">
 <div class="w3-bar">
 <button class="w3-button w3-padding-small w3-right  w3-black w3-margin-bottom"
@@ -76,13 +39,14 @@ onclick="document.getElementById('addPosition').style.display='block'" style="ma
 			<li onclick="document.getElementById('addPosition').style.display='block'">역할을 추가하세요.</li>
 		</c:if>
 		<c:forEach var="positionList" items="${positionList }">
-			<li onclick="postionInfo(${positionList.studynum})">⦁&nbsp;${positionList.groupposition }</li>
+			<li onclick="postionInfo(${positionList.id},${positionList.studynum},'${positionList.groupposition }')">⦁&nbsp;${positionList.groupposition }</li>
 		</c:forEach>
 	
 	</ul>
 </div>
 </div>
 
+<!-- 게시판부분 -->
 <div class="w3-quarter">
 <div class="w3-bar">
  <button class="w3-button w3-padding-small w3-right  w3-black w3-margin-bottom" title="게시판 추가"
@@ -103,7 +67,7 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
 </div>
 
 <div>
-<button class="w3-button w3-red w3-right w3-margin">그룹해제</button>
+<button class="w3-button w3-red w3-right w3-margin">스터디 삭제</button>
 </div>
 
 
@@ -184,8 +148,10 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
 			 
 		}
 
-	  function postionInfo(studynum){
+	  function postionInfo(positionid,studynum,groupposition){
+			var pid=positionid;
 			var num=studynum;
+			var gp=groupposition;
 			document.getElementById('clickPosition').style.display='block';
 			
 			 $.ajax({
@@ -193,7 +159,10 @@ onclick="document.getElementById('makeBoard').style.display='block'"><i class="f
 				url: 'PositionInfo',
 				async:false,
 				data: {   
-							"studynum":num
+							"positionid":pid,
+							"studynum":num,
+							"groupposition":gp
+							
 		        },
 				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
 				success: function(data) {

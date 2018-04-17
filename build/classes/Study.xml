@@ -15,7 +15,7 @@
 	
 	<insert id="addPosition" parameterType="Position">
 		insert into groupposition
-		values(#{studynum},#{groupposition})
+		values(#{studynum},#{groupposition},#{id})
 	</insert>
 	
      <!--방장이 그룹만들때 relation 테이블에도 추가-->
@@ -68,8 +68,12 @@ or studyname in (select studyName from studyrelation where (memberid=#{memberid}
    
     <update id="deleteStudy" parameterType="map">
       delete from studygroup where studyName=#{studyName} 
-				 
 	 </update>
+	
+	<select id="getNextID" resultType="int">
+		 select nvl(max(id),0) from groupposition where studynum=#{studynum}
+	</select>
+	
 	
 	
 </mapper>

@@ -5,30 +5,38 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<!-- 쓸수있는 el들 leader groupposition studynum memberid AllPosition-->
 </head>
 <body>
     <div class="w3-modal-content w3-card-4" style="max-width: 400px;">
       <header class="w3-container w3-teal"> 
-        <span onclick="document.getElementById('clickPosition').style.display='none'" 
+        <span onclick="document.getElementById('clickMember').style.display='none'" 
         class="w3-button w3-display-topright">&times;</span>
-        <h6><i class="fa fa-trash"></i> 수정/삭제</h6>
+        <h6>회원관리</h6>
       </header>
-      <form id="positionForm" method="post">
-   <input type="hidden" name="id" value="${id }" >
-   <input type="hidden" name="studynum" value="${studynum }" >
+      <form id="memberForm" method="post">
+   <input type="hidden" name="studynum" value="${studynum }" > 
+   <input type="hidden" name="memberid" value="${memberid }" > 
       <div class="w3-container">
       <div style="margin-top:10px">
-      <font size=3>⦁ 역할명</font>
- 
+      <font size=3>⦁ 역할부여</font>
+      
+      <!--  리스트를 가지고와야함-->
+ 	  <select class="w3-select w3-center" style="width:200px">
+ 	  	<option>방장</option>
+ 	  </select>
+ 	  
+ 	  
+ 	  
+ 	  <button class="w3-button" type="submit"><i class="fa fa-save" style="font-size:26px"></i></button>
       </div>
-        <input id="clearName" class="w3-input" type="text" name="groupposition" value="${groupposition }">
+    <%--     <input id="clearName" class="w3-input" type="text" name="groupposition" value="${groupposition }"> --%>
       </div>
       <div class="w3-container">
        	<input type="submit" onclick="updateposition()" 
-        class="w3-input w3-teal w3-center w3-section" value="수정">
-       	<input type="submit" onclick="deleteposition()" 
-        class="w3-input w3-teal w3-center w3-section" value="삭제">
+        class="w3-input w3-teal w3-center w3-section w3-half w3-padding w3-button" value="방장위임">
+       	<input type="submit" onclick="deletemember()" 
+        class="w3-input w3-red w3-center w3-section w3-half w3-padding w3-button" value="추방하기">
         </div>
         </form>
     </div>
@@ -55,14 +63,14 @@
 			 
 		}
 		
-		function deleteposition(){
+		function deletemember(){
 			event.preventDefault();
 			
-			var form=$('#positionForm')[0];
+			var form=$('#memberForm')[0];
 			var formData= new FormData(form);
 			 $.ajax({
                          type: 'POST',
-              			 url: '../page/deletePosition',
+              			 url: '../page/deleteMember',
               		     data: formData,
               		     processData: false,
                          contentType: false,

@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-<div class="w3-center w3-padding"><b>회원 목록</b>(총 ${memberCount}명)</div>
+<div class="w3-center w3-padding"><b>회원 목록</b>(총 ${count}명)</div>
  <table class="w3-table  w3-centered" style="width: 100%; border:black;">
     <tr class="w3-black">
       <th class="w3-center" width="25%">닉네임</th>
@@ -18,8 +18,13 @@
       <th class="w3-center" width="25%">가입일</th>
       <th class="w3-center" width="25%">최종접속일</th>
     </tr>
+    <!--
+    	<c:forEach var="positionList" items="${positionList }">
+			<li onclick="postionInfo(${positionList.id},${positionList.studynum},'${positionList.groupposition }')">⦁&nbsp;${positionList.groupposition }</li>
+		</c:forEach>
+      -->
   <c:forEach var="member" items="${members }">
- 	<tr class="w3-hover-white">
+ 	<tr class="w3-hover-white" onclick="memberInfo(${member.studynum},'${member.position }','${member.leader}','${member.memberId }')">
  	  <td class="w3-center" width="25%">${member.nickName }</td>
  	  <td class="w3-center" width="25%">${member.position }</td>
  	  <td class="w3-center" width="25%">${member.joinDate }</td>
@@ -51,8 +56,42 @@
   </div>
 		</c:if>
 
+<div id="clickMember" class="w3-modal" style="display: none;" >
+  </div>
 
 
+<script>
+function memberInfo(num,position,groupleader, mid){
+	var studynum=num;
+	var groupposition=position;
+	var leader=groupleader; 
+	var memberid=mid; 
+	document.getElementById('clickMember').style.display='block';
+	/* o(${member.studynum},'${member.position }','${member.leader}')"> */
+	 $.ajax({
+		type: 'POST',
+		url: 'MemberInfo',
+		async:false,
+		data: {   
+				"studynum":studynum,
+				"groupposition":groupposition, 
+				"leader":groupleader,
+				"memberid":memberid
+				
+        },
+		contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+		success: function(data) {
+			$('#clickMember').html(data);
+		},
+		error: function(request, status, error) {
+			alert(error);
+		}
+	});
+	 
+} 
+
+
+</script>
 
 </body>
 </html>

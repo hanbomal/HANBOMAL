@@ -112,6 +112,8 @@ public class StudyDAO extends MybatisConnector{
 
 	public void addPosition(PositionVO position) {
 		sqlSession=sqlSession();
+		int id=sqlSession.selectOne(namespace+".getNextID",position);
+		position.setId(id+1);
 		sqlSession.insert(namespace+".addPosition",position);
 		sqlSession.commit();
 		sqlSession.close();
