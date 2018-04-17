@@ -120,6 +120,20 @@ public class RelationDAO extends MybatisConnector{
 		return li;
 	}
 	
+	public List getJoinMemberListForChat(String studyName) {
+		sqlSession=sqlSession();
+		Map map=new HashMap();
+		map.put("studyName", studyName);
+		
+		List li=null;
+		
+		li=sqlSession.selectList(namespace+".getJoinMemberListForChat",map);
+		
+		sqlSession.close();
+		return li;
+	}
+	
+	
 	public List getMemberList(int startRow, int endRow,String studyName) {
 		sqlSession=sqlSession();
 		Map map=new HashMap();
@@ -162,6 +176,29 @@ public class RelationDAO extends MybatisConnector{
 	}
 	
 	
+	public void leaveStudy(String studynum,String memberid) {
+		
+		sqlSession=sqlSession();
+		Map map=new HashMap();
+		map.put("studynum", studynum);
+		map.put("memberid", memberid);
+		
+		sqlSession.update(namespace+".leaveStudy",map);
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
+	
+	public void changeLeader(String studynum,String leader) {
+		sqlSession=sqlSession();
+		Map map=new HashMap();
+		map.put("studynum", studynum);
+		map.put("leader", leader);
+		
+		sqlSession.update(namespace+".changeLeader",map);
+		sqlSession.commit();
+		sqlSession.close();
+	}
 	
 	
 }

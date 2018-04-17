@@ -103,7 +103,7 @@ file.onchange = function () {
 	
 	<li><button class="w3-button"  onclick="profileChange();">확인</button>
 	
-	<input type="reset" class="w3-button" value="취소"></li>
+	<input type="button" class="w3-button" onclick="document.getElementById('myStudyInfo').style.display='none';" value="취소"></li>
 	
 	
 	</ul> 

@@ -507,5 +507,43 @@ public class PageController {
 	
 	
 	
+	@RequestMapping("/leaveQuestion")
+	public String leaveQuestion(HttpServletRequest req, HttpServletResponse res,Model mv) throws Throwable {
+		autoComplete(mv);
+		HeaderInfo(req, mv);
+		String memberid=req.getParameter("name");
+		String group=req.getParameter("group");
+		
+		StudyVO study=studyDB.getOneStudy(group);
+		RelationVO memberInfo=relationDB.getMemberInfo(study.getStudyName(), memberid);
+		List memberlist=relationDB.getJoinMemberList(study.getStudyName());
+		
+		mv.addAttribute("memberlist",memberlist);
+		mv.addAttribute("memberInfo",memberInfo);
+		return "study/leaveQuestion";
+	}
+	
+	@RequestMapping("/leaveConfirm")
+	public String leaveConfirm(HttpServletRequest req, HttpServletResponse res,Model mv, String studynum, String memberId) throws Throwable {
+		autoComplete(mv);
+		HeaderInfo(req, mv);
+		
+		StudyVO study=studyDB.getOneStudy(studynum);
+		String leader=req.getParameter("leader");
+		
+		if(leader!=null) {
+			relationDB.changeLeader(studynum, req.getParameter("leader"));
+		}
+	
+		relationDB.leaveStudy(studynum, memberId);
+		
+		System.out.println("탈퇴시키기 성공");
+		
+		return "redirect:/page/study_info?studynum="+studynum;
+	}
+	
+	
+	
+	
 
 }
