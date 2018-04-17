@@ -32,17 +32,45 @@ function showMyInfo(){
 		}
 	});
 	 
+ 
 }
 
+function leaveQuestion(){
+	var name="<c:out value='${memberid}'/>";
+	var group="<c:out value='${study.num}'/>";
+	
+	document.getElementById('myStudyInfo').style.display='block';
+	
+	
+	 $.ajax({
+		type: 'POST',
+		url: 'leaveQuestion',
+		async:false,
+		data: {    "name" : name,
+					"group":group
+        },
+		contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+		success: function(data) {
+			$('#myStudyInfo').html(data);
+		},
+		error: function(request, status, error) {
+			alert(error);
+		}
+	});
+	 
+}
 </script>
 </head>
 <body>
-<div class="w3-container w3-padding" style="height: 600px;">
+<div class="w3-container w3-padding" style="height: 600px; overflow:auto; " >
 <div style="width: 100%;" class="w3-container w3-margin-left w3-margin-bottom">
-<div class="w3-bar w3-padding ">
+<div class="w3-bar  w3-padding ">&nbsp;
+<button class="w3-button w3-padding-small w3-right w3-margin-left  w3-black w3-hover-red w3-margin-bottom" title="방 나가기"
+  onclick="leaveQuestion();">방 나가기</button>&nbsp;
 
   <button class="w3-button w3-padding-small w3-right  w3-black w3-margin-bottom" title="내 정보 수정"
-  onclick="showMyInfo();">내 정보 수정</button>
+  onclick="showMyInfo();">내 정보 수정</button>&nbsp;
+  
 </div>
 <div>
 
@@ -71,6 +99,8 @@ function showMyInfo(){
 
 
 </table>
+
+
 
 <%-- 
 

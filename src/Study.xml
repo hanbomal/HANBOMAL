@@ -34,8 +34,7 @@
 	</select>
 	
 	<select id="getGroupList" resultType="Room" parameterType="hashmap">
-	select * from studygroup where leader=#{memberid}
-or studyname in (select studyName from studyrelation where (memberid=#{memberid} and status=2))
+   select * from studygroup where num in (select studynum from studyrelation where (memberid=#{memberid} and status=2))
 	</select>
 	
  <select id="getRelation" parameterType="hashmap" resultType="Relation">

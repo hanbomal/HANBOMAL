@@ -73,7 +73,9 @@ list-style: none;}
  <div class="w3-container"><div class="w3-bar w3-padding ">
  <!-- <button class="w3-button w3-padding-small w3-left w3-light-grey">목록보기</button> -->
   	<span >전체 사진 : ${count }</span>
+  		<c:if test="${count!=0 }">	
  <span class="w3-right w3-small w3-tag w3-white w3-border">사진을 채팅창에 끌어다 놓으면 다시 전송됩니다.</span>
+ </c:if>
 </div></div>
  <div class="w3-row w3-container " >
  

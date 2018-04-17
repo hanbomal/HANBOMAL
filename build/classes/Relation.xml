@@ -73,4 +73,16 @@
 		where memberId=#{memberId} and studynum=#{studynum}
 	</update>
 	
+	<update id="leaveStudy" parameterType="hashmap">
+		update studyrelation set status=3 where memberid=#{memberid} and studynum=#{studynum}
+	</update>
+	
+	<update id="changeLeader" parameterType="hashmap">
+		update studyrelation set leader=#{leader} where studynum=#{studynum}
+	</update>
+	
+	<select id="getJoinMemberListForChat" resultType="Relation" parameterType="hashmap">
+	SELECT * FROM studyrelation WHERE studyName=#{studyName} and (status=2 or status=3 or status=4 )
+	</select>
+	
 </mapper>
