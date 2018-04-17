@@ -58,7 +58,7 @@ or studyname in (select studyName from studyrelation where (memberid=#{memberid}
 	</select>
 	
 		<select id="getStudyList" resultType="Study" parameterType="hashmap">
-	select * from (select rownum rnum, a.* from (select num,leader,studyName, openDate
+	select * from (select rownum rnum, a.* from (select num,study_intro,leader,studyName, openDate
  from studygroup)a) where rnum between #{startRow} and #{endRow} order by openDate
 	</select> 
 	
